@@ -12,16 +12,20 @@ import java.nio.file.Paths;
 
 
 public class AdventureTest {
+    private Gson gson;
+    private String json;
+    private final String PATH = "src/main/resources/westeros.json";
+
     @Before
-    public void setUp() {
-        // This is run before every test.
+    public void setUp() throws IOException {
+        gson = new Gson();
+        json = readFileAsString(PATH);
     }
 
     @Test
     public void sanityCheck() throws IOException {
-        Gson gson = new Gson();
-        String json = readFileAsString("src/main/resources/westeros.json");
         Layout layout = gson.fromJson(json, Layout.class);
+        layout.printLayout();
     }
 
     /**
