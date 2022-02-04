@@ -2,9 +2,13 @@ package student.adventure;
 
 import static org.junit.Assert.assertThat;
 
-import org.hamcrest.CoreMatchers;
+import com.google.gson.Gson;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 
 public class AdventureTest {
@@ -14,8 +18,21 @@ public class AdventureTest {
     }
 
     @Test
-    public void sanityCheck() {
-        // TODO: Remove this unnecessary test case.
-        assertThat("CS 126: Software Design Studio", CoreMatchers.containsString("Software"));
+    public void sanityCheck() throws IOException {
+        Gson gson = new Gson();
+        String json = readFileAsString("src/main/resources/westeros.json");
+        Layout layout = gson.fromJson(json, Layout.class);
     }
+
+    /**
+     * Transforms a JSON file's contents into a String to facilitate GSON parsing.
+     * @param file A String for path to file
+     * @return A String of the file's contents
+     * @throws IOException
+     */
+    public static String readFileAsString(String file) throws IOException {
+        return new String(Files.readAllBytes(Paths.get(file)));
+    }
+
+
 }
