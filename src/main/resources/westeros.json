@@ -1,0 +1,504 @@
+{
+  "startingRoom" : "Winterfell",
+  "endingRoom" : "King's Landing",
+  "rooms" : [
+    {
+      "name": "Winterfell",
+      "description": "",
+      "directions": [
+        {
+          "directionName": "North",
+          "room": "Castle Black"
+        },
+        {
+          "directionName": "South",
+          "room": "Moat Cailin"
+        },
+        {
+          "directionName": "East",
+          "room": "Dreadfort"
+        },
+        {
+          "directionName": "West",
+          "room": "Torrhen's Square"
+        }
+      ]
+    },
+    {
+      "name": "Castle Black",
+      "description": "",
+      "directions": [
+        {
+          "directionName": "North",
+          "room": "Beyond the Wall"
+        },
+        {
+          "directionName": "South",
+          "room": "Winterfell"
+        }
+      ]
+    },
+    {
+      "name": "Moat Cailin",
+      "description": "",
+      "directions": [
+        {
+          "directionName" : "North",
+          "room": "Winterfell"
+        },
+        {
+          "directionName" : "South",
+          "room" : "Twins"
+        },
+        {
+          "directionName": "Southwest",
+          "room": "Seagard"
+        },
+        {
+          "directionName": "Northwest",
+          "room": "Torrhen's Square"
+        }
+      ]
+    },
+    {
+      "name": "Dreadfort",
+      "description": "",
+      "directions": [
+        {
+          "directionName": "West",
+          "room": "Winterfell"
+        }
+      ]
+    },
+    {
+      "name": "Torrhen's Square",
+      "description": "",
+      "directions": [
+        {
+          "directionName": "East",
+          "room": "Winterfell"
+        },
+        {
+          "directionName": "Southeast",
+          "room": "Moat Cailin"
+        }
+      ]
+    },
+    {
+      "name": "Beyond the Wall",
+      "description": "",
+      "directions": [
+        {
+          "directionName": "South",
+          "room": "Castle Black"
+        }
+      ]
+    },
+    {
+      "name": "Twins",
+      "description": "",
+      "directions": [
+        {
+          "directionName": "North",
+          "room": "Moat Cailin"
+        },
+        {
+          "directionName": "South",
+          "room": "Riverrun"
+        },
+        {
+          "directionName": "East",
+          "room": "Eyrie"
+        },
+        {
+          "directionName": "West",
+          "room": "Seagard"
+        }
+      ]
+    },
+    {
+      "name": "Seagard",
+      "description": "",
+      "directions": [
+        {
+          "directionName": "East",
+          "room": "Twins"
+        },
+        {
+          "directionName": "Southwest",
+          "room": "Ironman's Bay"
+        }
+      ]
+    },
+    {
+      "name": "Riverrun",
+      "description": "",
+      "directions": [
+        {
+          "directionName": "North",
+          "room": "Twins"
+        },
+        {
+          "directionName": "Southeast",
+          "room": "Harrenhal"
+        },
+        {
+          "directionName": "Southwest",
+          "room": "Lannisport"
+        },
+        {
+          "directionName": "South",
+          "room": "Casterly Rock"
+        }
+      ]
+    },
+    {
+      "name": "Harrenhal",
+      "description": "",
+      "directions": [
+        {
+          "directionName": "North",
+          "room": "Eyrie"
+        },
+        {
+          "directionName": "Northwest",
+          "room": "Riverrun"
+        },
+        {
+          "directionName": "Southeast",
+          "room": "King's Landing"
+        }
+      ]
+    },
+    {
+      "name": "Casterly Rock",
+      "description": "",
+      "directions": [
+        {
+          "directionName": "North",
+          "room": "Riverrun"
+        },
+        {
+          "directionName": "South",
+          "room": "Highgarden"
+        },
+        {
+          "directionName": "East",
+          "room": "King's Landing"
+        },
+        {
+          "directionName": "West",
+          "room": "Lannisport"
+        }
+      ]
+    },
+    {
+      "name": "Lannisport",
+      "description": "",
+      "directions": [
+        {
+          "directionName": "Northeast",
+          "room": "Riverrun"
+        },
+        {
+          "directionName": "East",
+          "room": "Casterly Rock"
+        }
+      ]
+    },
+    {
+      "name": "King's Landing",
+      "description": "",
+      "directions": [
+        {
+          "directionName": "Northeast",
+          "room": "Blackwater Bay"
+        },
+        {
+          "directionName": "Southeast",
+          "room": "Storm's End"
+        },
+        {
+          "directionName": "Southwest",
+          "room": "Reach"
+        },
+        {
+          "directionName": "Northwest",
+          "room": "Harrenhal"
+        }
+      ]
+    },
+    {
+      "name": "Eyrie",
+      "description": "",
+      "directions": [
+        {
+          "directionName": "South",
+          "room": "Harrenhal"
+        },
+        {
+          "directionName": "East",
+          "room": "Vale"
+        },
+        {
+          "directionName": "West",
+          "room": "Twins"
+        }
+      ]
+    },
+    {
+      "name": "Vale",
+      "description": "",
+      "directions": [
+        {
+          "directionName": "East",
+          "room": "Narrow Sea"
+        },
+        {
+          "directionName": "West",
+          "room": "Eyrie"
+        }
+      ]
+    },
+    {
+      "name": "Ironman's Bay",
+      "description": "",
+      "directions": [
+        {
+          "directionName": "Northeast",
+          "room": "Seagard"
+        },
+        {
+          "directionName": "Southwest",
+          "room": "Pyke"
+        }
+      ]
+    },
+    {
+      "name": "Pyke",
+      "description": "",
+      "directions": [
+        {
+          "directionName": "Northeast",
+          "room": "Ironman's Bay"
+        }
+      ]
+    },
+    {
+      "name": "Highgarden",
+      "description": "",
+      "directions": [
+        {
+          "directionName": "North",
+          "room": "Casterly Rock"
+        },
+        {
+          "directionName": "Southeast",
+          "room": "Dornish Marches"
+        },
+        {
+          "directionName": "East",
+          "room": "Reach"
+        },
+        {
+          "directionName": "South",
+          "room": "Oldtown"
+        }
+      ]
+    },
+    {
+      "name": "Reach",
+      "description": "",
+      "directions": [
+        {
+          "directionName": "Northwest",
+          "room": "Casterly Rock"
+        },
+        {
+          "directionName": "South",
+          "room": "Dornish Marches"
+        },
+        {
+          "directionName": "Northeast",
+          "room": "King's Landing"
+        },
+        {
+          "directionName": "West",
+          "room": "Highgarden"
+        }
+      ]
+    },
+    {
+      "name": "Dornish Marches",
+      "description": "",
+      "directions": [
+        {
+          "directionName": "North",
+          "room": "Reach"
+        },
+        {
+          "directionName": "South",
+          "room": "Starfall"
+        },
+        {
+          "directionName": "Northwest",
+          "room": "Highgarden"
+        },
+        {
+          "directionName": "Southwest",
+          "room": "Oldtown"
+        },
+        {
+          "directionName": "East",
+          "room": "Sea of Dorne"
+        }
+      ]
+    },
+    {
+      "name": "Storm's End",
+      "description": "",
+      "directions": [
+        {
+          "directionName": "Northwest",
+          "room": "King's Landing"
+        },
+        {
+          "directionName": "South",
+          "room": "Sea of Dorne"
+        },
+        {
+          "directionName": "East",
+          "room": "Shipbreaker Bay"
+        }
+      ]
+    },
+    {
+      "name": "Blackwater Bay",
+      "description": "",
+      "directions": [
+        {
+          "directionName": "Northeast",
+          "room": "Dragonstone"
+        },
+        {
+          "directionName": "Southwest",
+          "room": "King's Landing"
+        }
+      ]
+    },
+    {
+      "name": "Dragonstone",
+      "description": "",
+      "directions": [
+        {
+          "directionName": "North",
+          "room": "Bay of Crabs"
+        },
+        {
+          "directionName": "South",
+          "room": "Shipbreaker Bay"
+        },
+        {
+          "directionName": "Southwest",
+          "room": "Blackwater Bay"
+        }
+      ]
+    },
+    {
+      "name": "Sea of Dorne",
+      "description": "",
+      "directions": [
+        {
+          "directionName": "North",
+          "room": "Storm's End"
+        },
+        {
+          "directionName": "South",
+          "room": "Sunspear"
+        },
+        {
+          "directionName": "West",
+          "room": "Dornish Marches"
+        }
+      ]
+    },
+    {
+      "name": "Sunspear",
+      "description": "",
+      "directions": [
+        {
+          "directionName": "North",
+          "room": "Sea of Dorne"
+        },
+        {
+          "directionName": "West",
+          "room": "Starfall"
+        }
+      ]
+    },
+    {
+      "name": "Bay of Crabs",
+      "description": "",
+      "directions": [
+        {
+          "directionName": "South",
+          "room": "Dragonstone"
+        },
+        {
+          "directionName": "West",
+          "room": "Vale"
+        }
+      ]
+    },
+    {
+      "name": "Starfall",
+      "description": "",
+      "directions": [
+        {
+          "directionName": "North",
+          "room": "Dornish Marches"
+        },
+        {
+          "directionName": "East",
+          "room": "Sunspear"
+        },
+        {
+          "directionName": "Northwest",
+          "room": "Oldtown"
+        }
+      ]
+    },
+    {
+      "name": "Oldtown",
+      "description": "",
+      "directions": [
+        {
+          "directionName": "North",
+          "room": "Highgarden"
+        },
+        {
+          "directionName": "Northeast",
+          "room": "Dornish Marches"
+        },
+        {
+          "directionName": "Southeast",
+          "room": "Starfall"
+        }
+      ]
+    },
+    {
+      "name": "Shipbreaker Bay",
+      "description": "",
+      "directions": [
+        {
+          "directionName": "North",
+          "room": "Dragonstone"
+        },
+        {
+          "directionName": "West",
+          "room": "Storm's End"
+        }
+      ]
+    }
+  ]
+}
