@@ -1,29 +1,37 @@
 package student.adventure;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 
 import java.util.ArrayList;
 
-/** A class that handles the current state of the Adventure Game. */
+/** A class that handles the layout of the Adventure Game. */
 public class AdventureGame {
-    private final String startingRoom;
-    private final String endingRoom;
-    private final ArrayList<Room> rooms;
-    private Room currentRoom;
+    private String startingRoom;
+    private String endingRoom;
+    private ArrayList<Room> rooms;
 
-    public AdventureGame(String startingRoom, String endingRoom, ArrayList<Room> rooms) {
+    public AdventureGame() {
+    }
+
+    public void setStartingRoom(String startingRoom) {
         this.startingRoom = startingRoom;
-        this.endingRoom = endingRoom;
-        this.rooms = new ArrayList<>(rooms);
-        this.currentRoom = findRoom(this.startingRoom);
     }
 
     public String getStartingRoom() {
         return startingRoom;
     }
 
+    public void setEndingRoom(String endingRoom) {
+        this.endingRoom = endingRoom;
+    }
+
     public String getEndingRoom() {
         return endingRoom;
+    }
+
+    public void setRooms(ArrayList<Room> rooms) {
+        this.rooms = new ArrayList<>(rooms);
     }
 
     public ArrayList<Room> getRoom() {
@@ -52,12 +60,12 @@ public class AdventureGame {
         }
     }
 
-    private Room findRoom(String name) {
-        for (Room room : rooms) {
-            if (room.getName().equals(name)) {
-                return room;
-            }
-        }
-        return null;
-    }
+//    public void examine() {
+//        System.out.println(currentRoom.getDescription());
+//        System.out.print("From here, you can go: ");
+//        for (Direction direction : currentRoom.getDirections()) {
+//            System.out.print(direction.getDirectionName() + " ");
+//        }
+////        System.out.println("Items visible: ");
+//    }
 }
