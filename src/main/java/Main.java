@@ -2,15 +2,12 @@ import com.google.gson.*;
 import student.adventure.AdventureGame;
 import student.adventure.Room;
 import student.adventure.Direction;
+import student.adventure.UserInput;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Main {
 
@@ -38,15 +35,37 @@ public class Main {
             }
         }
 
-
+        boolean quit = false;
+        while (!quit) {
+            UserInput userInput = getUserInput();
+            String gameOutput;
+            switch (userInput.getCommand()) {
+                case "quit":
+                case "exit":
+                    gameOutput = "Until next time, goodbye!";
+                    quit = true;
+                    break;
+                default:
+                    gameOutput = "Command not found: try again";
+                    break;
+            }
+            System.out.println(gameOutput);
+        }
 
     }
 
-
-//    public static String getUserInput() {
-//        // TODO: sanitize input
-//        return scanner.next();
-//    }
+    public static UserInput getUserInput() {
+        System.out.print("> ");
+        String input = "";
+        while (input.isEmpty()) {
+            input = scanner.nextLine();
+        }
+        String[] inputArray = input.toLowerCase().trim().split(" ", 2);
+        UserInput userInput = new UserInput();
+        userInput.setCommand(inputArray.length >= 1 ? inputArray[0].trim() : "");
+        userInput.setArgument(inputArray.length >= 2 ? inputArray[1].trim() : "");
+        return userInput;
+    }
 
     /**
      * Transforms a JSON file's contents into a String to facilitate GSON parsing.
