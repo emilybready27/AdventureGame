@@ -1,27 +1,38 @@
 package student.adventure;
 
+import com.google.gson.InstanceCreator;
 import com.google.gson.JsonParseException;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class Room {
-    private final String name;
-    private final String description;
-    private final ArrayList<Direction> directions;
+    private String name;
+    private String description;
+    private ArrayList<Direction> directions;
 //    private ArrayList<Item> items;
 
-    public Room(String name, String description, ArrayList<Direction> directions) {
+    public Room() {
+    }
+
+    public void setName(String name) {
         this.name = name;
-        this.description = description;
-        this.directions = new ArrayList<>(directions);
     }
 
     public String getName() {
         return name;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getDescription() {
         return description;
+    }
+
+    public void setDirections(ArrayList<Direction> directions) {
+        this.directions = new ArrayList<>(directions);
     }
 
     public ArrayList<Direction> getDirections() {
@@ -47,5 +58,12 @@ public class Room {
         } catch (JsonParseException e) {
             throw new JsonParseException("Missing field");
         }
+    }
+}
+
+class RoomInstanceCreator implements InstanceCreator<Room> {
+    @Override
+    public Room createInstance(Type type) {
+        return new Room();
     }
 }
