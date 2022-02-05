@@ -24,8 +24,8 @@ public class AdventureTest {
 
     @Test
     public void sanityCheck() throws IOException {
-        Layout layout = gson.fromJson(json, Layout.class);
-        layout.printLayout();
+        AdventureGame adventureGame = gson.fromJson(json, AdventureGame.class);
+        adventureGame.printLayout();
     }
 
     /**

@@ -2,10 +2,15 @@ package student.adventure;
 
 import java.util.ArrayList;
 
-public class Layout {
+/** A class that handles the current state of the Adventure Game. */
+public class AdventureGame {
     private String startingRoom;
     private String endingRoom;
     private ArrayList<Room> rooms;
+
+    public AdventureGame(String path) {
+
+    }
 
     public String getStartingRoom() {
         return startingRoom;
