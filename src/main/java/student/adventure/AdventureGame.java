@@ -1,15 +1,22 @@
 package student.adventure;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 
 /** A class that handles the current state of the Adventure Game. */
 public class AdventureGame {
-    private String startingRoom;
-    private String endingRoom;
-    private ArrayList<Room> rooms;
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface JsonRequired {}
 
-    public AdventureGame(String path) {
+    @JsonRequired private final String startingRoom;
+    @JsonRequired private final String endingRoom;
+    @JsonRequired private final ArrayList<Room> rooms;
 
+    public AdventureGame(String startingRoom, String endingRoom, ArrayList<Room> rooms) {
+        this.startingRoom = startingRoom;
+        this.endingRoom = endingRoom;
+        this.rooms = new ArrayList<>(rooms);
     }
 
     public String getStartingRoom() {
