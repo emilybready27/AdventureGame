@@ -1,17 +1,14 @@
 package student.adventure;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+import com.google.gson.JsonParseException;
+
 import java.util.ArrayList;
 
 /** A class that handles the current state of the Adventure Game. */
 public class AdventureGame {
-    @Retention(RetentionPolicy.RUNTIME)
-    public @interface JsonRequired {}
-
-    @JsonRequired private final String startingRoom;
-    @JsonRequired private final String endingRoom;
-    @JsonRequired private final ArrayList<Room> rooms;
+    private final String startingRoom;
+    private final String endingRoom;
+    private final ArrayList<Room> rooms;
 
     public AdventureGame(String startingRoom, String endingRoom, ArrayList<Room> rooms) {
         this.startingRoom = startingRoom;
@@ -37,6 +34,19 @@ public class AdventureGame {
         for (Room room : rooms) {
             room.printRoom();
             System.out.println();
+        }
+    }
+
+    public void checkNullAdventureGameField() throws JsonParseException {
+        if (startingRoom == null || endingRoom == null) {
+            throw new JsonParseException("Missing Field");
+        }
+        try {
+            for (Room room : rooms) {
+                room.checkNullRoomField();
+            }
+        } catch (JsonParseException e) {
+            throw new JsonParseException("Missing field");
         }
     }
 }

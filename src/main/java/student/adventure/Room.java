@@ -1,5 +1,7 @@
 package student.adventure;
 
+import com.google.gson.JsonParseException;
+
 import java.util.ArrayList;
 
 public class Room {
@@ -31,6 +33,19 @@ public class Room {
         System.out.println(description);
         for (Direction direction : directions) {
             direction.printDirection();
+        }
+    }
+
+    public void checkNullRoomField() throws JsonParseException {
+        if (name == null || description == null) {
+            throw new JsonParseException("Missing field");
+        }
+        try {
+            for (Direction direction : directions) {
+                direction.checkNullDirectionField();
+            }
+        } catch (JsonParseException e) {
+            throw new JsonParseException("Missing field");
         }
     }
 }
