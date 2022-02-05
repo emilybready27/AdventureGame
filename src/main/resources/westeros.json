@@ -22,6 +22,20 @@
           "directionName": "West",
           "room": "Torrhen's Square"
         }
+      ],
+      "items": [
+        {
+          "itemName": "Banner",
+          "itemDescription": "Direwolf sigil of House Stark."
+        },
+        {
+          "itemName": "Weapon",
+          "itemDescription": "Ice Valyrian steel sword of House Stark."
+        },
+        {
+          "itemName": "Weapon",
+          "itemDescription": "Needle sword of House Stark."
+        }
       ]
     },
     {
@@ -35,6 +49,16 @@
         {
           "directionName": "South",
           "room": "Winterfell"
+        }
+      ],
+      "items": [
+        {
+          "itemName": "Weapon",
+          "itemDescription": "Dragonglass of Night's Watch."
+        },
+        {
+          "itemName": "Weapon",
+          "itemDescription": "Longclaw Valyrian steel sword of House Mormont."
         }
       ]
     },
@@ -58,6 +82,12 @@
           "directionName": "Northwest",
           "room": "Torrhen's Square"
         }
+      ],
+      "items": [
+        {
+          "itemName": "Banner",
+          "itemDescription": "White stars sigil of House Clegane."
+        }
       ]
     },
     {
@@ -67,6 +97,12 @@
         {
           "directionName": "West",
           "room": "Winterfell"
+        }
+      ],
+      "items": [
+        {
+          "itemName": "Banner",
+          "itemDescription": "Flayed man sigil of House Bolton."
         }
       ]
     },
@@ -82,6 +118,12 @@
           "directionName": "Southeast",
           "room": "Moat Cailin"
         }
+      ],
+      "items": [
+        {
+          "itemName": "Banner",
+          "itemDescription": "Sentinel trees sigil of House Tallhart."
+        }
       ]
     },
     {
@@ -91,6 +133,12 @@
         {
           "directionName": "South",
           "room": "Castle Black"
+        }
+      ],
+      "items": [
+        {
+          "itemName": "Weapon",
+          "itemDescription": "Dragonglass of Wildlings."
         }
       ]
     },
@@ -114,6 +162,12 @@
           "directionName": "West",
           "room": "Seagard"
         }
+      ],
+      "items": [
+        {
+          "itemName": "Banner",
+          "itemDescription": "Towers and bridge sigil of House Frey."
+        }
       ]
     },
     {
@@ -127,6 +181,12 @@
         {
           "directionName": "Southwest",
           "room": "Ironman's Bay"
+        }
+      ],
+      "items": [
+        {
+          "itemName": "Banner",
+          "itemDescription": "Eagle sigil of House Mallister."
         }
       ]
     },
@@ -150,6 +210,12 @@
           "directionName": "South",
           "room": "Casterly Rock"
         }
+      ],
+      "items": [
+        {
+          "itemName": "Banner",
+          "itemDescription": "Trout sigil of House Tully."
+        }
       ]
     },
     {
@@ -167,6 +233,12 @@
         {
           "directionName": "Southeast",
           "room": "King's Landing"
+        }
+      ],
+      "items": [
+        {
+          "itemName": "Banner",
+          "itemDescription": "Black bat sigil of House Lothston"
         }
       ]
     },
@@ -190,6 +262,24 @@
           "directionName": "West",
           "room": "Lannisport"
         }
+      ],
+      "items": [
+        {
+          "itemName": "Banner",
+          "itemDescription": "Lion sigil of House Lannister."
+        },
+        {
+          "itemName": "Weapon",
+          "itemDescription": "Brightroar Valyrian steel sword of House Lannister."
+        },
+        {
+          "itemName": "Weapon",
+          "itemDescription": "Oathkeeper Valyrian steel sword of House Lannister."
+        },
+        {
+          "itemName": "Weapon",
+          "itemDescription": "Widow's Wail Valyrian steel sword of House Lannister."
+        }
       ]
     },
     {
@@ -203,6 +293,12 @@
         {
           "directionName": "East",
           "room": "Casterly Rock"
+        }
+      ],
+      "items": [
+        {
+          "itemName": "Weapon",
+          "itemDescription": "Hearteater sword of House Lannister."
         }
       ]
     },
@@ -226,6 +322,12 @@
           "directionName": "Northwest",
           "room": "Harrenhal"
         }
+      ],
+      "items": [
+        {
+          "itemName": "Crown",
+          "itemDescription": "Crown from the ruling king."
+        }
       ]
     },
     {
@@ -244,6 +346,12 @@
           "directionName": "West",
           "room": "Twins"
         }
+      ],
+      "items": [
+        {
+          "itemName": "Banner",
+          "itemDescription": "Falcon sigil of House Arryn."
+        }
       ]
     },
     {
@@ -258,7 +366,8 @@
           "directionName": "West",
           "room": "Eyrie"
         }
-      ]
+      ],
+      "items": []
     },
     {
       "name": "Ironman's Bay",
@@ -272,6 +381,12 @@
           "directionName": "Southwest",
           "room": "Pyke"
         }
+      ],
+      "items": [
+        {
+          "itemName": "Tool",
+          "itemDescription": "Ships of Iron Fleet"
+        }
       ]
     },
     {
@@ -281,6 +396,16 @@
         {
           "directionName": "Northeast",
           "room": "Ironman's Bay"
+        }
+      ],
+      "items": [
+        {
+          "itemName": "Banner",
+          "itemDescription": "Kraken sigil of House Greyjoy."
+        },
+        {
+          "itemName": "Weapon",
+          "itemDescription": "Nightfall sword of House Greyjoy."
         }
       ]
     },
@@ -304,6 +429,12 @@
           "directionName": "South",
           "room": "Oldtown"
         }
+      ],
+      "items": [
+        {
+          "itemName": "Banner",
+          "itemDescription": "Rose sigil of House Tyrell."
+        }
       ]
     },
     {
@@ -326,7 +457,8 @@
           "directionName": "West",
           "room": "Highgarden"
         }
-      ]
+      ],
+      "items": []
     },
     {
       "name": "Dornish Marches",
@@ -352,7 +484,8 @@
           "directionName": "East",
           "room": "Sea of Dorne"
         }
-      ]
+      ],
+      "items": []
     },
     {
       "name": "Storm's End",
@@ -370,6 +503,20 @@
           "directionName": "East",
           "room": "Shipbreaker Bay"
         }
+      ],
+      "items": [
+        {
+          "itemName": "Banner",
+          "itemDescription": "Stag sigil of House Baratheon."
+        },
+        {
+          "itemName": "Weapon",
+          "itemDescription": "Lightbringer sword of House Baratheon."
+        },
+        {
+          "itemName": "Weapon",
+          "itemDescription": "Lion's Tooth sword of House Baratheon."
+        }
       ]
     },
     {
@@ -383,6 +530,12 @@
         {
           "directionName": "Southwest",
           "room": "King's Landing"
+        }
+      ],
+      "items": [
+        {
+          "itemName": "Tool",
+          "itemDescription": "Ships of Royal Fleet."
         }
       ]
     },
@@ -402,6 +555,20 @@
           "directionName": "Southwest",
           "room": "Blackwater Bay"
         }
+      ],
+      "items": [
+        {
+          "itemName": "Banner",
+          "itemDescription": "Dragon sigil of House Targaryen."
+        },
+        {
+          "itemName": "Weapon",
+          "itemDescription": "Blackfyre Valyrian steel sword of House Targaryen."
+        },
+        {
+          "itemName": "Weapon",
+          "itemDescription": "Dark Sister Valyrian steel sword of House Targaryen."
+        }
       ]
     },
     {
@@ -420,6 +587,12 @@
           "directionName": "West",
           "room": "Dornish Marches"
         }
+      ],
+      "items": [
+        {
+          "itemName": "Tool",
+          "itemDescription": "Ships of Dornish Fleet."
+        }
       ]
     },
     {
@@ -434,6 +607,12 @@
           "directionName": "West",
           "room": "Starfall"
         }
+      ],
+      "items": [
+        {
+          "itemName": "Banner",
+          "itemDescription": "Sun and spear sigil of House Martell."
+        }
       ]
     },
     {
@@ -447,6 +626,12 @@
         {
           "directionName": "West",
           "room": "Vale"
+        }
+      ],
+      "items": [
+        {
+          "itemName": "Tool",
+          "itemDescription": "Ships of Vale Fleet."
         }
       ]
     },
@@ -466,6 +651,16 @@
           "directionName": "Northwest",
           "room": "Oldtown"
         }
+      ],
+      "items": [
+        {
+          "itemName": "Banner",
+          "itemDescription": "Sword and star sigil of House Dayne."
+        },
+        {
+          "itemName": "Weapon",
+          "itemDescription": "Dawn sword of House Dayne."
+        }
       ]
     },
     {
@@ -484,6 +679,12 @@
           "directionName": "Southeast",
           "room": "Starfall"
         }
+      ],
+      "items": [
+        {
+          "itemName": "Banner",
+          "itemDescription": "Tower sigil of House Hightower."
+        }
       ]
     },
     {
@@ -497,6 +698,12 @@
         {
           "directionName": "West",
           "room": "Storm's End"
+        }
+      ],
+      "items": [
+        {
+          "itemName": "Tool",
+          "itemDescription": "Ships of Royal Fleet."
         }
       ]
     }
