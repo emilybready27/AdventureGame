@@ -4,7 +4,7 @@
   "rooms" : [
     {
       "name": "Winterfell",
-      "description": "",
+      "description": "You're at Winterfell.",
       "directions": [
         {
           "directionName": "North",
@@ -26,7 +26,7 @@
     },
     {
       "name": "Castle Black",
-      "description": "",
+      "description": "You're at Castle Black.",
       "directions": [
         {
           "directionName": "North",
@@ -40,7 +40,7 @@
     },
     {
       "name": "Moat Cailin",
-      "description": "",
+      "description": "You're at Moat Cailin.",
       "directions": [
         {
           "directionName" : "North",
@@ -62,7 +62,7 @@
     },
     {
       "name": "Dreadfort",
-      "description": "",
+      "description": "You're at Dreadfort.",
       "directions": [
         {
           "directionName": "West",
@@ -72,7 +72,7 @@
     },
     {
       "name": "Torrhen's Square",
-      "description": "",
+      "description": "You're at Torrhen's Square.",
       "directions": [
         {
           "directionName": "East",
@@ -86,7 +86,7 @@
     },
     {
       "name": "Beyond the Wall",
-      "description": "",
+      "description": "You're Beyond the Wall.",
       "directions": [
         {
           "directionName": "South",
@@ -96,7 +96,7 @@
     },
     {
       "name": "Twins",
-      "description": "",
+      "description": "You're at the Twins.",
       "directions": [
         {
           "directionName": "North",
@@ -118,7 +118,7 @@
     },
     {
       "name": "Seagard",
-      "description": "",
+      "description": "You're at Seagard.",
       "directions": [
         {
           "directionName": "East",
@@ -132,7 +132,7 @@
     },
     {
       "name": "Riverrun",
-      "description": "",
+      "description": "You're at Riverrun.",
       "directions": [
         {
           "directionName": "North",
@@ -154,7 +154,7 @@
     },
     {
       "name": "Harrenhal",
-      "description": "",
+      "description": "You're at Harrenhal.",
       "directions": [
         {
           "directionName": "North",
@@ -172,7 +172,7 @@
     },
     {
       "name": "Casterly Rock",
-      "description": "",
+      "description": "You're at Casterly Rock.",
       "directions": [
         {
           "directionName": "North",
@@ -194,7 +194,7 @@
     },
     {
       "name": "Lannisport",
-      "description": "",
+      "description": "You're at Lannisport.",
       "directions": [
         {
           "directionName": "Northeast",
@@ -208,7 +208,7 @@
     },
     {
       "name": "King's Landing",
-      "description": "",
+      "description": "You're at King's Landing.",
       "directions": [
         {
           "directionName": "Northeast",
@@ -230,7 +230,7 @@
     },
     {
       "name": "Eyrie",
-      "description": "",
+      "description": "You're at the Eyrie.",
       "directions": [
         {
           "directionName": "South",
@@ -248,7 +248,7 @@
     },
     {
       "name": "Vale",
-      "description": "",
+      "description": "You're at the Vale.",
       "directions": [
         {
           "directionName": "East",
@@ -262,7 +262,7 @@
     },
     {
       "name": "Ironman's Bay",
-      "description": "",
+      "description": "You're at Ironman's Bay.",
       "directions": [
         {
           "directionName": "Northeast",
@@ -276,7 +276,7 @@
     },
     {
       "name": "Pyke",
-      "description": "",
+      "description": "You're at Pyke.",
       "directions": [
         {
           "directionName": "Northeast",
@@ -286,7 +286,7 @@
     },
     {
       "name": "Highgarden",
-      "description": "",
+      "description": "You're at Highgarden.",
       "directions": [
         {
           "directionName": "North",
@@ -308,7 +308,7 @@
     },
     {
       "name": "Reach",
-      "description": "",
+      "description": "You're at the Reach.",
       "directions": [
         {
           "directionName": "Northwest",
@@ -330,7 +330,7 @@
     },
     {
       "name": "Dornish Marches",
-      "description": "",
+      "description": "You're at the Dornish Marches.",
       "directions": [
         {
           "directionName": "North",
@@ -356,7 +356,7 @@
     },
     {
       "name": "Storm's End",
-      "description": "",
+      "description": "You're at Storm's End.",
       "directions": [
         {
           "directionName": "Northwest",
@@ -374,7 +374,7 @@
     },
     {
       "name": "Blackwater Bay",
-      "description": "",
+      "description": "You're at Blackwater Bay.",
       "directions": [
         {
           "directionName": "Northeast",
@@ -388,7 +388,7 @@
     },
     {
       "name": "Dragonstone",
-      "description": "",
+      "description": "You're at You're at Dragonstone.",
       "directions": [
         {
           "directionName": "North",
@@ -406,7 +406,7 @@
     },
     {
       "name": "Sea of Dorne",
-      "description": "",
+      "description": "You're at the Sea of Dorne.",
       "directions": [
         {
           "directionName": "North",
@@ -424,7 +424,7 @@
     },
     {
       "name": "Sunspear",
-      "description": "",
+      "description": "You're at Sunspear.",
       "directions": [
         {
           "directionName": "North",
@@ -438,7 +438,7 @@
     },
     {
       "name": "Bay of Crabs",
-      "description": "",
+      "description": "You're at the Bay of Crabs.",
       "directions": [
         {
           "directionName": "South",
@@ -452,7 +452,7 @@
     },
     {
       "name": "Starfall",
-      "description": "",
+      "description": "You're at Starfall.",
       "directions": [
         {
           "directionName": "North",
@@ -470,7 +470,7 @@
     },
     {
       "name": "Oldtown",
-      "description": "",
+      "description": "You're at Oldtown.",
       "directions": [
         {
           "directionName": "North",
@@ -488,7 +488,7 @@
     },
     {
       "name": "Shipbreaker Bay",
-      "description": "",
+      "description": "You're at Shipbreaker Bay.",
       "directions": [
         {
           "directionName": "North",
