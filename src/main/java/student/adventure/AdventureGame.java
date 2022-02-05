@@ -9,11 +9,13 @@ public class AdventureGame {
     private final String startingRoom;
     private final String endingRoom;
     private final ArrayList<Room> rooms;
+    private Room currentRoom;
 
     public AdventureGame(String startingRoom, String endingRoom, ArrayList<Room> rooms) {
         this.startingRoom = startingRoom;
         this.endingRoom = endingRoom;
         this.rooms = new ArrayList<>(rooms);
+        this.currentRoom = findRoom(this.startingRoom);
     }
 
     public String getStartingRoom() {
@@ -48,5 +50,14 @@ public class AdventureGame {
         } catch (JsonParseException e) {
             throw new JsonParseException("Missing field");
         }
+    }
+
+    private Room findRoom(String name) {
+        for (Room room : rooms) {
+            if (room.getName().equals(name)) {
+                return room;
+            }
+        }
+        return null;
     }
 }
