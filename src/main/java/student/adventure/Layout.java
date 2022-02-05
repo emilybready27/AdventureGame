@@ -46,7 +46,7 @@ public class Layout {
         }
     }
 
-    public void checkNullAdventureGameField() throws JsonParseException {
+    public void checkNullLayoutField() throws JsonParseException {
         if (startingRoom == null || endingRoom == null) {
             throw new JsonParseException("Missing Field");
         }
@@ -56,6 +56,14 @@ public class Layout {
             }
         } catch (JsonParseException e) {
             throw new JsonParseException("Missing field");
+        }
+    }
+
+    public void normalizeLayout() {
+        startingRoom = startingRoom.toLowerCase();
+        endingRoom = endingRoom.toLowerCase();
+        for (Room room : rooms) {
+            room.normalizeRoom();
         }
     }
 }

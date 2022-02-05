@@ -35,4 +35,9 @@ public class Direction {
             throw new JsonParseException("Missing field");
         }
     }
+
+    public void normalizeDirection() {
+        directionName = directionName.toLowerCase();
+        room = room.toLowerCase();
+    }
 }

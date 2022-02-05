@@ -58,4 +58,11 @@ public class Room {
             throw new JsonParseException("Missing field");
         }
     }
+
+    public void normalizeRoom() {
+        name = name.toLowerCase();
+        for (Direction direction : directions) {
+            direction.normalizeDirection();
+        }
+    }
 }
