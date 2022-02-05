@@ -1,5 +1,56 @@
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+import student.adventure.Layout;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Scanner;
+
 public class Main {
+
+    private static final Scanner scanner = new Scanner(System.in);
+
     public static void main(String[] args) {
-        // Wishing you good luck on your Adventure!
+
+        System.out.println("Welcome to the Adventure Game!");
+        System.out.println("To get started, please input a valid JSON file.");
+
+        // TODO: sanitize path, check for invalid: doesn't fit schema, file doesn't exist
+        Layout layout;
+        while (true) {
+            System.out.print("> ");
+            try {
+                String path = getUserInput(); // "src/main/resources/westeros.json"
+                String json = readFileAsString(path);
+                Gson gson = new Gson();
+                layout = gson.fromJson(json, Layout.class);
+                layout.printLayout();
+                break;
+            } catch (IOException e) {
+                System.out.println("Sorry, there was an error reading your file. Try again?");
+            } catch (JsonSyntaxException e) {
+                System.out.println("Sorry, that file is invalid for this game. Try again?");
+            } catch (Exception e) {
+                System.out.println("Sorry, there was an error. Try again?");
+            }
+        }
+
+    }
+
+    public static String getUserInput() {
+        Scanner sc = new Scanner(System.in);
+        return sc.next();
+    }
+
+    /**
+     * Transforms a JSON file's contents into a String to facilitate GSON parsing.
+     * @param file A String for path to file
+     * @return A String of the file's contents
+     * @throws IOException
+     */
+    public static String readFileAsString(String file) throws IOException {
+        return new String(Files.readAllBytes(Paths.get(file)));
     }
 }
