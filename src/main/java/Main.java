@@ -1,7 +1,6 @@
 import com.google.gson.*;
 import student.adventure.AdventureGame;
-import student.adventure.Room;
-import student.adventure.Direction;
+import student.adventure.Layout;
 import student.adventure.UserInput;
 
 import java.io.IOException;
@@ -12,32 +11,36 @@ import java.util.Scanner;
 public class Main {
 
     private static final Scanner scanner = new Scanner(System.in);
-    private static AdventureGame adventureGame;
 
-    public static void setUp() {
-        while (true) {
-            System.out.print("> ");
-            try {
-                String path = scanner.next(); // "src/main/resources/westeros.json", "src/main/resources/malformed.json"
-                String json = readFileAsString(path);
-                Gson gson = new Gson();
-                adventureGame = gson.fromJson(json, AdventureGame.class);
-                adventureGame.checkNullAdventureGameField();
-                break;
-            } catch (JsonParseException e) {
-                System.out.println("Sorry, there was an error with your Json. Try again?");
-            } catch (IOException e) {
-                System.out.println("Sorry, there was an error with your file. Try again?");
-            }
+    public static Layout setUp() {
+        System.out.print("> ");
+        try {
+            String path = scanner.next(); // "src/main/resources/westeros.json", "src/main/resources/malformed.json"
+            String json = readFileAsString(path);
+            Gson gson = new Gson();
+            Layout layout = gson.fromJson(json, Layout.class);
+            layout.checkNullLayoutField();
+            layout.normalizeLayout();
+            return layout;
+        } catch (JsonParseException e) {
+            System.out.println("Json error: exiting.");
+        } catch (IOException e) {
+            System.out.println("File error: exiting.");
         }
+        return null;
     }
 
     public static void main(String[] args) {
 
-        System.out.println("Welcome to the Adventure Game!");
-        System.out.println("To get started, please input a valid JSON file.");
+        System.out.println("Welcome!");
+        System.out.println("To get started, input a valid JSON file.");
 
-        Main.setUp();
+        Layout layout = Main.setUp();
+        if (layout == null) {
+            return;
+        }
+        AdventureGame adventureGame = new AdventureGame(layout);
+        adventureGame.examine();
 
         boolean quit = false;
         while (!quit) {
@@ -45,14 +48,18 @@ public class Main {
             switch (userInput.getCommand()) {
                 case "quit":
                 case "exit":
-                    System.out.println("Until next time, goodbye!");
+                    System.out.println("Goodbye!");
                     quit = true;
                     break;
-//                case "examine":
-//                    adventureGame.examine();
-//                    break;
+                case "go":
+                    adventureGame.go(userInput.getArgument());
+                    adventureGame.examine();
+                    break;
+                case "examine":
+                    adventureGame.examine();
+                    break;
                 default:
-                    System.out.println("Command not found: try again");
+                    System.out.println("Command not found: try again.");
                     break;
             }
         }
