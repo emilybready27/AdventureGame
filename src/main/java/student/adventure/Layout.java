@@ -1,17 +1,16 @@
 package student.adventure;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 
 import java.util.ArrayList;
 
 /** A class that handles the layout of the Adventure Game. */
-public class AdventureGame {
+public class Layout {
     private String startingRoom;
     private String endingRoom;
     private ArrayList<Room> rooms;
 
-    public AdventureGame() {
+    public Layout() {
     }
 
     public void setStartingRoom(String startingRoom) {

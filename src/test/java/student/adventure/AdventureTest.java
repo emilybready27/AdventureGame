@@ -3,7 +3,6 @@ package student.adventure;
 import static org.junit.Assert.assertThat;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,7 +24,7 @@ public class AdventureTest {
 
     @Test
     public void sanityCheck() throws IOException {
-        AdventureGame adventureGame = gson.fromJson(json, AdventureGame.class);
+        Layout adventureGame = gson.fromJson(json, Layout.class);
         adventureGame.printLayout();
     }
 
