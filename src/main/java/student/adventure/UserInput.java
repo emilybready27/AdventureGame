@@ -1,6 +1,6 @@
 package student.adventure;
 
-/** A class that handles the set-up of the Adventure Game. */
+/** A class that handles the user input of the Adventure Game. */
 public class UserInput {
     private String command;
     private String argument;

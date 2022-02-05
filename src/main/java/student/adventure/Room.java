@@ -1,11 +1,10 @@
 package student.adventure;
 
-import com.google.gson.InstanceCreator;
 import com.google.gson.JsonParseException;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+/** A class that handles the Room functionality of the Adventure Game. */
 public class Room {
     private String name;
     private String description;
@@ -58,12 +57,5 @@ public class Room {
         } catch (JsonParseException e) {
             throw new JsonParseException("Missing field");
         }
-    }
-}
-
-class RoomInstanceCreator implements InstanceCreator<Room> {
-    @Override
-    public Room createInstance(Type type) {
-        return new Room();
     }
 }

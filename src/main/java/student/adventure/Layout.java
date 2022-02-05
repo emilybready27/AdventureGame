@@ -4,7 +4,7 @@ import com.google.gson.JsonParseException;
 
 import java.util.ArrayList;
 
-/** A class that handles the layout of the Adventure Game. */
+/** A class that handles the map / layout of the Adventure Game. */
 public class Layout {
     private String startingRoom;
     private String endingRoom;
@@ -33,7 +33,7 @@ public class Layout {
         this.rooms = new ArrayList<>(rooms);
     }
 
-    public ArrayList<Room> getRoom() {
+    public ArrayList<Room> getRooms() {
         return new ArrayList<Room>(rooms);
     }
 
@@ -58,13 +58,4 @@ public class Layout {
             throw new JsonParseException("Missing field");
         }
     }
-
-//    public void examine() {
-//        System.out.println(currentRoom.getDescription());
-//        System.out.print("From here, you can go: ");
-//        for (Direction direction : currentRoom.getDirections()) {
-//            System.out.print(direction.getDirectionName() + " ");
-//        }
-////        System.out.println("Items visible: ");
-//    }
 }

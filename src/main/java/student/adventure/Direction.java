@@ -2,6 +2,7 @@ package student.adventure;
 
 import com.google.gson.JsonParseException;
 
+/** A class that handles the Direciton functionality of the Adventure Game. */
 public class Direction {
     private String directionName;
     private String room;
