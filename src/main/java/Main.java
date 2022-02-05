@@ -1,8 +1,8 @@
 import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
-import student.adventure.Layout;
+import student.adventure.AdventureGame;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -18,30 +18,27 @@ public class Main {
         System.out.println("To get started, please input a valid JSON file.");
 
         // TODO: sanitize path, check for invalid: doesn't fit schema, file doesn't exist
-        Layout layout;
+        AdventureGame adventureGame;
         while (true) {
             System.out.print("> ");
             try {
                 String path = getUserInput(); // "src/main/resources/westeros.json"
                 String json = readFileAsString(path);
                 Gson gson = new Gson();
-                layout = gson.fromJson(json, Layout.class);
-                layout.printLayout();
+                adventureGame = gson.fromJson(json, AdventureGame.class);
                 break;
+            } catch (JsonIOException | JsonSyntaxException e) {
+                System.out.println("Sorry, there was an error with your Json. Try again?");
             } catch (IOException e) {
-                System.out.println("Sorry, there was an error reading your file. Try again?");
-            } catch (JsonSyntaxException e) {
-                System.out.println("Sorry, that file is invalid for this game. Try again?");
-            } catch (Exception e) {
-                System.out.println("Sorry, there was an error. Try again?");
+                System.out.println("Sorry, there was an error with your file. Try again?");
             }
         }
 
     }
 
     public static String getUserInput() {
-        Scanner sc = new Scanner(System.in);
-        return sc.next();
+        // TODO: sanitize input
+        return scanner.next();
     }
 
     /**
