@@ -34,18 +34,19 @@ public class AdventureGame {
 //        System.out.println("Items visible: ");
     }
 
-    public void go(String argument) {
+    public boolean go(String argument) {
         if (!isValidDirection(argument)) {
-            System.out.println("Invalid direction.");
-            return;
+            System.out.println("I can't go " + argument + "!");
+            return false;
         }
         for (Direction direction : currentRoom.getDirections()) {
             if (argument.equals(direction.getDirectionName())) {
                 currentRoom = findRoom(direction.getRoom());
-                return;
+                return checkIfEndingRoom();
             }
         }
-        System.out.println("Can't move in that direction.");
+        System.out.println("I can't go " + argument + "!");
+        return false;
     }
 
     private Room findRoom(String name) {
@@ -61,5 +62,13 @@ public class AdventureGame {
         return (argument.equals("north") || argument.equals("south") || argument.equals("east")
                 || argument.equals("west") || argument.equals("northeast") || argument.equals("northwest")
                 || argument.equals("southeast") || argument.equals("southwest"));
+    }
+
+    private boolean checkIfEndingRoom() {
+        if (currentRoom.equals(findRoom(layout.getEndingRoom()))) {
+            System.out.println("You're at " + layout.getEndingRoom() + "! You win!");
+            return true;
+        }
+        return false;
     }
 }

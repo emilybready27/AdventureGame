@@ -35,4 +35,8 @@ public class UserInput {
     public String getArgument() {
         return argument;
     }
+
+    public String getFullInput() {
+        return this.command + " " + this.argument;
+    }
 }

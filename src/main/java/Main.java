@@ -52,14 +52,16 @@ public class Main {
                     quit = true;
                     break;
                 case "go":
-                    adventureGame.go(userInput.getArgument());
-                    adventureGame.examine();
+                    quit = adventureGame.go(userInput.getArgument());
+                    if (!quit) {
+                        adventureGame.examine();
+                    }
                     break;
                 case "examine":
                     adventureGame.examine();
                     break;
                 default:
-                    System.out.println("Command not found: try again.");
+                    System.out.println("I don't understand " + userInput.getFullInput() + "!");
                     break;
             }
         }
