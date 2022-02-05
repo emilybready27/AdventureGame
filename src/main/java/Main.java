@@ -12,13 +12,9 @@ import java.util.Scanner;
 public class Main {
 
     private static final Scanner scanner = new Scanner(System.in);
+    private static AdventureGame adventureGame;
 
-    public static void main(String[] args) {
-
-        System.out.println("Welcome to the Adventure Game!");
-        System.out.println("To get started, please input a valid JSON file.");
-
-        AdventureGame adventureGame;
+    public static void setUp() {
         while (true) {
             System.out.print("> ");
             try {
@@ -34,22 +30,31 @@ public class Main {
                 System.out.println("Sorry, there was an error with your file. Try again?");
             }
         }
+    }
+
+    public static void main(String[] args) {
+
+        System.out.println("Welcome to the Adventure Game!");
+        System.out.println("To get started, please input a valid JSON file.");
+
+        Main.setUp();
 
         boolean quit = false;
         while (!quit) {
             UserInput userInput = getUserInput();
-            String gameOutput;
             switch (userInput.getCommand()) {
                 case "quit":
                 case "exit":
-                    gameOutput = "Until next time, goodbye!";
+                    System.out.println("Until next time, goodbye!");
                     quit = true;
                     break;
+//                case "examine":
+//                    adventureGame.examine();
+//                    break;
                 default:
-                    gameOutput = "Command not found: try again";
+                    System.out.println("Command not found: try again");
                     break;
             }
-            System.out.println(gameOutput);
         }
 
     }
