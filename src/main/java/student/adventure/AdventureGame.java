@@ -1,15 +1,22 @@
 package student.adventure;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 /** A class that handles the current state of the Adventure Game. */
 public class AdventureGame {
     private final Layout layout;
     private Room currentRoom;
+    private ArrayList<Item> inventory;
 
     public AdventureGame(Layout layout) {
         this.layout = layout;
         this.currentRoom = findRoom(layout.getStartingRoom());
+        this.inventory = new ArrayList<>();
+    }
+
+    public Layout getLayout() {
+        return layout;
     }
 
     public void setCurrentRoom(Room currentRoom) {
@@ -20,8 +27,12 @@ public class AdventureGame {
         return currentRoom;
     }
 
-    public Layout getLayout() {
-        return layout;
+    public void setInventory(ArrayList<Item> inventory) {
+        this.inventory = new ArrayList<>(inventory);
+    }
+
+    public ArrayList<Item> getInventory() {
+        return new ArrayList<>(inventory);
     }
 
     public void examine() {
@@ -31,7 +42,11 @@ public class AdventureGame {
             System.out.print(direction.getDirectionName() + " ");
         }
         System.out.println();
-//        System.out.println("Items visible: ");
+        System.out.print("Items visible: ");
+        for (Item item : inventory) {
+            System.out.print(item.getItemName() + " ");
+        }
+        System.out.println();
     }
 
     public boolean go(String argument) {

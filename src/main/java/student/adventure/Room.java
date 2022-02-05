@@ -2,6 +2,7 @@ package student.adventure;
 
 import com.google.gson.JsonParseException;
 
+import java.sql.Array;
 import java.util.ArrayList;
 
 /** A class that handles the Room functionality of the Adventure Game. */
@@ -9,7 +10,7 @@ public class Room {
     private String name;
     private String description;
     private ArrayList<Direction> directions;
-//    private ArrayList<Item> items;
+    private ArrayList<Item> items;
 
     public Room() {
     }
@@ -35,7 +36,15 @@ public class Room {
     }
 
     public ArrayList<Direction> getDirections() {
-        return new ArrayList<Direction>(directions);
+        return new ArrayList<>(directions);
+    }
+
+    public void setItems(ArrayList<Item> items) {
+        this.items = new ArrayList<>(items);
+    }
+
+    public ArrayList<Item> getItems() {
+        return new ArrayList<>(items);
     }
 
     public void printRoom() {
@@ -43,6 +52,9 @@ public class Room {
         System.out.println(description);
         for (Direction direction : directions) {
             direction.printDirection();
+        }
+        for (Item item : items) {
+            item.printItem();
         }
     }
 
@@ -54,6 +66,11 @@ public class Room {
             for (Direction direction : directions) {
                 direction.checkNullDirectionField();
             }
+            for (Item item : items) {
+                if (item != null) {
+                    item.checkNullItemField();
+                }
+            }
         } catch (JsonParseException e) {
             throw new JsonParseException("Missing field");
         }
@@ -63,6 +80,9 @@ public class Room {
         name = name.toLowerCase();
         for (Direction direction : directions) {
             direction.normalizeDirection();
+        }
+        for (Item item : items) {
+            item.normalizeItem();
         }
     }
 }
