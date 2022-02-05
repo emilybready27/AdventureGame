@@ -3,9 +3,16 @@ package student.adventure;
 import java.util.ArrayList;
 
 public class Room {
-    private String name;
-    private String description;
-    private ArrayList<Direction> directions;
+    private final String name;
+    private final String description;
+    private final ArrayList<Direction> directions;
+//    private ArrayList<Item> items;
+
+    public Room(String name, String description, ArrayList<Direction> directions) {
+        this.name = name;
+        this.description = description;
+        this.directions = new ArrayList<>(directions);
+    }
 
     public String getName() {
         return name;
@@ -21,7 +28,7 @@ public class Room {
 
     public void printRoom() {
         System.out.println(name);
-        // System.out.println(description);
+        System.out.println(description);
         for (Direction direction : directions) {
             direction.printDirection();
         }
