@@ -60,6 +60,9 @@ public class Main {
                 case "examine":
                     adventureGame.examine();
                     break;
+                case "take":
+                    adventureGame.take(userInput.getArgument());
+                    break;
                 default:
                     System.out.println("I don't understand " + userInput.getFullInput() + "!");
                     break;

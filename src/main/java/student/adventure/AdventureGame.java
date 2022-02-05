@@ -1,5 +1,7 @@
 package student.adventure;
 
+import com.google.gson.JsonParseException;
+
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -43,7 +45,7 @@ public class AdventureGame {
         }
         System.out.println();
         System.out.print("Items visible: ");
-        for (Item item : inventory) {
+        for (Item item : currentRoom.getItems()) {
             System.out.print(item.getItemName() + " ");
         }
         System.out.println();
@@ -85,5 +87,25 @@ public class AdventureGame {
             return true;
         }
         return false;
+    }
+
+    public void take(String argument) {
+        if (!isValidItem(argument)) {
+            System.out.println("There is no item " + argument + "!");
+            return;
+        }
+        for (Item item : currentRoom.getItems()) {
+            if (argument.equals(item.getItemName())) {
+                inventory.add(item);
+                currentRoom.getItems().remove(item);
+                return;
+            }
+        }
+        System.out.println("There is no item " + argument + "!");
+    }
+
+    private boolean isValidItem(String argument) {
+        return (argument.equals("banner") || argument.equals("weapon") || argument.equals("tool")
+                || argument.equals("crown"));
     }
 }

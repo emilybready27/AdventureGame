@@ -3,7 +3,7 @@ package student.adventure;
 import com.google.gson.JsonParseException;
 
 public class Item {
-    // TODO: add banners, weapons, tools
+    // TODO: add banners, weapons, tools, crown
     private String itemName;
     private String itemDescription;
 

@@ -30,11 +30,11 @@ public class Layout {
     }
 
     public void setRooms(ArrayList<Room> rooms) {
-        this.rooms = new ArrayList<>(rooms);
+        this.rooms = rooms;
     }
 
     public ArrayList<Room> getRooms() {
-        return new ArrayList<Room>(rooms);
+        return rooms;
     }
 
     public void printLayout() {

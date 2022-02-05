@@ -32,19 +32,19 @@ public class Room {
     }
 
     public void setDirections(ArrayList<Direction> directions) {
-        this.directions = new ArrayList<>(directions);
+        this.directions = directions;
     }
 
     public ArrayList<Direction> getDirections() {
-        return new ArrayList<>(directions);
+        return directions;
     }
 
     public void setItems(ArrayList<Item> items) {
-        this.items = new ArrayList<>(items);
+        this.items = items;
     }
 
     public ArrayList<Item> getItems() {
-        return new ArrayList<>(items);
+        return items;
     }
 
     public void printRoom() {
