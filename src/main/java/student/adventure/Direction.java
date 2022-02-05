@@ -3,16 +3,22 @@ package student.adventure;
 import com.google.gson.JsonParseException;
 
 public class Direction {
-    private final String directionName;
-    private final String room;
+    private String directionName;
+    private String room;
 
-    public Direction(String directionName, String room) {
-        this.directionName = directionName;
-        this.room = room;
+    public Direction() {
+    }
+
+    public void setDirectionName(String name) {
+        this.directionName = name;
     }
 
     public String getDirectionName() {
         return directionName;
+    }
+
+    public void setRoom(String room) {
+        this.room = room;
     }
 
     public String getRoom() {
