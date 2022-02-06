@@ -1,8 +1,13 @@
 package student.adventure;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /** A class that handles the map / layout of the Adventure Game. */
 public class Layout {
@@ -46,16 +51,30 @@ public class Layout {
         }
     }
 
-    public void checkNullLayoutField() throws JsonParseException {
+    public void checkForNull() throws JsonParseException {
         if (startingRoom == null || endingRoom == null) {
-            throw new JsonParseException("Missing Field");
+            throw new JsonParseException("Missing Field.");
         }
         try {
             for (Room room : rooms) {
-                room.checkNullRoomField();
+                room.checkForNull();
             }
         } catch (JsonParseException e) {
-            throw new JsonParseException("Missing field");
+            throw new JsonParseException("Missing field.");
+        }
+    }
+
+    public void checkForDuplicates() throws JsonParseException {
+        for (Room room1 : rooms) {
+            int count = 0;
+            for (Room room2 : rooms) {
+                if (room1.equals(room2) && count == 1) {
+                    throw new JsonParseException("Duplicate room.");
+                } else if (room1.equals(room2)) {
+                    count++;
+                }
+            }
+            room1.checkForDuplicates();
         }
     }
 
@@ -65,5 +84,36 @@ public class Layout {
         for (Room room : rooms) {
             room.normalizeRoom();
         }
+    }
+
+    public static Layout setUp() {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.print("> ");
+            try {
+                String path = scanner.next(); // "src/main/resources/westeros.json", "src/main/resources/malformed.json"
+                String json = readFileAsString(path);
+                Gson gson = new Gson();
+                Layout layout = gson.fromJson(json, Layout.class);
+                layout.checkForNull();
+                layout.checkForDuplicates();
+                layout.normalizeLayout();
+                return layout;
+            } catch (JsonParseException e) {
+                System.out.println("Json error: try again.");
+            } catch (IOException e) {
+                System.out.println("File error: try again.");
+            }
+        }
+    }
+
+    /**
+     * Transforms a JSON file's contents into a String to facilitate GSON parsing.
+     * @param file A String for path to file
+     * @return A String of the file's contents
+     * @throws IOException
+     */
+    public static String readFileAsString(String file) throws IOException {
+        return new String(Files.readAllBytes(Paths.get(file)));
     }
 }
