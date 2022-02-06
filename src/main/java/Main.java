@@ -63,6 +63,9 @@ public class Main {
                 case "take":
                     adventureGame.take(userInput.getArgument());
                     break;
+                case "drop":
+                    adventureGame.drop(userInput.getArgument());
+                    break;
                 default:
                     System.out.println("I don't understand " + userInput.getFullInput() + "!");
                     break;

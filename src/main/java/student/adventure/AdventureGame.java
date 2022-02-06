@@ -91,7 +91,7 @@ public class AdventureGame {
 
     public void take(String argument) {
         if (!isValidItem(argument)) {
-            System.out.println("There is no item " + argument + "!");
+            System.out.println("There is no item " + argument + " in the room!");
             return;
         }
         for (Item item : currentRoom.getItems()) {
@@ -101,7 +101,21 @@ public class AdventureGame {
                 return;
             }
         }
-        System.out.println("There is no item " + argument + "!");
+        System.out.println("There is no item " + argument + " in the room!");
+    }
+
+    public void drop(String argument) {
+        if (!isValidItem(argument)) {
+            System.out.println("You don't have " + argument + "!");
+        }
+        for (Item item : inventory) {
+            if (argument.equals(item.getItemName())) {
+                inventory.remove(item);
+                currentRoom.getItems().add(item);
+                return;
+            }
+        }
+        System.out.println("You don't have " + argument + "!");
     }
 
     private boolean isValidItem(String argument) {
