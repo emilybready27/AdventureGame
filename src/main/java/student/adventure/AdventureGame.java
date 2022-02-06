@@ -2,10 +2,13 @@ package student.adventure;
 
 import com.google.gson.JsonParseException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Locale;
 import java.util.Scanner;
+
+import static student.adventure.Layout.parseJson;
 
 /** A class that handles the current state of the Adventure Game. */
 public class AdventureGame {
@@ -13,8 +16,12 @@ public class AdventureGame {
     private Room currentRoom;
     private ArrayList<Item> inventory;
 
-    public AdventureGame(Layout layout) {
-        this.layout = layout;
+    public AdventureGame(String path) throws IllegalArgumentException {
+        try {
+            this.layout = parseJson(path);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Invalid.");
+        }
         this.currentRoom = findRoom(layout.getStartingRoom());
         this.inventory = new ArrayList<>();
     }

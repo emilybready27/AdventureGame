@@ -86,25 +86,19 @@ public class Layout {
         }
     }
 
-    public static Layout setUp() {
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            System.out.print("> ");
-            try {
-                String path = scanner.next(); // "src/main/resources/westeros.json", "src/main/resources/malformed.json"
-                String json = readFileAsString(path);
-                Gson gson = new Gson();
-                Layout layout = gson.fromJson(json, Layout.class);
-                layout.checkForNull();
-                layout.checkForDuplicates();
-                layout.normalizeLayout();
-                return layout;
-            } catch (JsonParseException e) {
-                System.out.println("Json error: try again.");
-            } catch (IOException e) {
-                System.out.println("File error: try again.");
-            }
+    public static Layout parseJson(String path) throws IllegalArgumentException {
+        try {
+            String json = readFileAsString(path);
+            Gson gson = new Gson();
+            Layout layout = gson.fromJson(json, Layout.class);
+            layout.checkForNull();
+            layout.checkForDuplicates();
+            layout.normalizeLayout();
+            return layout;
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Invalid.");
         }
+
     }
 
     /**
