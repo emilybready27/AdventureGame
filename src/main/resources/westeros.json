@@ -175,6 +175,10 @@
       "description": "You're at Seagard.",
       "directions": [
         {
+          "directionName": "Northeast",
+          "room": "Moat Cailin"
+        },
+        {
           "directionName": "East",
           "room": "Twins"
         },
@@ -253,6 +257,10 @@
         {
           "directionName": "South",
           "room": "Highgarden"
+        },
+        {
+          "directionName": "Southeast",
+          "room": "Reach"
         },
         {
           "directionName": "East",
