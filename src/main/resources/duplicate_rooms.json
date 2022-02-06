@@ -1,0 +1,70 @@
+{
+  "startingRoom" : "Winterfell",
+  "endingRoom" : "King's Landing",
+  "rooms" : [
+    {
+      "name": "Winterfell",
+      "description": "You're at Winterfell.",
+      "directions": [
+        {
+          "directionName": "North",
+          "room": "Castle Black"
+        },
+        {
+          "directionName": "South",
+          "room": "Moat Cailin"
+        },
+        {
+          "directionName": "East",
+          "room": "Dreadfort"
+        },
+        {
+          "directionName": "West",
+          "room": "Torrhen's Square"
+        }
+      ],
+      "items": [
+        {
+          "itemName": "Banner",
+          "itemDescription": "Direwolf sigil of House Stark."
+        },
+        {
+          "itemName": "Weapon",
+          "itemDescription": "Ice Valyrian steel sword of House Stark."
+        },
+        {
+          "itemName": "Weapon",
+          "itemDescription": "Needle sword of House Stark."
+        }
+      ]
+    },
+    {
+      "name": "Winterfell",
+      "description": "You're at Winterfell.",
+      "directions": [
+        {
+          "directionName": "North",
+          "room": "Castle Black"
+        },
+        {
+          "directionName": "South",
+          "room": "Moat Cailin"
+        },
+        {
+          "directionName": "East",
+          "room": "Dreadfort"
+        }
+      ],
+      "items": [
+        {
+          "itemName": "Banner",
+          "itemDescription": "Direwolf sigil of House Stark."
+        },
+        {
+          "itemName": "Weapon",
+          "itemDescription": "Ice Valyrian steel sword of House Stark."
+        }
+      ]
+    }
+  ]
+}

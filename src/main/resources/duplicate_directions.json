@@ -1,0 +1,21 @@
+{
+  "startingRoom" : "Winterfell",
+  "endingRoom" : "King's Landing",
+  "rooms" : [
+    {
+      "name": "Winterfell",
+      "description": "You're at Winterfell.",
+      "directions": [
+        {
+          "directionName": "North",
+          "room": "Castle Black"
+        },
+        {
+          "directionName": "North",
+          "room": "Moat Cailin"
+        }
+      ],
+      "items": []
+    }
+  ]
+}
