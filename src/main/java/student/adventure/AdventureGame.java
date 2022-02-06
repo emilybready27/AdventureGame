@@ -104,6 +104,7 @@ public class AdventureGame {
             System.out.println("You're at " + layout.getEndingRoom() + "! You win!");
             return true;
         }
+        examine();
         return false;
     }
 

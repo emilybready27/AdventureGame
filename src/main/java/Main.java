@@ -37,9 +37,6 @@ public class Main {
                     break;
                 case "go":
                     quit = adventureGame.go(userInput.getArgument());
-                    if (!quit) {
-                        adventureGame.examine();
-                    }
                     break;
                 case "examine":
                     adventureGame.examine();
