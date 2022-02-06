@@ -3,7 +3,9 @@ package student.adventure;
 import com.google.gson.JsonParseException;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Locale;
+import java.util.Scanner;
 
 /** A class that handles the current state of the Adventure Game. */
 public class AdventureGame {
@@ -75,6 +77,15 @@ public class AdventureGame {
         return null;
     }
 
+    private Item findItem(String name, ArrayList<Item> container) {
+        for (Item item : container) {
+            if (name.equals(item.getItemName())) {
+                return item;
+            }
+        }
+        return null;
+    }
+
     private boolean isValidDirection(String argument) {
         return (argument.equals("north") || argument.equals("south") || argument.equals("east")
                 || argument.equals("west") || argument.equals("northeast") || argument.equals("northwest")
@@ -90,32 +101,60 @@ public class AdventureGame {
     }
 
     public void take(String argument) {
-        if (!isValidItem(argument)) {
+        if (!isValidItem(argument)
+                || !currentRoom.getItems().contains(findItem(argument, currentRoom.getItems()))) {
             System.out.println("There is no item " + argument + " in the room!");
             return;
         }
-        for (Item item : currentRoom.getItems()) {
-            if (argument.equals(item.getItemName())) {
-                inventory.add(item);
-                currentRoom.getItems().remove(item);
-                return;
-            }
+
+        ArrayList<Item> items = matchItems(argument, currentRoom.getItems());
+        int input = getItemInput();
+        if (input >= 0 && input < items.size()) {
+            inventory.add(items.get(input));
+            currentRoom.getItems().remove(items.get(input));
+        } else {
+            System.out.println("Invalid number: aborting action.");
         }
-        System.out.println("There is no item " + argument + " in the room!");
     }
 
     public void drop(String argument) {
-        if (!isValidItem(argument)) {
+        if (!isValidItem(argument) || !inventory.contains(findItem(argument, inventory))) {
             System.out.println("You don't have " + argument + "!");
+            return;
         }
-        for (Item item : inventory) {
-            if (argument.equals(item.getItemName())) {
-                inventory.remove(item);
-                currentRoom.getItems().add(item);
-                return;
+
+        ArrayList<Item> items = matchItems(argument, inventory);
+        int input = getItemInput();
+        if (input >= 0 && input < items.size()) {
+            inventory.remove(items.get(input));
+            currentRoom.getItems().add(items.get(input));
+        } else {
+            System.out.println("Invalid number: aborting action.");
+        }
+    }
+
+    private ArrayList<Item> matchItems(String argument, ArrayList<Item> container) {
+        System.out.println("Input the number for which " + argument + " to choose.");
+        int count = 0;
+        ArrayList<Item> items = new ArrayList<>();
+        for (Item item : container) {
+            if (argument.equals(item.getItemName()) ) {
+                System.out.println(count + ": " + item.getItemDescription());
+                count++;
+                items.add(item);
             }
         }
-        System.out.println("You don't have " + argument + "!");
+        return items;
+    }
+
+    private int getItemInput() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("> ");
+        try {
+            return scanner.nextInt();
+        } catch (InputMismatchException e) {
+            return -1;
+        }
     }
 
     private boolean isValidItem(String argument) {
