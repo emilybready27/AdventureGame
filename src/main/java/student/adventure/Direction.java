@@ -2,7 +2,7 @@ package student.adventure;
 
 import com.google.gson.JsonParseException;
 
-/** A class that handles the Direciton functionality of the Adventure Game. */
+/** A class that handles the Direction functionality of the Adventure Game. */
 public class Direction {
     private String directionName;
     private String room;
@@ -30,14 +30,21 @@ public class Direction {
         System.out.println(directionName + ": " + room);
     }
 
-    public void checkNullDirectionField() throws JsonParseException {
+    public void checkForNull() throws JsonParseException {
         if (directionName == null || room == null) {
-            throw new JsonParseException("Missing field");
+            throw new JsonParseException("Missing field.");
         }
     }
 
     public void normalizeDirection() {
         directionName = directionName.toLowerCase();
         room = room.toLowerCase();
+    }
+
+    public boolean equals(Direction other) {
+        if (this == other) {
+            return true;
+        }
+        return other != null && directionName.equals(other.getDirectionName());
     }
 }

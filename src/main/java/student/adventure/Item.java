@@ -3,7 +3,6 @@ package student.adventure;
 import com.google.gson.JsonParseException;
 
 public class Item {
-    // TODO: add banners, weapons, tools, crown
     private String itemName;
     private String itemDescription;
 
@@ -31,13 +30,21 @@ public class Item {
         System.out.println(itemDescription);
     }
 
-    public void checkNullItemField() throws JsonParseException {
+    public void checkForNull() throws JsonParseException {
         if (itemName == null || itemDescription == null) {
-            throw new JsonParseException("Missing field");
+            throw new JsonParseException("Missing field.");
         }
     }
 
     public void normalizeItem() {
         itemName = itemName.toLowerCase();
+    }
+
+    public boolean equals(Item other) {
+        if (this == other) {
+            return true;
+        }
+        return other != null && itemName.equals(other.getItemName())
+                && itemDescription.equals(other.getItemDescription());
     }
 }
