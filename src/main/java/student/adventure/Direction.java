@@ -47,4 +47,10 @@ public class Direction {
         }
         return other != null && directionName.equals(other.getDirectionName());
     }
+
+    public static boolean isValidDirection(String argument) {
+        return (argument.equals("north") || argument.equals("south") || argument.equals("east")
+                || argument.equals("west") || argument.equals("northeast") || argument.equals("northwest")
+                || argument.equals("southeast") || argument.equals("southwest"));
+    }
 }

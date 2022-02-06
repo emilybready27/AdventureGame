@@ -15,10 +15,6 @@
           "room": "Moat Cailin"
         },
         {
-          "directionName": "South",
-          "room": "Twins"
-        },
-        {
           "directionName": "East",
           "room": "Dreadfort"
         },
@@ -29,7 +25,6 @@
       ],
       "items": [
         {
-          "itemName": "Banner",
           "itemDescription": "Direwolf sigil of House Stark."
         },
         {

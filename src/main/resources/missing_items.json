@@ -1,8 +1,10 @@
 {
-  "endingRoom": "King's Landing",
+  "startingRoom" : "Winterfell",
+  "endingRoom" : "King's Landing",
   "rooms" : [
     {
       "name": "Winterfell",
+      "description": "You're at Winterfell.",
       "directions": [
         {
           "directionName": "North",
@@ -24,7 +26,7 @@
     },
     {
       "name": "Castle Black",
-      "description": "",
+      "description": "You're at Castle Black.",
       "directions": [
         {
           "directionName": "North",
@@ -34,11 +36,21 @@
           "directionName": "South",
           "room": "Winterfell"
         }
+      ],
+      "items": [
+        {
+          "itemName": "Weapon",
+          "itemDescription": "Dragonglass of Night's Watch."
+        },
+        {
+          "itemName": "Weapon",
+          "itemDescription": "Longclaw Valyrian steel sword of House Mormont."
+        }
       ]
     },
     {
       "name": "Moat Cailin",
-      "description": "",
+      "description": "You're at Moat Cailin.",
       "directions": [
         {
           "directionName" : "North",
@@ -56,21 +68,33 @@
           "directionName": "Northwest",
           "room": "Torrhen's Square"
         }
+      ],
+      "items": [
+        {
+          "itemName": "Banner",
+          "itemDescription": "White stars sigil of House Clegane."
+        }
       ]
     },
     {
       "name": "Dreadfort",
-      "description": "",
+      "description": "You're at Dreadfort.",
       "directions": [
         {
           "directionName": "West",
           "room": "Winterfell"
         }
+      ],
+      "items": [
+        {
+          "itemName": "Banner",
+          "itemDescription": "Flayed man sigil of House Bolton."
+        }
       ]
     },
     {
       "name": "Torrhen's Square",
-      "description": "",
+      "description": "You're at Torrhen's Square.",
       "directions": [
         {
           "directionName": "East",
@@ -80,21 +104,33 @@
           "directionName": "Southeast",
           "room": "Moat Cailin"
         }
+      ],
+      "items": [
+        {
+          "itemName": "Banner",
+          "itemDescription": "Sentinel trees sigil of House Tallhart."
+        }
       ]
     },
     {
       "name": "Beyond the Wall",
-      "description": "",
+      "description": "You're Beyond the Wall.",
       "directions": [
         {
           "directionName": "South",
           "room": "Castle Black"
         }
+      ],
+      "items": [
+        {
+          "itemName": "Weapon",
+          "itemDescription": "Dragonglass of Wildlings."
+        }
       ]
     },
     {
       "name": "Twins",
-      "description": "",
+      "description": "You're at the Twins.",
       "directions": [
         {
           "directionName": "North",
@@ -112,12 +148,22 @@
           "directionName": "West",
           "room": "Seagard"
         }
+      ],
+      "items": [
+        {
+          "itemName": "Banner",
+          "itemDescription": "Towers and bridge sigil of House Frey."
+        }
       ]
     },
     {
       "name": "Seagard",
-      "description": "",
+      "description": "You're at Seagard.",
       "directions": [
+        {
+          "directionName": "Northeast",
+          "room": "Moat Cailin"
+        },
         {
           "directionName": "East",
           "room": "Twins"
@@ -126,11 +172,17 @@
           "directionName": "Southwest",
           "room": "Ironman's Bay"
         }
+      ],
+      "items": [
+        {
+          "itemName": "Banner",
+          "itemDescription": "Eagle sigil of House Mallister."
+        }
       ]
     },
     {
       "name": "Riverrun",
-      "description": "",
+      "description": "You're at Riverrun.",
       "directions": [
         {
           "directionName": "North",
@@ -148,11 +200,17 @@
           "directionName": "South",
           "room": "Casterly Rock"
         }
+      ],
+      "items": [
+        {
+          "itemName": "Banner",
+          "itemDescription": "Trout sigil of House Tully."
+        }
       ]
     },
     {
       "name": "Harrenhal",
-      "description": "",
+      "description": "You're at Harrenhal.",
       "directions": [
         {
           "directionName": "North",
@@ -166,11 +224,17 @@
           "directionName": "Southeast",
           "room": "King's Landing"
         }
+      ],
+      "items": [
+        {
+          "itemName": "Banner",
+          "itemDescription": "Black bat sigil of House Lothston"
+        }
       ]
     },
     {
       "name": "Casterly Rock",
-      "description": "",
+      "description": "You're at Casterly Rock.",
       "directions": [
         {
           "directionName": "North",
@@ -181,6 +245,10 @@
           "room": "Highgarden"
         },
         {
+          "directionName": "Southeast",
+          "room": "Reach"
+        },
+        {
           "directionName": "East",
           "room": "King's Landing"
         },
@@ -188,11 +256,29 @@
           "directionName": "West",
           "room": "Lannisport"
         }
+      ],
+      "items": [
+        {
+          "itemName": "Banner",
+          "itemDescription": "Lion sigil of House Lannister."
+        },
+        {
+          "itemName": "Weapon",
+          "itemDescription": "Brightroar Valyrian steel sword of House Lannister."
+        },
+        {
+          "itemName": "Weapon",
+          "itemDescription": "Oathkeeper Valyrian steel sword of House Lannister."
+        },
+        {
+          "itemName": "Weapon",
+          "itemDescription": "Widow's Wail Valyrian steel sword of House Lannister."
+        }
       ]
     },
     {
       "name": "Lannisport",
-      "description": "",
+      "description": "You're at Lannisport.",
       "directions": [
         {
           "directionName": "Northeast",
@@ -202,11 +288,17 @@
           "directionName": "East",
           "room": "Casterly Rock"
         }
+      ],
+      "items": [
+        {
+          "itemName": "Weapon",
+          "itemDescription": "Hearteater sword of House Lannister."
+        }
       ]
     },
     {
       "name": "King's Landing",
-      "description": "",
+      "description": "You're at King's Landing.",
       "directions": [
         {
           "directionName": "Northeast",
@@ -224,11 +316,17 @@
           "directionName": "Northwest",
           "room": "Harrenhal"
         }
+      ],
+      "items": [
+        {
+          "itemName": "Crown",
+          "itemDescription": "Crown from the ruling king."
+        }
       ]
     },
     {
       "name": "Eyrie",
-      "description": "",
+      "description": "You're at the Eyrie.",
       "directions": [
         {
           "directionName": "South",
@@ -242,25 +340,32 @@
           "directionName": "West",
           "room": "Twins"
         }
+      ],
+      "items": [
+        {
+          "itemName": "Banner",
+          "itemDescription": "Falcon sigil of House Arryn."
+        }
       ]
     },
     {
       "name": "Vale",
-      "description": "",
+      "description": "You're at the Vale.",
       "directions": [
         {
           "directionName": "East",
-          "room": "Narrow Sea"
+          "room": "Bay of Crabs"
         },
         {
           "directionName": "West",
           "room": "Eyrie"
         }
-      ]
+      ],
+      "items": []
     },
     {
       "name": "Ironman's Bay",
-      "description": "",
+      "description": "You're at Ironman's Bay.",
       "directions": [
         {
           "directionName": "Northeast",
@@ -270,21 +375,37 @@
           "directionName": "Southwest",
           "room": "Pyke"
         }
+      ],
+      "items": [
+        {
+          "itemName": "Tool",
+          "itemDescription": "Ships of Iron Fleet"
+        }
       ]
     },
     {
       "name": "Pyke",
-      "description": "",
+      "description": "You're at Pyke.",
       "directions": [
         {
           "directionName": "Northeast",
           "room": "Ironman's Bay"
         }
+      ],
+      "items": [
+        {
+          "itemName": "Banner",
+          "itemDescription": "Kraken sigil of House Greyjoy."
+        },
+        {
+          "itemName": "Weapon",
+          "itemDescription": "Nightfall sword of House Greyjoy."
+        }
       ]
     },
     {
       "name": "Highgarden",
-      "description": "",
+      "description": "You're at Highgarden.",
       "directions": [
         {
           "directionName": "North",
@@ -302,11 +423,17 @@
           "directionName": "South",
           "room": "Oldtown"
         }
+      ],
+      "items": [
+        {
+          "itemName": "Banner",
+          "itemDescription": "Rose sigil of House Tyrell."
+        }
       ]
     },
     {
       "name": "Reach",
-      "description": "",
+      "description": "You're at the Reach.",
       "directions": [
         {
           "directionName": "Northwest",
@@ -324,11 +451,12 @@
           "directionName": "West",
           "room": "Highgarden"
         }
-      ]
+      ],
+      "items": []
     },
     {
       "name": "Dornish Marches",
-      "description": "",
+      "description": "You're at the Dornish Marches.",
       "directions": [
         {
           "directionName": "North",
@@ -350,11 +478,12 @@
           "directionName": "East",
           "room": "Sea of Dorne"
         }
-      ]
+      ],
+      "items": []
     },
     {
       "name": "Storm's End",
-      "description": "",
+      "description": "You're at Storm's End.",
       "directions": [
         {
           "directionName": "Northwest",
@@ -368,11 +497,25 @@
           "directionName": "East",
           "room": "Shipbreaker Bay"
         }
+      ],
+      "items": [
+        {
+          "itemName": "Banner",
+          "itemDescription": "Stag sigil of House Baratheon."
+        },
+        {
+          "itemName": "Weapon",
+          "itemDescription": "Lightbringer sword of House Baratheon."
+        },
+        {
+          "itemName": "Weapon",
+          "itemDescription": "Lion's Tooth sword of House Baratheon."
+        }
       ]
     },
     {
       "name": "Blackwater Bay",
-      "description": "",
+      "description": "You're at Blackwater Bay.",
       "directions": [
         {
           "directionName": "Northeast",
@@ -382,11 +525,17 @@
           "directionName": "Southwest",
           "room": "King's Landing"
         }
+      ],
+      "items": [
+        {
+          "itemName": "Tool",
+          "itemDescription": "Ships of Royal Fleet."
+        }
       ]
     },
     {
       "name": "Dragonstone",
-      "description": "",
+      "description": "You're at You're at Dragonstone.",
       "directions": [
         {
           "directionName": "North",
@@ -400,11 +549,25 @@
           "directionName": "Southwest",
           "room": "Blackwater Bay"
         }
+      ],
+      "items": [
+        {
+          "itemName": "Banner",
+          "itemDescription": "Dragon sigil of House Targaryen."
+        },
+        {
+          "itemName": "Weapon",
+          "itemDescription": "Blackfyre Valyrian steel sword of House Targaryen."
+        },
+        {
+          "itemName": "Weapon",
+          "itemDescription": "Dark Sister Valyrian steel sword of House Targaryen."
+        }
       ]
     },
     {
       "name": "Sea of Dorne",
-      "description": "",
+      "description": "You're at the Sea of Dorne.",
       "directions": [
         {
           "directionName": "North",
@@ -418,11 +581,17 @@
           "directionName": "West",
           "room": "Dornish Marches"
         }
+      ],
+      "items": [
+        {
+          "itemName": "Tool",
+          "itemDescription": "Ships of Dornish Fleet."
+        }
       ]
     },
     {
       "name": "Sunspear",
-      "description": "",
+      "description": "You're at Sunspear.",
       "directions": [
         {
           "directionName": "North",
@@ -432,11 +601,17 @@
           "directionName": "West",
           "room": "Starfall"
         }
+      ],
+      "items": [
+        {
+          "itemName": "Banner",
+          "itemDescription": "Sun and spear sigil of House Martell."
+        }
       ]
     },
     {
       "name": "Bay of Crabs",
-      "description": "",
+      "description": "You're at the Bay of Crabs.",
       "directions": [
         {
           "directionName": "South",
@@ -446,11 +621,17 @@
           "directionName": "West",
           "room": "Vale"
         }
+      ],
+      "items": [
+        {
+          "itemName": "Tool",
+          "itemDescription": "Ships of Vale Fleet."
+        }
       ]
     },
     {
       "name": "Starfall",
-      "description": "",
+      "description": "You're at Starfall.",
       "directions": [
         {
           "directionName": "North",
@@ -464,11 +645,21 @@
           "directionName": "Northwest",
           "room": "Oldtown"
         }
+      ],
+      "items": [
+        {
+          "itemName": "Banner",
+          "itemDescription": "Sword and star sigil of House Dayne."
+        },
+        {
+          "itemName": "Weapon",
+          "itemDescription": "Dawn sword of House Dayne."
+        }
       ]
     },
     {
       "name": "Oldtown",
-      "description": "",
+      "description": "You're at Oldtown.",
       "directions": [
         {
           "directionName": "North",
@@ -482,11 +673,17 @@
           "directionName": "Southeast",
           "room": "Starfall"
         }
+      ],
+      "items": [
+        {
+          "itemName": "Banner",
+          "itemDescription": "Tower sigil of House Hightower."
+        }
       ]
     },
     {
       "name": "Shipbreaker Bay",
-      "description": "",
+      "description": "You're at Shipbreaker Bay.",
       "directions": [
         {
           "directionName": "North",
@@ -495,6 +692,12 @@
         {
           "directionName": "West",
           "room": "Storm's End"
+        }
+      ],
+      "items": [
+        {
+          "itemName": "Tool",
+          "itemDescription": "Ships of Royal Fleet."
         }
       ]
     }

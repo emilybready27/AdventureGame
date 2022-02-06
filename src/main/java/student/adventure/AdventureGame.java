@@ -8,6 +8,8 @@ import java.util.InputMismatchException;
 import java.util.Locale;
 import java.util.Scanner;
 
+import static student.adventure.Direction.isValidDirection;
+import static student.adventure.Item.isValidItem;
 import static student.adventure.Layout.parseJson;
 
 /** A class that handles the current state of the Adventure Game. */
@@ -93,12 +95,6 @@ public class AdventureGame {
         return null;
     }
 
-    private boolean isValidDirection(String argument) {
-        return (argument.equals("north") || argument.equals("south") || argument.equals("east")
-                || argument.equals("west") || argument.equals("northeast") || argument.equals("northwest")
-                || argument.equals("southeast") || argument.equals("southwest"));
-    }
-
     private boolean checkIfEndingRoom() {
         if (currentRoom.equals(findRoom(layout.getEndingRoom()))) {
             System.out.println("You're at " + layout.getEndingRoom() + "! You win!");
@@ -163,10 +159,5 @@ public class AdventureGame {
         } catch (InputMismatchException e) {
             return -1;
         }
-    }
-
-    private boolean isValidItem(String argument) {
-        return (argument.equals("banner") || argument.equals("weapon") || argument.equals("tool")
-                || argument.equals("crown"));
     }
 }

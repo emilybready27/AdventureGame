@@ -15,16 +15,16 @@
           "room": "Moat Cailin"
         },
         {
-          "directionName": "South",
-          "room": "Twins"
-        },
-        {
           "directionName": "East",
           "room": "Dreadfort"
         },
         {
           "directionName": "West",
           "room": "Torrhen's Square"
+        },
+        {
+          "directionName": "Southwest",
+          "room": "UIUC"
         }
       ],
       "items": [

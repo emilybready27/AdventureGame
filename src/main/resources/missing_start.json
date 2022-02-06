@@ -1,5 +1,4 @@
 {
-  "startingRoom" : "Winterfell",
   "endingRoom" : "King's Landing",
   "rooms" : [
     {
@@ -13,10 +12,6 @@
         {
           "directionName": "South",
           "room": "Moat Cailin"
-        },
-        {
-          "directionName": "South",
-          "room": "Twins"
         },
         {
           "directionName": "East",

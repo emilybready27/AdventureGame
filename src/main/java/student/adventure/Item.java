@@ -47,4 +47,9 @@ public class Item {
         return other != null && itemName.equals(other.getItemName())
                 && itemDescription.equals(other.getItemDescription());
     }
+
+    public static boolean isValidItem(String argument) {
+        return (argument.equals("banner") || argument.equals("weapon") || argument.equals("tool")
+                || argument.equals("crown"));
+    }
 }

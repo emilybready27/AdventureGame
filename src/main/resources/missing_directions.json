@@ -5,28 +5,6 @@
     {
       "name": "Winterfell",
       "description": "You're at Winterfell.",
-      "directions": [
-        {
-          "directionName": "North",
-          "room": "Castle Black"
-        },
-        {
-          "directionName": "South",
-          "room": "Moat Cailin"
-        },
-        {
-          "directionName": "South",
-          "room": "Twins"
-        },
-        {
-          "directionName": "East",
-          "room": "Dreadfort"
-        },
-        {
-          "directionName": "West",
-          "room": "Torrhen's Square"
-        }
-      ],
       "items": [
         {
           "itemName": "Banner",

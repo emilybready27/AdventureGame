@@ -7,16 +7,12 @@
       "description": "You're at Winterfell.",
       "directions": [
         {
-          "directionName": "North",
+          "directionName": "Nothing",
           "room": "Castle Black"
         },
         {
           "directionName": "South",
           "room": "Moat Cailin"
-        },
-        {
-          "directionName": "South",
-          "room": "Twins"
         },
         {
           "directionName": "East",

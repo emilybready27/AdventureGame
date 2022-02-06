@@ -7,7 +7,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.HashSet;
+import java.util.Set;
+
+import static student.adventure.Direction.isValidDirection;
+import static student.adventure.Item.isValidItem;
 
 /** A class that handles the map / layout of the Adventure Game. */
 public class Layout {
@@ -42,6 +46,14 @@ public class Layout {
         return rooms;
     }
 
+    public ArrayList<String> getRoomNames() {
+        ArrayList<String> roomNames = new ArrayList<>();
+        for (Room room : rooms) {
+            roomNames.add(room.getName());
+        }
+        return roomNames;
+    }
+
     public void printLayout() {
         System.out.println(startingRoom + " -> " + endingRoom);
         System.out.println();
@@ -65,6 +77,9 @@ public class Layout {
     }
 
     public void checkForDuplicates() throws JsonParseException {
+        if (startingRoom.equals(endingRoom)) {
+            throw new JsonParseException("Duplicate room.");
+        }
         for (Room room1 : rooms) {
             int count = 0;
             for (Room room2 : rooms) {
@@ -75,6 +90,38 @@ public class Layout {
                 }
             }
             room1.checkForDuplicates();
+        }
+    }
+
+    public void checkForNonexistentRoom() throws JsonParseException {
+        Set<String> directionRoomNames = new HashSet<>();
+        directionRoomNames.add(startingRoom);
+        directionRoomNames.add(endingRoom);
+        for (Room room : rooms) {
+            for (Direction direction : room.getDirections()) {
+                directionRoomNames.add(direction.getRoom());
+            }
+        }
+        ArrayList<String> roomNames = getRoomNames();
+        for (String directionRoomName : directionRoomNames) {
+            if (!roomNames.contains(directionRoomName)) {
+                throw new JsonParseException("Nonexistent room.");
+            }
+        }
+    }
+
+    public void checkForValidFields() throws JsonParseException {
+        for (Room room : rooms) {
+            for (Direction direction : room.getDirections()) {
+                if (!isValidDirection(direction.getDirectionName().toLowerCase())) {
+                    throw new JsonParseException("Invalid field.");
+                }
+            }
+            for (Item item : room.getItems()) {
+                if (!isValidItem(item.getItemName().toLowerCase())) {
+                    throw new JsonParseException("Invalid field.");
+                }
+            }
         }
     }
 
@@ -93,10 +140,12 @@ public class Layout {
             Layout layout = gson.fromJson(json, Layout.class);
             layout.checkForNull();
             layout.checkForDuplicates();
+            layout.checkForNonexistentRoom();
+            layout.checkForValidFields();
             layout.normalizeLayout();
             return layout;
         } catch (Exception e) {
-            throw new IllegalArgumentException("Invalid.");
+            throw new IllegalArgumentException("Invalid JSON.");
         }
 
     }

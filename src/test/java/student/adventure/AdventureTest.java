@@ -5,6 +5,20 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+/*
+prompt
+quit
+exit
+examine
+go valid
+go invalid
+take valid
+take invalid
+drop valid
+drop invalid
+invalid command
+ */
+
 public class AdventureTest {
     private AdventureGame adventureGame;
 
@@ -13,8 +27,5 @@ public class AdventureTest {
         adventureGame = new AdventureGame("src/main/resources/westeros.json");
     }
 
-    @Test
-    public void sanityCheck() throws IOException {
-        adventureGame.getLayout().printLayout();
-    }
+
 }

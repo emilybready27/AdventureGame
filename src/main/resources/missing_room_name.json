@@ -3,7 +3,6 @@
   "endingRoom" : "King's Landing",
   "rooms" : [
     {
-      "name": "Winterfell",
       "description": "You're at Winterfell.",
       "directions": [
         {
@@ -13,10 +12,6 @@
         {
           "directionName": "South",
           "room": "Moat Cailin"
-        },
-        {
-          "directionName": "South",
-          "room": "Twins"
         },
         {
           "directionName": "East",
