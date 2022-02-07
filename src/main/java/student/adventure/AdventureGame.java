@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import static org.junit.Assert.assertTrue;
 import static student.adventure.Direction.isValidDirection;
 import static student.adventure.Item.isValidItem;
 import static student.adventure.Layout.validateJson;

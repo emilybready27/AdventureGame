@@ -9,9 +9,6 @@ public class Room {
     private ArrayList<Direction> directions;
     private ArrayList<Item> items;
 
-    public Room() {
-    }
-
     public void setName(String name) {
         this.name = name;
     }

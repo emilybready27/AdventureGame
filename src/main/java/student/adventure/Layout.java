@@ -2,6 +2,7 @@ package student.adventure;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
+import com.google.gson.annotations.SerializedName;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -18,9 +19,6 @@ public class Layout {
     private String startingRoom;
     private String endingRoom;
     private ArrayList<Room> rooms;
-
-    public Layout() {
-    }
 
     public void setStartingRoom(String startingRoom) {
         this.startingRoom = startingRoom;
@@ -181,13 +179,9 @@ public class Layout {
     }
 
     private void normalizeLayout() {
-        startingRoom = startingRoom.toLowerCase();
-        endingRoom = endingRoom.toLowerCase();
         for (Room room : rooms) {
-            room.setName(room.getName().toLowerCase());
             for (Direction direction : room.getDirections()) {
                 direction.setDirectionName(direction.getDirectionName().toLowerCase());
-                direction.setRoom(direction.getRoom().toLowerCase());
             }
             for (Item item : room.getItems()) {
                 item.setItemName(item.getItemName().toLowerCase());

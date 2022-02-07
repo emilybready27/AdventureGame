@@ -33,7 +33,7 @@ public class AdventureTest {
     @Test
     public void testGoValidDirection() {
         adventureGame.go("north");
-        assertEquals("castle black", adventureGame.getCurrentRoom().getName());
+        assertEquals("Castle Black", adventureGame.getCurrentRoom().getName());
     }
 
     @Test

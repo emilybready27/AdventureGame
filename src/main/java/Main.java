@@ -3,7 +3,6 @@ import student.adventure.AdventureGame;
 import java.util.Scanner;
 
 public class Main {
-
     public static void main(String[] args) {
         System.out.println("Welcome!");
         System.out.println("Input the path to a valid JSON file.");
@@ -49,7 +48,7 @@ public class Main {
         }
     }
 
-    private static String[] getUserInput() {
+    public static String[] getUserInput() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("> ");
         String input = "";
@@ -57,9 +56,13 @@ public class Main {
             input = scanner.nextLine();
         }
         String[] inputArray = input.trim().split(" ", 2);
-        String[] userInput = new String[2];
-        userInput[0] = inputArray.length >= 1 ? inputArray[0].trim() : "";
-        userInput[1] = inputArray.length >= 2 ? inputArray[1].trim() : "";
+        String[] userInput = new String[]{"", ""};
+        if (inputArray.length >= 1) {
+            userInput[0] = inputArray[0].toLowerCase().trim();
+        }
+        if (inputArray.length >= 2) {
+            userInput[1] = inputArray[1].trim();
+        }
         return userInput;
     }
 }

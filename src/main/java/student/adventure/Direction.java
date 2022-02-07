@@ -5,9 +5,6 @@ public class Direction {
     private String directionName;
     private String room;
 
-    public Direction() {
-    }
-
     public void setDirectionName(String name) {
         this.directionName = name;
     }
