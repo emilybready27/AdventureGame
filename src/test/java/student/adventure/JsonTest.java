@@ -2,6 +2,7 @@ package student.adventure;;
 
 import org.junit.Test;
 
+/** A class that tests handling of JSON files that don't fit the schema or don't exist. */
 public class JsonTest {
     @Test
     public void testValidFile() {
