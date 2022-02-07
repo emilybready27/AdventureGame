@@ -17,6 +17,7 @@ public class Main {
                 break;
             } catch (IllegalArgumentException e) {
                 System.out.println("Input a valid JSON file.");
+                scanner.reset();
             }
         }
         adventureGame.examine();
@@ -42,7 +43,7 @@ public class Main {
                     adventureGame.drop(userInput[1]);
                     break;
                 default:
-                    System.out.println("I don't understand " + userInput[0] + " " + userInput[1] + "!");
+                    adventureGame.invalidCommand(userInput);
                     break;
             }
         }
@@ -61,7 +62,7 @@ public class Main {
             userInput[0] = inputArray[0].toLowerCase().trim();
         }
         if (inputArray.length >= 2) {
-            userInput[1] = inputArray[1].trim();
+            userInput[1] = inputArray[1].toLowerCase().trim();
         }
         return userInput;
     }

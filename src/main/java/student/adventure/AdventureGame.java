@@ -164,4 +164,8 @@ public class AdventureGame {
             return -1;
         }
     }
+
+    public void invalidCommand(String[] userInput) {
+        System.out.println("I don't understand " + userInput[0] + " " + userInput[1] + "!");
+    }
 }

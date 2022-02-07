@@ -178,4 +178,11 @@ public class AdventureTest {
         String expected = "You're at castle black! You win!";
         assertEquals(expected, outputStreamCaptor.toString().trim());
     }
+
+    @Test
+    public void testInvalidCommand() {
+        adventureGame.invalidCommand(new String[]{"Winter's", "coming"});
+        String expected = "I don't understand Winter's coming!";
+        assertEquals(expected, outputStreamCaptor.toString().trim());
+    }
 }
