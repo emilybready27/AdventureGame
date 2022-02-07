@@ -1,16 +1,13 @@
 package student.adventure;
 
-import com.google.gson.JsonParseException;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.Locale;
 import java.util.Scanner;
 
+import static org.junit.Assert.assertTrue;
 import static student.adventure.Direction.isValidDirection;
 import static student.adventure.Item.isValidItem;
-import static student.adventure.Layout.parseJson;
+import static student.adventure.Layout.validateJson;
 
 /** A class that handles the current state of the Adventure Game. */
 public class AdventureGame {
@@ -20,7 +17,7 @@ public class AdventureGame {
 
     public AdventureGame(String path) throws IllegalArgumentException {
         try {
-            this.layout = parseJson(path);
+            this.layout = validateJson(path);
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Invalid.");
         }
@@ -48,6 +45,11 @@ public class AdventureGame {
         return new ArrayList<>(inventory);
     }
 
+    public boolean quit() {
+        System.out.println("Goodbye!");
+        return true;
+    }
+
     public void examine() {
         System.out.println(currentRoom.getDescription());
         System.out.print("From here, you can go: ");
@@ -63,7 +65,7 @@ public class AdventureGame {
     }
 
     public boolean go(String argument) {
-        if (!isValidDirection(argument)) {
+        if (argument == null || !isValidDirection(argument)) {
             System.out.println("I can't go " + argument + "!");
             return false;
         }
@@ -78,20 +80,24 @@ public class AdventureGame {
     }
 
     private Room findRoom(String name) {
+        boolean foundRoom = false;
         for (Room room : layout.getRooms()) {
             if (name.equals(room.getName())) {
                 return room;
             }
         }
+        assertTrue(foundRoom);
         return null;
     }
 
     private Item findItem(String name, ArrayList<Item> container) {
+        boolean foundItem = false;
         for (Item item : container) {
             if (name.equals(item.getItemName())) {
                 return item;
             }
         }
+        assertTrue(foundItem);
         return null;
     }
 
