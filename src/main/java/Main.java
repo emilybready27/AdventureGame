@@ -1,9 +1,5 @@
-import com.google.gson.JsonParseException;
 import student.adventure.AdventureGame;
-import student.adventure.UserInput;
 
-import java.io.IOException;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Main {
@@ -28,30 +24,42 @@ public class Main {
 
         boolean quit = false;
         while (!quit) {
-            UserInput userInput = UserInput.getUserInput();
-            switch (userInput.getCommand()) {
+            String[] userInput = getUserInput();
+            switch (userInput[0]) {
                 case "quit":
                 case "exit":
-                    System.out.println("Goodbye!");
-                    quit = true;
+                    quit = adventureGame.quit();
                     break;
                 case "go":
-                    quit = adventureGame.go(userInput.getArgument());
+                    quit = adventureGame.go(userInput[1]);
                     break;
                 case "examine":
                     adventureGame.examine();
                     break;
                 case "take":
-                    adventureGame.take(userInput.getArgument());
+                    adventureGame.take(userInput[1]);
                     break;
                 case "drop":
-                    adventureGame.drop(userInput.getArgument());
+                    adventureGame.drop(userInput[1]);
                     break;
                 default:
-                    System.out.println("I don't understand " + userInput.getFullInput() + "!");
+                    System.out.println("I don't understand " + userInput[0] + " " + userInput[1] + "!");
                     break;
             }
         }
+    }
 
+    private static String[] getUserInput() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("> ");
+        String input = "";
+        while (input.isEmpty()) {
+            input = scanner.nextLine();
+        }
+        String[] inputArray = input.toLowerCase().trim().split(" ", 2);
+        String[] userInput = new String[2];
+        userInput[0] = inputArray.length >= 1 ? inputArray[0].trim() : "";
+        userInput[1] = inputArray.length >= 2 ? inputArray[1].trim() : "";
+        return userInput;
     }
 }

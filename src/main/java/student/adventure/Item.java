@@ -1,12 +1,16 @@
 package student.adventure;
 
-import com.google.gson.JsonParseException;
-
+/** A class that handles the Item functionality of the Adventure Game. */
 public class Item {
     private String itemName;
     private String itemDescription;
 
     public Item() {
+    }
+
+    public Item(String itemName, String itemDescription) {
+        this.itemName = itemName;
+        this.itemDescription = itemDescription;
     }
 
     public void setItemName(String itemName) {
@@ -25,21 +29,6 @@ public class Item {
         return this.itemDescription;
     }
 
-    public void printItem() {
-        System.out.println(itemName);
-        System.out.println(itemDescription);
-    }
-
-    public void checkForNull() throws JsonParseException {
-        if (itemName == null || itemDescription == null) {
-            throw new JsonParseException("Missing field.");
-        }
-    }
-
-    public void normalizeItem() {
-        itemName = itemName.toLowerCase();
-    }
-
     public boolean equals(Item other) {
         if (this == other) {
             return true;
@@ -49,7 +38,7 @@ public class Item {
     }
 
     public static boolean isValidItem(String argument) {
-        return (argument.equals("banner") || argument.equals("weapon") || argument.equals("tool")
-                || argument.equals("crown"));
+        return (argument.equals("banner") || argument.equals("weapon")
+                || argument.equals("tool") || argument.equals("crown"));
     }
 }
