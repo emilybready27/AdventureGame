@@ -5,9 +5,6 @@ public class Item {
     private String itemName;
     private String itemDescription;
 
-    public Item() {
-    }
-
     public Item(String itemName, String itemDescription) {
         this.itemName = itemName;
         this.itemDescription = itemDescription;
@@ -33,12 +30,12 @@ public class Item {
         if (this == other) {
             return true;
         }
-        return other != null && itemName.equals(other.getItemName())
-                && itemDescription.equals(other.getItemDescription());
+        return other != null && itemName.equalsIgnoreCase(other.getItemName())
+                && itemDescription.equalsIgnoreCase(other.getItemDescription());
     }
 
     public static boolean isValidItem(String argument) {
-        return (argument.equals("banner") || argument.equals("weapon")
-                || argument.equals("tool") || argument.equals("crown"));
+        return (argument.equalsIgnoreCase("banner") || argument.equalsIgnoreCase("weapon")
+                || argument.equalsIgnoreCase("tool") || argument.equalsIgnoreCase("crown"));
     }
 }

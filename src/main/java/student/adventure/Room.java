@@ -48,6 +48,6 @@ public class Room {
         if (this == other) {
             return true;
         }
-        return other != null && name.equals(other.getName());
+        return other != null && name.equalsIgnoreCase(other.getName());
     }
 }

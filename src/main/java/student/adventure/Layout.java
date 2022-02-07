@@ -94,7 +94,7 @@ public class Layout {
     }
 
     private void checkForDuplicates() throws JsonParseException {
-        if (startingRoom.equals(endingRoom)) {
+        if (startingRoom.equalsIgnoreCase(endingRoom)) {
             throw new JsonParseException("Duplicate field.");
         }
         for (Room room1 : rooms) {

@@ -28,12 +28,13 @@ public class Direction {
         if (this == other) {
             return true;
         }
-        return other != null && directionName.equals(other.getDirectionName());
+        return other != null && directionName.equalsIgnoreCase(other.getDirectionName());
     }
 
     public static boolean isValidDirection(String argument) {
-        return (argument.equals("north") || argument.equals("south") || argument.equals("east")
-                || argument.equals("west") || argument.equals("northeast") || argument.equals("northwest")
-                || argument.equals("southeast") || argument.equals("southwest"));
+        return (argument.equalsIgnoreCase("north") || argument.equalsIgnoreCase("south")
+                || argument.equalsIgnoreCase("east") || argument.equalsIgnoreCase("west")
+                || argument.equalsIgnoreCase("northeast") || argument.equalsIgnoreCase("northwest")
+                || argument.equalsIgnoreCase("southeast") || argument.equalsIgnoreCase("southwest"));
     }
 }

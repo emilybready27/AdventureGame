@@ -56,7 +56,7 @@ public class Main {
         while (input.isEmpty()) {
             input = scanner.nextLine();
         }
-        String[] inputArray = input.toLowerCase().trim().split(" ", 2);
+        String[] inputArray = input.trim().split(" ", 2);
         String[] userInput = new String[2];
         userInput[0] = inputArray.length >= 1 ? inputArray[0].trim() : "";
         userInput[1] = inputArray.length >= 2 ? inputArray[1].trim() : "";

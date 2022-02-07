@@ -70,7 +70,7 @@ public class AdventureGame {
             return false;
         }
         for (Direction direction : currentRoom.getDirections()) {
-            if (argument.equals(direction.getDirectionName())) {
+            if (argument.equalsIgnoreCase(direction.getDirectionName())) {
                 currentRoom = findRoom(direction.getRoom());
                 return checkIfEndingRoom();
             }
@@ -82,22 +82,20 @@ public class AdventureGame {
     private Room findRoom(String name) {
         boolean foundRoom = false;
         for (Room room : layout.getRooms()) {
-            if (name.equals(room.getName())) {
+            if (name.equalsIgnoreCase(room.getName())) {
                 return room;
             }
         }
-        assertTrue(foundRoom);
         return null;
     }
 
     private Item findItem(String name, ArrayList<Item> container) {
         boolean foundItem = false;
         for (Item item : container) {
-            if (name.equals(item.getItemName())) {
+            if (name.equalsIgnoreCase(item.getItemName())) {
                 return item;
             }
         }
-        assertTrue(foundItem);
         return null;
     }
 
@@ -111,7 +109,7 @@ public class AdventureGame {
     }
 
     public void take(String argument) {
-        if (!isValidItem(argument)
+        if (argument == null || !isValidItem(argument)
                 || !currentRoom.getItems().contains(findItem(argument, currentRoom.getItems()))) {
             System.out.println("There is no item " + argument + " in the room!");
             return;
@@ -128,7 +126,8 @@ public class AdventureGame {
     }
 
     public void drop(String argument) {
-        if (!isValidItem(argument) || !inventory.contains(findItem(argument, inventory))) {
+        if (argument == null || !isValidItem(argument)
+                || !inventory.contains(findItem(argument, inventory))) {
             System.out.println("You don't have " + argument + "!");
             return;
         }
@@ -148,7 +147,7 @@ public class AdventureGame {
         int count = 0;
         ArrayList<Item> items = new ArrayList<>();
         for (Item item : container) {
-            if (argument.equals(item.getItemName()) ) {
+            if (argument.equalsIgnoreCase(item.getItemName()) ) {
                 System.out.println(count + ": " + item.getItemDescription());
                 count++;
                 items.add(item);
