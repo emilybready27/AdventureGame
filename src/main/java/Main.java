@@ -2,6 +2,7 @@ import student.adventure.AdventureGame;
 
 import java.util.Scanner;
 
+/** A class that controls the flow of the AdventureGame user commands. */
 public class Main {
     public static void main(String[] args) {
         System.out.println("Welcome!");
@@ -49,6 +50,11 @@ public class Main {
         }
     }
 
+    /**
+     * Gets the user input from the console and parses it into
+     * commands and arguments.
+     * @return String[]
+     */
     public static String[] getUserInput() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("> ");

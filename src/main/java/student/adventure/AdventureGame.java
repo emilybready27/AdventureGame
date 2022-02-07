@@ -8,53 +8,75 @@ import static student.adventure.Direction.isValidDirection;
 import static student.adventure.Item.isValidItem;
 import static student.adventure.Layout.validateJson;
 
-/** A class that handles the current state of the Adventure Game. */
+/** A class that handles the state and command behaviors of the Adventure Game. */
 public class AdventureGame {
     private final Layout layout;
     private Room currentRoom;
     private ArrayList<Item> inventory;
 
+    /**
+     * Constructs an AdventureGame only if the JSON file located by path
+     * is parsed correctly and the layout is validated.
+     * @param path String
+     * @throws IllegalArgumentException Invalid JSON
+     */
     public AdventureGame(String path) throws IllegalArgumentException {
         try {
             this.layout = validateJson(path);
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Invalid.");
+            throw new IllegalArgumentException("Invalid JSON.");
         }
         this.currentRoom = findRoom(layout.getStartingRoom());
         this.inventory = new ArrayList<>();
     }
 
+    /**
+     * Gets the Layout of the current game.
+     * @return Layout
+     */
     public Layout getLayout() {
         return layout;
     }
 
-    public void setCurrentRoom(Room currentRoom) {
-        this.currentRoom = currentRoom;
-    }
-
+    /**
+     * Gets the current Room of the game.
+     * @return Room
+     */
     public Room getCurrentRoom() {
         return currentRoom;
     }
 
-    public void setInventory(ArrayList<Item> inventory) {
-        this.inventory = new ArrayList<>(inventory);
-    }
-
+    /**
+     * Gets the current Inventory of Items of the game.
+     * @return ArrayList<Item>
+     */
     public ArrayList<Item> getInventory() {
         return new ArrayList<>(inventory);
     }
 
+
+    /**
+     * Quits or exits the current game by signaling quit is true.
+     * @return boolean
+     */
     public boolean quit() {
         System.out.println("Goodbye!");
         return true;
     }
 
+    /**
+     * Examines the current state of the game by printing out the name
+     * of the current Room, its description, the directions in which to
+     * go from this Room, and the Items visible in this Room.
+     */
     public void examine() {
         System.out.println(currentRoom.getDescription());
+
         System.out.print("From here, you can go: ");
         for (Direction direction : currentRoom.getDirections()) {
             System.out.print(direction.getDirectionName() + " ");
         }
+
         System.out.println();
         System.out.print("Items visible: ");
         for (Item item : currentRoom.getItems()) {
@@ -63,23 +85,38 @@ public class AdventureGame {
         System.out.println();
     }
 
+    /**
+     * Attempts to go in the given Direction, if it is valid, from the current Room.
+     * If it isn't a valid Direction, or the Direction isn't possible in this Room,
+     * doesn't change the state of the game.
+     * If the Direction is valid and leads to the ending Room, terminates the game
+     * by signaling quit is true.
+     * @param argument String
+     * @return boolean
+     */
     public boolean go(String argument) {
         if (argument == null || !isValidDirection(argument)) {
             System.out.println("I can't go " + argument + "!");
             return false;
         }
+
         for (Direction direction : currentRoom.getDirections()) {
             if (argument.equalsIgnoreCase(direction.getDirectionName())) {
                 currentRoom = findRoom(direction.getRoom());
                 return checkIfEndingRoom();
             }
         }
+
         System.out.println("I can't go " + argument + "!");
         return false;
     }
 
+    /**
+     * Locates the Room object given the String name representing it.
+     * @param name String
+     * @return Room
+     */
     private Room findRoom(String name) {
-        boolean foundRoom = false;
         for (Room room : layout.getRooms()) {
             if (name.equalsIgnoreCase(room.getName())) {
                 return room;
@@ -88,16 +125,12 @@ public class AdventureGame {
         return null;
     }
 
-    private Item findItem(String name, ArrayList<Item> container) {
-        boolean foundItem = false;
-        for (Item item : container) {
-            if (name.equalsIgnoreCase(item.getItemName())) {
-                return item;
-            }
-        }
-        return null;
-    }
-
+    /**
+     * Checks if the current Room is equal to the ending Room and
+     * signals to terminate the game by returning true.
+     * Otherwise, prints the examine information of the new Room.
+     * @return boolean
+     */
     private boolean checkIfEndingRoom() {
         if (currentRoom.equals(findRoom(layout.getEndingRoom()))) {
             System.out.println("You're at " + layout.getEndingRoom() + "! You win!");
@@ -107,6 +140,13 @@ public class AdventureGame {
         return false;
     }
 
+    /**
+     * Attempts to take the given Item, if it is valid, from the current Room.
+     * If it isn't a valid Item, or the Item isn't present in the Room,
+     * doesn't change the state of the game.
+     * Prompts the user for a selection and takes that particular Item.
+     * @param argument String
+     */
     public void take(String argument) {
         if (argument == null || !isValidItem(argument)
                 || !currentRoom.getItems().contains(findItem(argument, currentRoom.getItems()))) {
@@ -114,8 +154,9 @@ public class AdventureGame {
             return;
         }
 
-        ArrayList<Item> items = matchItems(argument, currentRoom.getItems());
+        ArrayList<Item> items = matchItemsInPrompt(argument, currentRoom.getItems());
         int input = getItemInput();
+
         if (input >= 0 && input < items.size()) {
             inventory.add(items.get(input));
             currentRoom.getItems().remove(items.get(input));
@@ -124,6 +165,13 @@ public class AdventureGame {
         }
     }
 
+    /**
+     * Attempts to drop the given Item, if it is valid, into the current Room.
+     * If it isn't a valid Item, or the item isn't present in the inventory,
+     * doesn't change the state of the game.
+     * Prompts the user for a selection and drops that particular Item.
+     * @param argument String
+     */
     public void drop(String argument) {
         if (argument == null || !isValidItem(argument)
                 || !inventory.contains(findItem(argument, inventory))) {
@@ -131,8 +179,9 @@ public class AdventureGame {
             return;
         }
 
-        ArrayList<Item> items = matchItems(argument, inventory);
+        ArrayList<Item> items = matchItemsInPrompt(argument, inventory);
         int input = getItemInput();
+
         if (input >= 0 && input < items.size()) {
             inventory.remove(items.get(input));
             currentRoom.getItems().add(items.get(input));
@@ -141,10 +190,34 @@ public class AdventureGame {
         }
     }
 
-    private ArrayList<Item> matchItems(String argument, ArrayList<Item> container) {
+    /**
+     * Locates the Item object given the String name representing it
+     * and a specified container to search in.
+     * @param name String
+     * @param container ArrayList<Item>
+     * @return Item
+     */
+    private Item findItem(String name, ArrayList<Item> container) {
+        for (Item item : container) {
+            if (name.equalsIgnoreCase(item.getItemName())) {
+                return item;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Matches all Items with the same given Item name in the given container
+     * and prompts the user for a selection based on their descriptions.
+     * @param argument String
+     * @param container ArrayList<Item>
+     * @return ArrayList<Item>
+     */
+    private ArrayList<Item> matchItemsInPrompt(String argument, ArrayList<Item> container) {
         System.out.println("Input the number for which " + argument + " to choose.");
         int count = 0;
         ArrayList<Item> items = new ArrayList<>();
+
         for (Item item : container) {
             if (argument.equalsIgnoreCase(item.getItemName()) ) {
                 System.out.println(count + ": " + item.getItemDescription());
@@ -155,6 +228,10 @@ public class AdventureGame {
         return items;
     }
 
+    /**
+     * Gets user input for the number of the Item to select.
+     * @return int
+     */
     private int getItemInput() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("> ");
@@ -165,6 +242,10 @@ public class AdventureGame {
         }
     }
 
+    /**
+     * Responds to an invalid command with a print statement.
+     * @param userInput String[]
+     */
     public void invalidCommand(String[] userInput) {
         System.out.println("I don't understand " + userInput[0] + " " + userInput[1] + "!");
     }

@@ -9,9 +9,10 @@ import java.io.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-// Tests with input streams inspired by
+/** A class that tests the behavior of the AdventureGame. */
+// Tests with byte array input streams inspired by
 // https://stackoverflow.com/questions/6415728/junit-testing-with-simulated-user-input/6416179#6416179
-// Tests with asserts for standard out inspired by
+// Tests using output stream captor inspired by
 // https://www.baeldung.com/java-testing-system-out-println
 public class AdventureTest {
     private AdventureGame adventureGame;
