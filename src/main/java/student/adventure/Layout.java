@@ -3,6 +3,7 @@ package student.adventure;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 
+import javax.validation.constraints.Null;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -68,34 +69,40 @@ public class Layout {
     }
 
     /**
-     * Combines the functionality that parses the JSON file using GSON with several
-     * checks to ensure that the provided layout fits the necessary schema:
+     * Builds the Layout object with normalized values if and only if the provided
+     * JSON is valid and fits the schema:
      *   1. Fields must be non-null.
      *   2. Duplicates are not allowed.
      *   3. Directions to non-existent rooms are not allowed.
      *   4. Fields for Items and Directions must be valid.
-     * If any step of building and verifying the layout fails, throws an exception.
-     * Otherwise, returns a valid layout with normalized values.
      * @param path String
      * @return Layout
-     * @throws IllegalArgumentException Invalid JSON
+     * @throws IllegalArgumentException Invalid layout
      */
-    public static Layout validateJson(String path) throws IllegalArgumentException {
+    public static Layout buildLayout(String path) throws IllegalArgumentException {
         try {
-            String json = readFileAsString(path);
-            Gson gson = new Gson();
-            Layout layout = gson.fromJson(json, Layout.class);
-
+            Layout layout = parseJson(path);
             layout.checkForMissingFields();
             layout.checkForDuplicates();
             layout.checkForNonexistentRoom();
             layout.checkForInvalidFields();
             layout.normalizeLayout();
-
             return layout;
-        } catch (Exception e) {
-            throw new IllegalArgumentException("Invalid JSON.");
+        } catch (JsonParseException | NullPointerException | IOException e) {
+            throw new IllegalArgumentException("Invalid layout.");
         }
+    }
+
+    /**
+     * Attempts to parse the JSON file into the Layout object.
+     * @param path String
+     * @return Layout
+     * @throws IOException Invalid read
+     */
+    private static Layout parseJson(String path) throws IOException {
+        String json = readFileAsString(path);
+        Gson gson = new Gson();
+        return gson.fromJson(json, Layout.class);
     }
 
     /**
@@ -110,27 +117,27 @@ public class Layout {
 
     /**
      * Checks for fields from the JSON file that were not filled and by default are null.
-     * Any instance of a missing field is treated as invalid JSON.
+     * Any instance of a missing field is treated as invalid Layout.
      * @throws JsonParseException Missing field
      */
     private void checkForMissingFields() throws JsonParseException {
-        if (startingRoom == null || endingRoom == null) {
+        if (startingRoom == null || endingRoom == null || rooms == null) {
             throw new JsonParseException("Missing Field.");
         }
-
         for (Room room : rooms) {
-            if (room.getName() == null || room.getDescription() == null) {
+            if (room == null || room.getName() == null || room.getDescription() == null
+                    || room.getDirections() == null || room.getItems() == null) {
                 throw new JsonParseException("Missing field.");
             }
 
             for (Direction direction : room.getDirections()) {
-                if (direction.getDirectionName() == null || direction.getRoom() == null) {
+                if (direction == null || direction.getDirectionName() == null || direction.getRoom() == null) {
                     throw new JsonParseException("Missing field.");
                 }
             }
 
             for (Item item : room.getItems()) {
-                if ((item.getItemName() == null || item.getItemDescription() == null)) {
+                if (item == null || item.getItemName() == null || item.getItemDescription() == null) {
                     throw new JsonParseException("Missing field.");
                 }
             }
@@ -138,9 +145,10 @@ public class Layout {
     }
 
     /**
-     * Checks for two Rooms of the same name.
-     * Checks for two Directions of the same name within a single Room.
-     * Checks for two Items of the same name and description within a single Room.
+     * Checks for duplicates:
+     *   1. Two Rooms of the same name
+     *   2. Two Directions of the same name within a single Room
+     *   3. Two Items of the same name and description within a single Room.
      * @throws JsonParseException Duplicate field
      */
     private void checkForDuplicates() throws JsonParseException {
@@ -149,12 +157,11 @@ public class Layout {
         }
 
         for (Room room1 : rooms) {
-            int count = 0;
-            for (Room room2 : rooms) {
-                if (room1.equals(room2) && count == 1) {
+            ArrayList<Room> roomsCopy = new ArrayList<>(rooms);
+            roomsCopy.remove(room1);
+            for (Room room2 : roomsCopy) {
+                if (room1.equals(room2)) {
                     throw new JsonParseException("Duplicate field.");
-                } else if (room1.equals(room2)) {
-                    count++;
                 }
             }
             if (hasDuplicateDirections(room1) || hasDuplicateItems(room1)) {
@@ -171,13 +178,11 @@ public class Layout {
      */
     private boolean hasDuplicateDirections(Room room) {
         for (Direction direction1 : room.getDirections()) {
-            int count = 0;
-
-            for (Direction direction2 : room.getDirections()) {
-                if (direction1.equals(direction2) && count == 1) {
+            ArrayList<Direction> directionsCopy = new ArrayList<>(room.getDirections());
+            directionsCopy.remove(direction1);
+            for (Direction direction2 : directionsCopy) {
+                if (direction1.equals(direction2)) {
                     return true;
-                } else if (direction1.equals(direction2)) {
-                    count++;
                 }
             }
         }
@@ -192,13 +197,11 @@ public class Layout {
      */
     private boolean hasDuplicateItems(Room room) {
         for (Item item1 : room.getItems()) {
-            int count = 0;
-
-            for (Item item2 : room.getItems()) {
-                if (item1.equals(item2) && count == 1) {
+            ArrayList<Item> itemsCopy = new ArrayList<>(room.getItems());
+            itemsCopy.remove(item1);
+            for (Item item2 : itemsCopy) {
+                if (item1.equals(item2)) {
                     return true;
-                } else if (item1.equals(item2)) {
-                    count++;
                 }
             }
         }
@@ -214,7 +217,6 @@ public class Layout {
         Set<String> directionRoomNames = new HashSet<>();
         directionRoomNames.add(startingRoom);
         directionRoomNames.add(endingRoom);
-
         for (Room room : rooms) {
             for (Direction direction : room.getDirections()) {
                 directionRoomNames.add(direction.getRoom());
@@ -249,7 +251,6 @@ public class Layout {
      */
     private void checkForInvalidFields() throws JsonParseException {
         for (Room room : rooms) {
-
             for (Direction direction : room.getDirections()) {
                 if (!isValidDirection(direction.getDirectionName().toLowerCase())) {
                     throw new JsonParseException("Invalid field.");
