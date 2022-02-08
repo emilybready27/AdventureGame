@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Welcome!");
         System.out.println("Input the path to a valid JSON file.");
-        AdventureGame adventureGame = setUpGame();
+        AdventureGame adventureGame = buildGame();
         adventureGame.examine();
 
         boolean quit = false;
@@ -42,7 +42,7 @@ public class Main {
      * Prompts the user again when input is invalid.
      * @return AdventureGame
      */
-    private static AdventureGame setUpGame() {
+    private static AdventureGame buildGame() {
         Scanner scanner = new Scanner(System.in);
         String path;
         AdventureGame adventureGame;
