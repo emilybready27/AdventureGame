@@ -7,20 +7,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Welcome!");
         System.out.println("Input the path to a valid JSON file.");
-        Scanner scanner = new Scanner(System.in);
-        String path;
-        AdventureGame adventureGame;
-        while (true) {
-            System.out.print("> ");
-            try {
-                path = scanner.next();
-                adventureGame = new AdventureGame(path);
-                break;
-            } catch (IllegalArgumentException e) {
-                System.out.println("Input a valid JSON file.");
-                scanner.reset();
-            }
-        }
+        AdventureGame adventureGame = setUpGame();
         adventureGame.examine();
 
         boolean quit = false;
@@ -51,8 +38,30 @@ public class Main {
     }
 
     /**
-     * Gets the user input from the console and parses it into
-     * commands and arguments.
+     * Sets up the AdventureGame with a path to a JSON file inputted by user.
+     * Prompts the user again when input is invalid.
+     * @return AdventureGame
+     */
+    private static AdventureGame setUpGame() {
+        Scanner scanner = new Scanner(System.in);
+        String path;
+        AdventureGame adventureGame;
+        while (true) {
+            System.out.print("> ");
+            try {
+                path = scanner.next();
+                adventureGame = new AdventureGame(path);
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Input a valid JSON file.");
+                scanner.reset();
+            }
+        }
+        return adventureGame;
+    }
+
+    /**
+     * Gets the user input from the console.
      * @return String[]
      */
     public static String[] getUserInput() {
@@ -62,6 +71,15 @@ public class Main {
         while (input.isEmpty()) {
             input = scanner.nextLine();
         }
+        return parseUserInput(input);
+    }
+
+    /**
+     * Parses the user input into commands and corresponding arguments.
+     * @param input String
+     * @return String[]
+     */
+    private static String[] parseUserInput(String input) {
         String[] inputArray = input.trim().split(" ", 2);
         String[] userInput = new String[]{"", ""};
         if (inputArray.length >= 1) {
