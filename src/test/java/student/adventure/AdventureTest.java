@@ -166,7 +166,7 @@ public class AdventureTest {
     @Test
     public void testExamine() {
         adventureGame.examine();
-        String expected = "You're at Winterfell.\r\n" +
+        String expected = "Winterfell\r\n" + "You're at Winterfell.\r\n" +
                 "From here, you can go: north south east west \r\n" +
                 "Items visible: banner weapon weapon";
         assertEquals(expected, outputStreamCaptor.toString().trim());

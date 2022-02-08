@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 import static student.adventure.Direction.isValidDirection;
 import static student.adventure.Item.isValidItem;
-import static student.adventure.Layout.validateJson;
+import static student.adventure.Layout.buildLayout;
 
 /** A class that handles the state and command behaviors of the Adventure Game. */
 public class AdventureGame {
@@ -15,16 +15,15 @@ public class AdventureGame {
     private ArrayList<Item> inventory;
 
     /**
-     * Constructs an AdventureGame only if the JSON file located by path
-     * is parsed correctly and the layout is validated.
+     * Constructs an AdventureGame by first attempting to build the Layout.
      * @param path String
-     * @throws IllegalArgumentException Invalid JSON
+     * @throws IllegalArgumentException Invalid layout
      */
     public AdventureGame(String path) throws IllegalArgumentException {
         try {
-            this.layout = validateJson(path);
+            this.layout = buildLayout(path);
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Invalid JSON.");
+            throw new IllegalArgumentException("Invalid layout.");
         }
         this.currentRoom = findRoom(layout.getStartingRoom());
         this.inventory = new ArrayList<>();
@@ -70,6 +69,7 @@ public class AdventureGame {
      * go from this Room, and the Items visible in this Room.
      */
     public void examine() {
+        System.out.println(currentRoom.getName());
         System.out.println(currentRoom.getDescription());
 
         System.out.print("From here, you can go: ");
@@ -103,7 +103,7 @@ public class AdventureGame {
         for (Direction direction : currentRoom.getDirections()) {
             if (argument.equalsIgnoreCase(direction.getDirectionName())) {
                 currentRoom = findRoom(direction.getRoom());
-                return checkIfEndingRoom();
+                return isEndingRoom();
             }
         }
 
@@ -131,13 +131,14 @@ public class AdventureGame {
      * Otherwise, prints the examine information of the new Room.
      * @return boolean
      */
-    private boolean checkIfEndingRoom() {
+    private boolean isEndingRoom() {
         if (currentRoom.equals(findRoom(layout.getEndingRoom()))) {
             System.out.println("You're at " + layout.getEndingRoom() + "! You win!");
             return true;
+        } else {
+            examine();
+            return false;
         }
-        examine();
-        return false;
     }
 
     /**
@@ -154,12 +155,12 @@ public class AdventureGame {
             return;
         }
 
-        ArrayList<Item> items = matchItemsInPrompt(argument, currentRoom.getItems());
-        int input = getItemInput();
+        ArrayList<Item> items = promptForItems(argument, currentRoom.getItems());
+        int selection = getItemSelection();
 
-        if (input >= 0 && input < items.size()) {
-            inventory.add(items.get(input));
-            currentRoom.getItems().remove(items.get(input));
+        if (selection >= 0 && selection < items.size()) {
+            inventory.add(items.get(selection));
+            currentRoom.getItems().remove(items.get(selection));
         } else {
             System.out.println("Invalid number: aborting action.");
         }
@@ -179,12 +180,12 @@ public class AdventureGame {
             return;
         }
 
-        ArrayList<Item> items = matchItemsInPrompt(argument, inventory);
-        int input = getItemInput();
+        ArrayList<Item> items = promptForItems(argument, inventory);
+        int selection = getItemSelection();
 
-        if (input >= 0 && input < items.size()) {
-            inventory.remove(items.get(input));
-            currentRoom.getItems().add(items.get(input));
+        if (selection >= 0 && selection < items.size()) {
+            inventory.remove(items.get(selection));
+            currentRoom.getItems().add(items.get(selection));
         } else {
             System.out.println("Invalid number: aborting action.");
         }
@@ -213,7 +214,7 @@ public class AdventureGame {
      * @param container ArrayList<Item>
      * @return ArrayList<Item>
      */
-    private ArrayList<Item> matchItemsInPrompt(String argument, ArrayList<Item> container) {
+    private ArrayList<Item> promptForItems(String argument, ArrayList<Item> container) {
         System.out.println("Input the number for which " + argument + " to choose.");
         int count = 0;
         ArrayList<Item> items = new ArrayList<>();
@@ -232,7 +233,7 @@ public class AdventureGame {
      * Gets user input for the number of the Item to select.
      * @return int
      */
-    private int getItemInput() {
+    private int getItemSelection() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("> ");
         try {
