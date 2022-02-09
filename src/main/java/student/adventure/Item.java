@@ -1,7 +1,12 @@
 package student.adventure;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 /** A class that handles the Item functionality of the Adventure Game. */
 public class Item {
+    private static final Set<String> validItems = new HashSet(Arrays.asList("banner","weapon","tool","crown"));
     private String itemName;
     private String itemDescription;
 
@@ -69,7 +74,6 @@ public class Item {
      * @return boolean
      */
     public static boolean isValidItem(String argument) {
-        return (argument.equalsIgnoreCase("banner") || argument.equalsIgnoreCase("weapon")
-                || argument.equalsIgnoreCase("tool") || argument.equalsIgnoreCase("crown"));
+        return validItems.contains(argument);
     }
 }
