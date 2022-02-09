@@ -12,7 +12,7 @@ public class UserInputTest {
         ByteArrayInputStream in = new ByteArrayInputStream("examine".getBytes());
         System.setIn(in);
         String[] userInput = Main.getUserInput();
-        assertArrayEquals(new String[]{"examine", ""}, userInput);
+        assertArrayEquals(new String[]{"examine"}, userInput);
     }
 
     @Test
@@ -20,7 +20,7 @@ public class UserInputTest {
         ByteArrayInputStream in = new ByteArrayInputStream("EXAMINE".getBytes());
         System.setIn(in);
         String[] userInput = Main.getUserInput();
-        assertArrayEquals(new String[]{"examine", ""}, userInput);
+        assertArrayEquals(new String[]{"examine"}, userInput);
     }
 
     @Test
@@ -28,7 +28,7 @@ public class UserInputTest {
         ByteArrayInputStream in = new ByteArrayInputStream("ExAmInE".getBytes());
         System.setIn(in);
         String[] userInput = Main.getUserInput();
-        assertArrayEquals(new String[]{"examine", ""}, userInput);
+        assertArrayEquals(new String[]{"examine"}, userInput);
     }
 
     @Test
@@ -36,7 +36,7 @@ public class UserInputTest {
         ByteArrayInputStream in = new ByteArrayInputStream("  examine  ".getBytes());
         System.setIn(in);
         String[] userInput = Main.getUserInput();
-        assertArrayEquals(new String[]{"examine", ""}, userInput);
+        assertArrayEquals(new String[]{"examine"}, userInput);
     }
 
     @Test
@@ -65,7 +65,7 @@ public class UserInputTest {
 
     @Test
     public void testExtraSpacesCommandAndArgument() {
-        ByteArrayInputStream in = new ByteArrayInputStream("  go   south  ".getBytes());
+        ByteArrayInputStream in = new ByteArrayInputStream("  go     south  ".getBytes());
         System.setIn(in);
         String[] userInput = Main.getUserInput();
         assertArrayEquals(new String[]{"go", "south"}, userInput);
@@ -76,6 +76,6 @@ public class UserInputTest {
         ByteArrayInputStream in = new ByteArrayInputStream("".getBytes());
         System.setIn(in);
         String[] userInput = Main.getUserInput();
-        assertArrayEquals(new String[]{"", ""}, userInput);
+        assertArrayEquals(new String[]{}, userInput);
     }
 }
