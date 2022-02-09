@@ -237,8 +237,12 @@ public class AdventureGame {
         Scanner scanner = new Scanner(System.in);
         System.out.print("> ");
         try {
-            return scanner.nextInt();
-        } catch (InputMismatchException e) {
+            String selection = "";
+            while (selection.isEmpty()) {
+                selection = scanner.nextLine();
+            }
+            return Integer.parseInt(selection.trim());
+        } catch (InputMismatchException | IllegalArgumentException e) {
             return -1;
         }
     }
@@ -248,6 +252,10 @@ public class AdventureGame {
      * @param userInput String[]
      */
     public void invalidCommand(String[] userInput) {
-        System.out.println("I don't understand " + userInput[0] + " " + userInput[1] + "!");
+        System.out.print("I don't understand");
+        for (int i = 0; i < userInput.length; i++) {
+            System.out.print(" " + userInput[i]);
+        }
+        System.out.print("!\r\n");
     }
 }
