@@ -1,7 +1,13 @@
 package student.adventure;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 /** A class that handles the Direction functionality of the Adventure Game. */
 public class Direction {
+    private static final Set<String> validDirections = new HashSet(Arrays.asList("north","south",
+            "east","west","northeast","northwest","southeast","southwest"));
     private String directionName;
     private String room;
 
@@ -58,9 +64,6 @@ public class Direction {
      * @return boolean
      */
     public static boolean isValidDirection(String argument) {
-        return (argument.equalsIgnoreCase("north") || argument.equalsIgnoreCase("south")
-                || argument.equalsIgnoreCase("east") || argument.equalsIgnoreCase("west")
-                || argument.equalsIgnoreCase("northeast") || argument.equalsIgnoreCase("northwest")
-                || argument.equalsIgnoreCase("southeast") || argument.equalsIgnoreCase("southwest"));
+        return validDirections.contains(argument);
     }
 }
