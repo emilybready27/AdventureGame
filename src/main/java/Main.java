@@ -1,5 +1,6 @@
 import student.adventure.AdventureGame;
 
+import java.util.Locale;
 import java.util.Scanner;
 
 /** A class that controls the flow of the AdventureGame user commands. */
@@ -14,25 +15,45 @@ public class Main {
         while (!quit) {
             String[] userInput = getUserInput();
             switch (userInput[0]) {
-                case "quit":
-                case "exit":
+            case "quit":
+            case "exit":
+                if (userInput.length == 1) {
                     quit = adventureGame.quit();
-                    break;
-                case "go":
-                    quit = adventureGame.go(userInput[1]);
-                    break;
-                case "examine":
-                    adventureGame.examine();
-                    break;
-                case "take":
-                    adventureGame.take(userInput[1]);
-                    break;
-                case "drop":
-                    adventureGame.drop(userInput[1]);
-                    break;
-                default:
+                } else {
                     adventureGame.invalidCommand(userInput);
-                    break;
+                }
+                break;
+            case "examine":
+                if (userInput.length == 1) {
+                    adventureGame.examine();
+                } else {
+                    adventureGame.invalidCommand(userInput);
+                }
+                break;
+            case "go":
+                if (userInput.length == 2) {
+                    quit = adventureGame.go(userInput[1]);
+                } else {
+                    adventureGame.invalidCommand(userInput);
+                }
+                break;
+            case "take":
+                if (userInput.length == 2) {
+                    adventureGame.take(userInput[1]);
+                } else {
+                    adventureGame.invalidCommand(userInput);
+                }
+                break;
+            case "drop":
+                if (userInput.length == 2) {
+                    adventureGame.drop(userInput[1]);
+                } else {
+                    adventureGame.invalidCommand(userInput);
+                }
+                break;
+            default:
+                adventureGame.invalidCommand(userInput);
+                break;
             }
         }
     }
@@ -44,16 +65,18 @@ public class Main {
      */
     private static AdventureGame buildGame() {
         Scanner scanner = new Scanner(System.in);
-        String path;
         AdventureGame adventureGame;
         while (true) {
             System.out.print("> ");
             try {
-                path = scanner.next();
-                adventureGame = new AdventureGame(path);
+                String path = "";
+                while (path.isEmpty()) {
+                    path = scanner.nextLine();
+                }
+                adventureGame = new AdventureGame(path.trim());
                 break;
             } catch (IllegalArgumentException e) {
-                System.out.println("Input a valid JSON file.");
+                System.out.println("Input the path to a valid JSON file.");
                 scanner.reset();
             }
         }
@@ -80,14 +103,14 @@ public class Main {
      * @return String[]
      */
     private static String[] parseUserInput(String input) {
-        String[] inputArray = input.trim().split(" ", 2);
-        String[] userInput = new String[]{"", ""};
+        String normalized = input.replaceAll("\\s+", " ").trim();
+        String[] inputArray = normalized.split(" ");
         if (inputArray.length >= 1) {
-            userInput[0] = inputArray[0].toLowerCase().trim();
+            inputArray[0] = inputArray[0].toLowerCase();
         }
         if (inputArray.length >= 2) {
-            userInput[1] = inputArray[1].toLowerCase().trim();
+            inputArray[1] = inputArray[1].toLowerCase();
         }
-        return userInput;
+        return inputArray;
     }
 }
