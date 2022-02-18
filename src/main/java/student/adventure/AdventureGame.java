@@ -15,6 +15,7 @@ public class AdventureGame {
 
     /**
      * Constructs an AdventureGame by first attempting to build the Layout.
+     * @param path String
      * @throws IllegalArgumentException Invalid layout
      */
     public AdventureGame(String path) throws IllegalArgumentException {
@@ -52,6 +53,14 @@ public class AdventureGame {
     }
 
     /**
+     * Returns a message to print on startup of AdventureGame.
+     * @return String message
+     */
+    public String onStartup() {
+        return examine(new String[]{"examine",""});
+    }
+
+    /**
      * Invokes the game behavior that corresponds to the given user input.
      * @param userInput String[]
      * @return boolean for quit
@@ -78,6 +87,7 @@ public class AdventureGame {
 
     /**
      * Quits or exits the current game by signaling quit is true.
+     * @param userInput String[]
      * @return String message
      */
     public String quit(String[] userInput) {
@@ -242,7 +252,7 @@ public class AdventureGame {
                 items.add(item);
             }
         }
-        UserInteraction.printText(message);
+        UserInteraction.printMessage(message);
         return items;
     }
 

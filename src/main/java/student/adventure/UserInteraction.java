@@ -10,8 +10,8 @@ public class UserInteraction {
      * Sets up the UserInteraction, AdventureGame, and Layout.
      */
     public static void setUp() {
-        printText("Welcome!");
-        printText("Input the path to a valid JSON file.");
+        printMessage("Welcome!");
+        printMessage("Input the path to a valid JSON file.");
 
         while (true) {
             try {
@@ -19,10 +19,10 @@ public class UserInteraction {
                 adventureGame = new AdventureGame(path);
                 break;
             } catch (IllegalArgumentException e) {
-                System.out.println("Input the path to a valid JSON file.");
+                printMessage("Input the path to a valid JSON file.");
             }
         }
-        printText(adventureGame.examine(new String[]{"examine",""}));
+        printMessage(adventureGame.onStartup());
     }
 
     /**
@@ -32,7 +32,7 @@ public class UserInteraction {
         while (true) {
             String input = getUserInput();
             String[] userInput = parseUserInput(input);
-            printText(adventureGame.evaluate(userInput));
+            printMessage(adventureGame.evaluate(userInput));
             if (adventureGame.hasQuit()) {
                 break;
             }
@@ -74,10 +74,10 @@ public class UserInteraction {
     }
 
     /**
-     * Prints a message give by the text.
-     * @param text String
+     * Prints a message give by the parameter with a newline at the end.
+     * @param message String
      */
-    public static void printText(String text) {
-        System.out.println(text);
+    public static void printMessage(String message) {
+        System.out.println(message);
     }
 }
