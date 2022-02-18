@@ -3,6 +3,7 @@ package student.adventure;;
 import org.junit.Test;
 
 /** A class that tests handling of JSON files that don't fit the schema or don't exist. */
+
 public class JsonTest {
     @Test
     public void testValidFile() {
@@ -17,6 +18,11 @@ public class JsonTest {
     @Test(expected = IllegalArgumentException.class)
     public void testNullFile() {
         AdventureGame adventureGame = new AdventureGame(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testMalformedFile() {
+        AdventureGame adventureGame = new AdventureGame("src/main/resources/malformed.json");
     }
 
     // Missing Fields

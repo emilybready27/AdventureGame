@@ -10,6 +10,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /** A class that tests the behavior of the AdventureGame. */
+
 // Tests with byte array input streams inspired by
 // https://stackoverflow.com/questions/6415728/junit-testing-with-simulated-user-input/6416179#6416179
 // Tests using output stream captor inspired by
@@ -39,23 +40,23 @@ public class AdventureTest {
 
     @Test
     public void testGoInvalidDirection() {
-        adventureGame.go("Northeast");
+        String actual = adventureGame.go("Northeast");
         String expected = "I can't go Northeast!";
-        assertEquals(expected, outputStreamCaptor.toString().trim());
+        assertEquals(expected, actual);
     }
 
     @Test
     public void testGoUndefinedDirection() {
-        adventureGame.go("");
+        String actual = adventureGame.go("");
         String expected = "I can't go !";
-        assertEquals(expected, outputStreamCaptor.toString().trim());
+        assertEquals(expected, actual);
     }
 
     @Test
     public void testGoNullDirection() {
-        adventureGame.go(null);
+        String actual = adventureGame.go(null);
         String expected = "I can't go null!";
-        assertEquals(expected, outputStreamCaptor.toString().trim());
+        assertEquals(expected, actual);
     }
 
     // Take
@@ -70,34 +71,32 @@ public class AdventureTest {
 
     @Test
     public void testTakeInvalidItem() {
-        adventureGame.take("tool");
+        String actual = adventureGame.take("tool");
         String expected = "There is no item tool in the room!";
-        assertEquals(expected, outputStreamCaptor.toString().trim());
+        assertEquals(expected, actual);
     }
 
     @Test
     public void testTakeUndefinedItem() {
-        adventureGame.take("");
+        String actual = adventureGame.take("");
         String expected = "There is no item  in the room!";
-        assertEquals(expected, outputStreamCaptor.toString().trim());
+        assertEquals(expected, actual);
     }
 
     @Test
     public void testTakeNullItem() {
-        adventureGame.take(null);
+        String actual = adventureGame.take(null);
         String expected = "There is no item null in the room!";
-        assertEquals(expected, outputStreamCaptor.toString().trim());
+        assertEquals(expected, actual);
     }
 
     @Test
     public void testTakeInvalidItemSelection() {
         ByteArrayInputStream in = new ByteArrayInputStream("5".getBytes());
         System.setIn(in);
-        adventureGame.take("banner");
-        String expected = "Input the number for which banner to choose.\r\n" +
-                "0: Direwolf sigil of House Stark.\r\n" +
-                "> Invalid number: aborting action.";
-        assertEquals(expected, outputStreamCaptor.toString().trim());
+        String actual = adventureGame.take("banner");
+        String expected = "Invalid number: aborting action.";
+        assertEquals(expected, actual);
     }
 
     // Drop
@@ -117,27 +116,27 @@ public class AdventureTest {
     public void testDropInvalidItem() {
         ByteArrayInputStream in = new ByteArrayInputStream("0".getBytes());
         System.setIn(in);
-        adventureGame.drop("tool");
+        String actual = adventureGame.drop("tool");
         String expected = "You don't have tool!";
-        assertEquals(expected, outputStreamCaptor.toString().trim());
+        assertEquals(expected, actual);
     }
 
     @Test
     public void testDropUndefinedItem() {
         ByteArrayInputStream in = new ByteArrayInputStream("0".getBytes());
         System.setIn(in);
-        adventureGame.drop("");
+        String actual = adventureGame.drop("");
         String expected = "You don't have !";
-        assertEquals(expected, outputStreamCaptor.toString().trim());
+        assertEquals(expected, actual);
     }
 
     @Test
     public void testDropNullItem() {
         ByteArrayInputStream in = new ByteArrayInputStream("0".getBytes());
         System.setIn(in);
-        adventureGame.drop(null);
+        String actual = adventureGame.drop(null);
         String expected = "You don't have null!";
-        assertEquals(expected, outputStreamCaptor.toString().trim());
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -147,43 +146,40 @@ public class AdventureTest {
         adventureGame.take("banner");
         in = new ByteArrayInputStream("5".getBytes());
         System.setIn(in);
-        adventureGame.drop("banner");
-        String expected = "Input the number for which banner to choose.\r\n" +
-                "0: Direwolf sigil of House Stark.\r\n" +
-                "> Input the number for which banner to choose.\r\n" +
-                "0: Direwolf sigil of House Stark.\r\n" +
-                "> Invalid number: aborting action.";
-        assertEquals(expected, outputStreamCaptor.toString().trim());
+        String actual = adventureGame.drop("banner");
+        String expected = "Invalid number: aborting action.";
+        assertEquals(expected, actual);
     }
 
     // Other
     @Test
     public void testQuitExit() {
-        adventureGame.quit();
-        assertEquals("Goodbye!", outputStreamCaptor.toString().trim());
+        String actual = adventureGame.quit(new String[]{"",""});
+        String expected = "Goodbye!";
+        assertEquals(expected, actual);
     }
 
     @Test
     public void testExamine() {
-        adventureGame.examine();
+        String actual = adventureGame.examine(new String[]{"",""});
         String expected = "Winterfell\r\n" + "You're at Winterfell.\r\n" +
                 "From here, you can go: north south east west \r\n" +
-                "Items visible: banner weapon weapon";
-        assertEquals(expected, outputStreamCaptor.toString().trim());
+                "Items visible: banner weapon weapon ";
+        assertEquals(expected, actual);
     }
 
     @Test
     public void testQuitAtEndingRoom() {
         adventureGame.getLayout().setEndingRoom("castle black");
-        adventureGame.go("north");
+        String actual = adventureGame.go("north");
         String expected = "You're at castle black! You win!";
-        assertEquals(expected, outputStreamCaptor.toString().trim());
+        assertEquals(expected, actual);
     }
 
     @Test
     public void testInvalidCommand() {
-        adventureGame.invalidCommand(new String[]{"Winter's", "coming"});
+        String actual = adventureGame.invalidCommand(new String[]{"Winter's", "coming"});
         String expected = "I don't understand Winter's coming!";
-        assertEquals(expected, outputStreamCaptor.toString().trim());
+        assertEquals(expected, actual);
     }
 }

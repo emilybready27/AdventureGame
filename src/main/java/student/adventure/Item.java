@@ -21,34 +21,18 @@ public class Item {
         this.itemDescription = itemDescription;
     }
 
-    /**
-     * Sets the Item name.
-     * @param itemName String
-     */
     public void setItemName(String itemName) {
         this.itemName = itemName;
     }
 
-    /**
-     * Gets the Item name.
-     * @return String
-     */
     public String getItemName() {
         return this.itemName;
     }
 
-    /**
-     * Sets the Item description.
-     * @param itemDescription String
-     */
     public void setItemDescription(String itemDescription) {
         this.itemDescription = itemDescription;
     }
 
-    /**
-     * Gets the Item description.
-     * @return String
-     */
     public String getItemDescription() {
         return this.itemDescription;
     }
@@ -69,11 +53,19 @@ public class Item {
     }
 
     /**
-     * Determines if a given argument is a banner, weapon, tool, or crown.
+     * Determines if a given argument is a valid Item.
      * @param argument String
      * @return boolean
      */
     public static boolean isValidItem(String argument) {
         return validItems.contains(argument);
+    }
+
+    /**
+     * Checks if any of the attributes of a valid Item are missing.
+     * @return boolean
+     */
+    public boolean isEmpty() {
+        return itemName == null || itemDescription == null;
     }
 }

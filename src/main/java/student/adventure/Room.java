@@ -86,4 +86,12 @@ public class Room {
         }
         return other != null && name.equalsIgnoreCase(other.getName());
     }
+
+    /**
+     * Checks if any of the attributes of a valid Room are missing.
+     * @return boolean
+     */
+    public boolean isEmpty() {
+        return name == null || description == null || directions == null || items == null;
+    }
 }

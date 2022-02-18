@@ -11,34 +11,18 @@ public class Direction {
     private String directionName;
     private String room;
 
-    /**
-     * Sets the Direction name.
-     * @param name String
-     */
     public void setDirectionName(String name) {
         this.directionName = name;
     }
 
-    /**
-     * Gets the Direction name.
-     * @return String
-     */
     public String getDirectionName() {
         return directionName;
     }
 
-    /**
-     * Sets the Room name.
-     * @param room String
-     */
     public void setRoom(String room) {
         this.room = room;
     }
 
-    /**
-     * Gets the Room name;
-     * @return String
-     */
     public String getRoom() {
         return room;
     }
@@ -58,12 +42,19 @@ public class Direction {
     }
 
     /**
-     * Determines if a given argument is north, south, east, west,
-     * northeast, northwest, southeast, or southwest.
+     * Determines if a given argument is a valid Direction.
      * @param argument String
      * @return boolean
      */
     public static boolean isValidDirection(String argument) {
         return validDirections.contains(argument);
+    }
+
+    /**
+     * Checks if any of the attributes of a valid Direction are missing.
+     * @return boolean
+     */
+    public boolean isEmpty() {
+        return directionName == null || room == null;
     }
 }

@@ -1,12 +1,9 @@
 package student.adventure;
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 import static student.adventure.Direction.isValidDirection;
 import static student.adventure.Item.isValidItem;
-import static student.adventure.Layout.buildLayout;
 
 /** A class that handles the state and command behaviors of the Adventure Game. */
 public class AdventureGame {
@@ -16,143 +13,118 @@ public class AdventureGame {
 
     /**
      * Constructs an AdventureGame by first attempting to build the Layout.
-     * @param path String
      * @throws IllegalArgumentException Invalid layout
      */
     public AdventureGame(String path) throws IllegalArgumentException {
         try {
-            this.layout = buildLayout(path);
+            this.layout = new Layout(path);
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Invalid layout.");
         }
-        this.currentRoom = findRoom(layout.getStartingRoom());
+
+        this.currentRoom = layout.getRoomByName(layout.getStartingRoom());
         this.inventory = new ArrayList<>();
     }
 
-    /**
-     * Gets the Layout of the current game.
-     * @return Layout
-     */
     public Layout getLayout() {
         return layout;
     }
 
-    /**
-     * Gets the current Room of the game.
-     * @return Room
-     */
     public Room getCurrentRoom() {
         return currentRoom;
     }
 
-    /**
-     * Gets the current Inventory of Items of the game.
-     * @return ArrayList<Item>
-     */
     public ArrayList<Item> getInventory() {
         return new ArrayList<>(inventory);
     }
 
-
     /**
      * Quits or exits the current game by signaling quit is true.
-     * @return boolean
+     * @return String message
      */
-    public boolean quit() {
-        System.out.println("Goodbye!");
-        return true;
+    public String quit(String[] userInput) {
+        if (!userInput[1].equals("")) {
+            return invalidCommand(userInput);
+        }
+        return "Goodbye!";
     }
 
     /**
      * Examines the current state of the game by printing out the name
      * of the current Room, its description, the directions in which to
      * go from this Room, and the Items visible in this Room.
+     * @param userInput String[]
+     * @return String message
      */
-    public void examine() {
-        System.out.println(currentRoom.getName());
-        System.out.println(currentRoom.getDescription());
+    public String examine(String[] userInput) {
+        if (!userInput[1].equals("")) {
+            return invalidCommand(userInput);
+        }
+        String output = "";
+        output += currentRoom.getName() + "\r\n";
+        output += currentRoom.getDescription() + "\r\n";
 
-        System.out.print("From here, you can go: ");
+        output += "From here, you can go: ";
         for (Direction direction : currentRoom.getDirections()) {
-            System.out.print(direction.getDirectionName() + " ");
+            output = output + direction.getDirectionName() + " ";
         }
 
-        System.out.println();
-        System.out.print("Items visible: ");
+        output += "\r\n";
+        output += "Items visible: ";
         for (Item item : currentRoom.getItems()) {
-            System.out.print(item.getItemName() + " ");
+            output += item.getItemName() + " ";
         }
-        System.out.println();
+
+        return output;
     }
 
     /**
      * Attempts to go in the given Direction, if it is valid, from the current Room.
      * If it isn't a valid Direction, or the Direction isn't possible in this Room,
-     * doesn't change the state of the game.
-     * If the Direction is valid and leads to the ending Room, terminates the game
-     * by signaling quit is true.
+     * sends "undefined" message.
+     * If the Direction is valid and leads to the ending Room, sends "win" message.
      * @param argument String
-     * @return boolean
+     * @return String message
      */
-    public boolean go(String argument) {
+    public String go(String argument) {
         if (argument == null || !isValidDirection(argument)) {
-            System.out.println("I can't go " + argument + "!");
-            return false;
+            return "I can't go " + argument + "!";
         }
 
         for (Direction direction : currentRoom.getDirections()) {
-            if (argument.equalsIgnoreCase(direction.getDirectionName())) {
-                currentRoom = findRoom(direction.getRoom());
-                return isEndingRoom();
+            if (argument.equals(direction.getDirectionName())) {
+                currentRoom = layout.getRoomByName(direction.getRoom());
+                if (isEndingRoom()) {
+                    return "You're at " + layout.getEndingRoom() + "! You win!";
+                } else {
+                    return examine(new String[]{"",""});
+                }
             }
         }
 
-        System.out.println("I can't go " + argument + "!");
-        return false;
+        return "I can't go " + argument + "!";
     }
 
     /**
-     * Locates the Room object given the String name representing it.
-     * @param name String
-     * @return Room
-     */
-    private Room findRoom(String name) {
-        for (Room room : layout.getRooms()) {
-            if (name.equalsIgnoreCase(room.getName())) {
-                return room;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Checks if the current Room is equal to the ending Room and
-     * signals to terminate the game by returning true.
-     * Otherwise, prints the examine information of the new Room.
+     * Checks if the current Room is equal to the ending Room.
      * @return boolean
      */
     private boolean isEndingRoom() {
-        if (currentRoom.equals(findRoom(layout.getEndingRoom()))) {
-            System.out.println("You're at " + layout.getEndingRoom() + "! You win!");
-            return true;
-        } else {
-            examine();
-            return false;
-        }
+        return currentRoom.equals(layout.getRoomByName(layout.getEndingRoom()));
     }
 
     /**
      * Attempts to take the given Item, if it is valid, from the current Room.
      * If it isn't a valid Item, or the Item isn't present in the Room,
-     * doesn't change the state of the game.
-     * Prompts the user for a selection and takes that particular Item.
+     * sends "undefined" message.
+     * Uses UserInteraction to get selection for item.
      * @param argument String
+     * @return String message
      */
-    public void take(String argument) {
+    public String take(String argument) {
         if (argument == null || !isValidItem(argument)
                 || !currentRoom.getItems().contains(findItem(argument, currentRoom.getItems()))) {
-            System.out.println("There is no item " + argument + " in the room!");
-            return;
+            return "There is no item " + argument + " in the room!";
         }
 
         ArrayList<Item> items = promptForItems(argument, currentRoom.getItems());
@@ -161,8 +133,9 @@ public class AdventureGame {
         if (selection >= 0 && selection < items.size()) {
             inventory.add(items.get(selection));
             currentRoom.getItems().remove(items.get(selection));
+            return "";
         } else {
-            System.out.println("Invalid number: aborting action.");
+            return "Invalid number: aborting action.";
         }
     }
 
@@ -170,14 +143,14 @@ public class AdventureGame {
      * Attempts to drop the given Item, if it is valid, into the current Room.
      * If it isn't a valid Item, or the item isn't present in the inventory,
      * doesn't change the state of the game.
-     * Prompts the user for a selection and drops that particular Item.
+     * Uses UserInteraction to get selection for item.
      * @param argument String
+     * @return String message
      */
-    public void drop(String argument) {
+    public String drop(String argument) {
         if (argument == null || !isValidItem(argument)
                 || !inventory.contains(findItem(argument, inventory))) {
-            System.out.println("You don't have " + argument + "!");
-            return;
+            return "You don't have " + argument + "!";
         }
 
         ArrayList<Item> items = promptForItems(argument, inventory);
@@ -186,8 +159,9 @@ public class AdventureGame {
         if (selection >= 0 && selection < items.size()) {
             inventory.remove(items.get(selection));
             currentRoom.getItems().add(items.get(selection));
+            return "";
         } else {
-            System.out.println("Invalid number: aborting action.");
+            return "Invalid number: aborting action.";
         }
     }
 
@@ -200,7 +174,7 @@ public class AdventureGame {
      */
     private Item findItem(String name, ArrayList<Item> container) {
         for (Item item : container) {
-            if (name.equalsIgnoreCase(item.getItemName())) {
+            if (name.equals(item.getItemName())) {
                 return item;
             }
         }
@@ -209,53 +183,51 @@ public class AdventureGame {
 
     /**
      * Matches all Items with the same given Item name in the given container
-     * and prompts the user for a selection based on their descriptions.
+     * and uses UserInteraction to prompt user for selection based on item descriptions.
      * @param argument String
      * @param container ArrayList<Item>
      * @return ArrayList<Item>
      */
     private ArrayList<Item> promptForItems(String argument, ArrayList<Item> container) {
-        System.out.println("Input the number for which " + argument + " to choose.");
+        String output = "Input the number for which " + argument + " to choose.\r\n";
         int count = 0;
         ArrayList<Item> items = new ArrayList<>();
 
         for (Item item : container) {
-            if (argument.equalsIgnoreCase(item.getItemName()) ) {
-                System.out.println(count + ": " + item.getItemDescription());
+            if (argument.equals(item.getItemName()) ) {
+                output += count + ": " + item.getItemDescription();
                 count++;
                 items.add(item);
             }
         }
+        UserInteraction.printText(output);
         return items;
     }
 
     /**
-     * Gets user input for the number of the Item to select.
+     * Uses UserInteraction to get item selection number.
      * @return int
      */
     private int getItemSelection() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("> ");
         try {
-            String selection = "";
-            while (selection.isEmpty()) {
-                selection = scanner.nextLine();
-            }
-            return Integer.parseInt(selection.trim());
+            String userInput = UserInteraction.getUserInput();
+            return Integer.parseInt(userInput);
         } catch (InputMismatchException | IllegalArgumentException e) {
             return -1;
         }
     }
 
     /**
-     * Responds to an invalid command with a print statement.
-     * @param userInput String[]
+     * Responds to an invalid command with an "undefined" message.
+     * @param userInput String
+     * @return String message
      */
-    public void invalidCommand(String[] userInput) {
-        System.out.print("I don't understand");
+    public String invalidCommand(String[] userInput) {
+        String output = "";
+        output += "I don't understand";
         for (int i = 0; i < userInput.length; i++) {
-            System.out.print(" " + userInput[i]);
+            output += " " + userInput[i];
         }
-        System.out.print("!\r\n");
+        return output + "!";
     }
 }
