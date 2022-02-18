@@ -64,6 +64,7 @@ public class AdventureGame {
      * @return String message
      */
     public String examine(String[] userInput) {
+        // command should not have an additional argument
         if (!userInput[1].equals("")) {
             return invalidCommand(userInput);
         }
@@ -231,6 +232,7 @@ public class AdventureGame {
      * @return String message
      */
     public String retrace(String[] userInput) {
+        // command should not have an additional argument
         if (!userInput[1].equals("")) {
             return invalidCommand(userInput);
         }
@@ -240,6 +242,7 @@ public class AdventureGame {
             message += room.getName() + " -> ";
         }
 
+        // remove dangling arrow
         return (String) message.subSequence(0, message.length() - 4);
     }
 

@@ -22,7 +22,7 @@ public class UserInteraction {
                 System.out.println("Input the path to a valid JSON file.");
             }
         }
-        printText(adventureGame.examine(new String[]{"",""}));
+        printText(adventureGame.examine(new String[]{"examine",""}));
     }
 
     /**
