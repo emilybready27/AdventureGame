@@ -1,15 +1,11 @@
 package student.server;
 
 import student.adventure.AdventureGame;
-import student.server.AdventureException;
-import student.server.AdventureService;
-import student.server.Command;
-import student.server.GameStatus;
 
 import java.util.Map;
 import java.util.SortedMap;
 
-public class SomeAdventureService implements AdventureService {
+public class MyAdventureService implements AdventureService {
     private Map<Integer, AdventureGame> games;
 
     @Override
