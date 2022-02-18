@@ -29,44 +29,13 @@ public class UserInteraction {
      * Turns user commands into game behaviors until user quits or wins.
      */
     public static void play() {
-        boolean quit = false;
-        while (!quit) {
+        while (true) {
             String input = getUserInput();
             String[] userInput = parseUserInput(input);
-            quit = evaluate(userInput);
-        }
-    }
-
-    /**
-     * Invokes the game behavior that corresponds to the given user input.
-     * @param userInput String[]
-     * @return boolean for quit
-     */
-    private static boolean evaluate(String[] userInput) {
-        switch (userInput[0]) {
-            case "quit":
-            case "exit":
-                printText(adventureGame.quit(userInput));
-                return true;
-            case "examine":
-                printText(adventureGame.examine(userInput));
-                return false;
-            case "go":
-                String message = adventureGame.go(userInput[1]);
-                printText(message);
-                return message.contains("You win");
-            case "take":
-                printText(adventureGame.take(userInput[1]));
-                return false;
-            case "drop":
-                printText(adventureGame.drop(userInput[1]));
-                return false;
-            case "retrace":
-                printText(adventureGame.retrace(userInput));
-                return false;
-            default:
-                printText(adventureGame.invalidCommand(userInput));
-                return false;
+            printText(adventureGame.evaluate(userInput));
+            if (adventureGame.hasQuit()) {
+                break;
+            }
         }
     }
 

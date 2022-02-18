@@ -11,6 +11,7 @@ public class AdventureGame {
     private Room currentRoom;
     private ArrayList<Item> inventory;
     private ArrayList<Room> roomPath;
+    private boolean hasQuit;
 
     /**
      * Constructs an AdventureGame by first attempting to build the Layout.
@@ -27,6 +28,7 @@ public class AdventureGame {
         this.inventory = new ArrayList<>();
         this.roomPath = new ArrayList<>();
         this.roomPath.add(this.currentRoom);
+        this.hasQuit = false;
     }
 
     public Layout getLayout() {
@@ -45,6 +47,35 @@ public class AdventureGame {
         return new ArrayList<>(roomPath);
     }
 
+    public boolean hasQuit() {
+        return hasQuit;
+    }
+
+    /**
+     * Invokes the game behavior that corresponds to the given user input.
+     * @param userInput String[]
+     * @return boolean for quit
+     */
+    public String evaluate(String[] userInput) {
+        switch (userInput[0]) {
+            case "quit":
+            case "exit":
+                return quit(userInput);
+            case "examine":
+                return examine(userInput);
+            case "go":
+                return(go(userInput[1]));
+            case "take":
+                return take(userInput[1]);
+            case "drop":
+                return drop(userInput[1]);
+            case "retrace":
+                return retrace(userInput);
+            default:
+                return invalidCommand(userInput);
+        }
+    }
+
     /**
      * Quits or exits the current game by signaling quit is true.
      * @return String message
@@ -53,6 +84,7 @@ public class AdventureGame {
         if (!userInput[1].equals("")) {
             return invalidCommand(userInput);
         }
+        hasQuit = true;
         return "Goodbye!";
     }
 
@@ -104,6 +136,7 @@ public class AdventureGame {
                 currentRoom = layout.getRoomByName(direction.getRoom());
                 roomPath.add(currentRoom);
                 if (isEndingRoom()) {
+                    hasQuit = true;
                     return "You're at " + layout.getEndingRoom() + "! You win!";
                 } else {
                     return examine(new String[]{"",""});
