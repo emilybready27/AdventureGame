@@ -52,14 +52,17 @@ public class UserInteraction {
                 printText(adventureGame.examine(userInput));
                 return false;
             case "go":
-                String output = adventureGame.go(userInput[1]);
-                printText(output);
-                return output.contains("You win");
+                String message = adventureGame.go(userInput[1]);
+                printText(message);
+                return message.contains("You win");
             case "take":
                 printText(adventureGame.take(userInput[1]));
                 return false;
             case "drop":
                 printText(adventureGame.drop(userInput[1]));
+                return false;
+            case "retrace":
+                printText(adventureGame.retrace(userInput));
                 return false;
             default:
                 printText(adventureGame.invalidCommand(userInput));

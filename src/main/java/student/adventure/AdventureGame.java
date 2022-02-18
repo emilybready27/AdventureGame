@@ -10,6 +10,7 @@ public class AdventureGame {
     private final Layout layout;
     private Room currentRoom;
     private ArrayList<Item> inventory;
+    private ArrayList<Room> roomPath;
 
     /**
      * Constructs an AdventureGame by first attempting to build the Layout.
@@ -24,6 +25,8 @@ public class AdventureGame {
 
         this.currentRoom = layout.getRoomByName(layout.getStartingRoom());
         this.inventory = new ArrayList<>();
+        this.roomPath = new ArrayList<>();
+        this.roomPath.add(this.currentRoom);
     }
 
     public Layout getLayout() {
@@ -36,6 +39,10 @@ public class AdventureGame {
 
     public ArrayList<Item> getInventory() {
         return new ArrayList<>(inventory);
+    }
+
+    public ArrayList<Room> getRoomPath() {
+        return new ArrayList<>(roomPath);
     }
 
     /**
@@ -60,22 +67,22 @@ public class AdventureGame {
         if (!userInput[1].equals("")) {
             return invalidCommand(userInput);
         }
-        String output = "";
-        output += currentRoom.getName() + "\r\n";
-        output += currentRoom.getDescription() + "\r\n";
+        String message = "";
+        message += currentRoom.getName() + "\r\n";
+        message += currentRoom.getDescription() + "\r\n";
 
-        output += "From here, you can go: ";
+        message += "From here, you can go: ";
         for (Direction direction : currentRoom.getDirections()) {
-            output = output + direction.getDirectionName() + " ";
+            message = message + direction.getDirectionName() + " ";
         }
 
-        output += "\r\n";
-        output += "Items visible: ";
+        message += "\r\n";
+        message += "Items visible: ";
         for (Item item : currentRoom.getItems()) {
-            output += item.getItemName() + " ";
+            message += item.getItemName() + " ";
         }
 
-        return output;
+        return message;
     }
 
     /**
@@ -94,6 +101,7 @@ public class AdventureGame {
         for (Direction direction : currentRoom.getDirections()) {
             if (argument.equals(direction.getDirectionName())) {
                 currentRoom = layout.getRoomByName(direction.getRoom());
+                roomPath.add(currentRoom);
                 if (isEndingRoom()) {
                     return "You're at " + layout.getEndingRoom() + "! You win!";
                 } else {
@@ -189,18 +197,18 @@ public class AdventureGame {
      * @return ArrayList<Item>
      */
     private ArrayList<Item> promptForItems(String argument, ArrayList<Item> container) {
-        String output = "Input the number for which " + argument + " to choose.\r\n";
+        String message = "Input the number for which " + argument + " to choose.\r\n";
         int count = 0;
         ArrayList<Item> items = new ArrayList<>();
 
         for (Item item : container) {
             if (argument.equals(item.getItemName()) ) {
-                output += count + ": " + item.getItemDescription();
+                message += count + ": " + item.getItemDescription();
                 count++;
                 items.add(item);
             }
         }
-        UserInteraction.printText(output);
+        UserInteraction.printText(message);
         return items;
     }
 
@@ -218,16 +226,34 @@ public class AdventureGame {
     }
 
     /**
+     * Retraces path of user from startingRoom to currentRoom.
+     * @param userInput String[]
+     * @return String message
+     */
+    public String retrace(String[] userInput) {
+        if (!userInput[1].equals("")) {
+            return invalidCommand(userInput);
+        }
+
+        String message = "Path to " + currentRoom.getName() + ":\r\n";
+        for (Room room : roomPath) {
+            message += room.getName() + " -> ";
+        }
+
+        return (String) message.subSequence(0, message.length() - 4);
+    }
+
+    /**
      * Responds to an invalid command with an "undefined" message.
      * @param userInput String
      * @return String message
      */
     public String invalidCommand(String[] userInput) {
-        String output = "";
-        output += "I don't understand";
+        String message = "";
+        message += "I don't understand";
         for (int i = 0; i < userInput.length; i++) {
-            output += " " + userInput[i];
+            message += " " + userInput[i];
         }
-        return output + "!";
+        return message + "!";
     }
 }
