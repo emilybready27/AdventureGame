@@ -38,20 +38,21 @@ public class MyAdventureService implements AdventureService {
         ArrayList<Item> roomItems = adventureGame.getCurrentRoom().getItems();
         ArrayList<Item> inventory = adventureGame.getInventory();
         Map<String, List<String>> commandOptions = getCommandOptions(roomDirections, roomItems, inventory);
-        return new GameStatus(false, id, adventureGame.onStartup(), null, null, adventureState, commandOptions);
+        return new GameStatus(false, id, adventureGame.getMessage(), null, null, adventureState, commandOptions);
     }
 
     private HashMap<String, List<String>> getCommandOptions(ArrayList<Direction> roomDirections,
                                                             ArrayList<Item> roomItems, ArrayList<Item> inventory) {
         HashMap<String, List<String>> commandOptions = new HashMap<>();
-        commandOptions.put("quit", new ArrayList<>(Arrays.asList(" ")));
-        commandOptions.put("exit", new ArrayList<>(Arrays.asList(" ")));
-        commandOptions.put("examine", new ArrayList<>(Arrays.asList(" ")));
-        commandOptions.put("retrace", new ArrayList<>(Arrays.asList(" ")));
+        commandOptions.put("quit", new ArrayList<>(Arrays.asList("")));
+        commandOptions.put("exit", new ArrayList<>(Arrays.asList("")));
+        commandOptions.put("examine", new ArrayList<>(Arrays.asList("")));
+        commandOptions.put("retrace", new ArrayList<>(Arrays.asList("")));
 
         ArrayList<String> directionOptions = new ArrayList<>();
         for (Direction direction : roomDirections) {
-            String directionOption = direction.getDirectionName() + ": " + direction.getRoom();
+//            String directionOption = direction.getDirectionName() + ": " + direction.getRoom();
+            String directionOption = direction.getDirectionName();
             directionOptions.add(directionOption);
         }
         commandOptions.put("go", new ArrayList<>(directionOptions));
@@ -87,9 +88,9 @@ public class MyAdventureService implements AdventureService {
         AdventureGame adventureGame = games.get(id);
         String[] userInput = new String[]{command.getCommandName(), command.getCommandValue()};
         adventureGame.evaluate(userInput);
-        if (adventureGame.hasQuit()) {
-            destroyGame(id);
-        }
+//        if (adventureGame.hasQuit()) {
+//            destroyGame(id);
+//        }
     }
 
     @Override
