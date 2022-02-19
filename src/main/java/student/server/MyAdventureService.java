@@ -51,6 +51,10 @@ public class MyAdventureService implements AdventureService {
 
     @Override
     public boolean destroyGame(int id) {
+        if (games.containsKey(id)) {
+            games.remove(id);
+            return true;
+        }
         return false;
     }
 
@@ -59,6 +63,9 @@ public class MyAdventureService implements AdventureService {
         AdventureGame adventureGame = games.get(id);
         String[] userInput = new String[]{command.getCommandName(), command.getCommandValue()};
         adventureGame.evaluate(userInput);
+        if (adventureGame.hasQuit()) {
+            destroyGame(id);
+        }
     }
 
     @Override
