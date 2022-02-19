@@ -41,9 +41,11 @@ public class MyAdventureService implements AdventureService {
         if (adventureGame.hasQuit()) {
             HashMap<String, List<String>> restartCommand = new HashMap<>();
             restartCommand.put("restart", new ArrayList<>(Arrays.asList("")));
-            return new GameStatus(false, id, adventureGame.getMessage(), null, null, adventureState, restartCommand);
+            return new GameStatus(false, id, adventureGame.getMessage(), adventureGame.getCurrentRoom().getImage(),
+                    null, adventureState, restartCommand);
         }
-        return new GameStatus(false, id, adventureGame.getMessage(), null, null, adventureState, commandOptions);
+        return new GameStatus(false, id, adventureGame.getMessage(), adventureGame.getCurrentRoom().getImage(),
+                null, adventureState, commandOptions);
     }
 
     private HashMap<String, List<String>> getCommandOptions(ArrayList<Direction> roomDirections,
