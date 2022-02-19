@@ -102,6 +102,11 @@ public class AdventureGame {
                     return invalidCommand(userInput);
                 }
                 return retrace(userInput[1]);
+            case "restart":
+                if (!userInput[1].equals("")) {
+                    return invalidCommand(userInput);
+                }
+                return restart(userInput[1]);
             default:
                 return invalidCommand(userInput);
         }
@@ -161,9 +166,9 @@ public class AdventureGame {
         }
 
         // web-based has direction rooms visible
-        //String[] arguments = argument.split(": ");
+        String[] arguments = argument.split(": ");
         for (Direction direction : currentRoom.getDirections()) {
-            if (argument.equals(direction.getDirectionName())) {
+            if (arguments[0].equals(direction.getDirectionName())) {
                 currentRoom = layout.getRoomByName(direction.getRoom());
                 roomPath.add(currentRoom);
                 if (isEndingRoom()) {
@@ -374,13 +379,23 @@ public class AdventureGame {
      * @return String message
      */
     public String retrace(String argument) {
-        String message = "Path to " + currentRoom.getName() + ":\r\n";
+        String message = "Path to " + currentRoom.getName() + "\r\n";
         for (Room room : roomPath) {
             message += room.getName() + " -> ";
         }
 
         // remove dangling arrow
         return getNewMessage((String) message.subSequence(0, message.length() - 4));
+    }
+
+    public String restart(String argument) {
+        currentRoom = layout.getRoomByName(layout.getStartingRoom());
+        inventory = new ArrayList<>();
+        roomPath = new ArrayList<>();
+        roomPath.add(this.currentRoom);
+        hasQuit = false;
+        message = examine("");
+        return message;
     }
 
     /**

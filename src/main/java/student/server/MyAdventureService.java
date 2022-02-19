@@ -38,6 +38,11 @@ public class MyAdventureService implements AdventureService {
         ArrayList<Item> roomItems = adventureGame.getCurrentRoom().getItems();
         ArrayList<Item> inventory = adventureGame.getInventory();
         Map<String, List<String>> commandOptions = getCommandOptions(roomDirections, roomItems, inventory);
+        if (adventureGame.hasQuit()) {
+            HashMap<String, List<String>> restartCommand = new HashMap<>();
+            restartCommand.put("restart", new ArrayList<>(Arrays.asList("")));
+            return new GameStatus(false, id, adventureGame.getMessage(), null, null, adventureState, restartCommand);
+        }
         return new GameStatus(false, id, adventureGame.getMessage(), null, null, adventureState, commandOptions);
     }
 
@@ -45,14 +50,12 @@ public class MyAdventureService implements AdventureService {
                                                             ArrayList<Item> roomItems, ArrayList<Item> inventory) {
         HashMap<String, List<String>> commandOptions = new HashMap<>();
         commandOptions.put("quit", new ArrayList<>(Arrays.asList("")));
-        commandOptions.put("exit", new ArrayList<>(Arrays.asList("")));
         commandOptions.put("examine", new ArrayList<>(Arrays.asList("")));
         commandOptions.put("retrace", new ArrayList<>(Arrays.asList("")));
 
         ArrayList<String> directionOptions = new ArrayList<>();
         for (Direction direction : roomDirections) {
-//            String directionOption = direction.getDirectionName() + ": " + direction.getRoom();
-            String directionOption = direction.getDirectionName();
+            String directionOption = direction.getDirectionName() + ": " + direction.getRoom();
             directionOptions.add(directionOption);
         }
         commandOptions.put("go", new ArrayList<>(directionOptions));
