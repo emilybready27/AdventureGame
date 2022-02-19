@@ -110,7 +110,7 @@ public class Layout {
     }
 
     /**
-     * Gets a List of Strings of all the Item names in a Room.
+     * Gets a List of Strings of all the Item descriptions in a Room.
      * @return ArrayList<String>
      */
     public ArrayList<String> getRoomItemDescriptions(Room room) {
