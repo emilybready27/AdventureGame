@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class Room {
     private String name;
     private String description;
+    private String image;
     private ArrayList<Direction> directions;
     private ArrayList<Item> items;
 
@@ -39,6 +40,22 @@ public class Room {
      */
     public String getDescription() {
         return description;
+    }
+
+    /**
+     * Sets the Room image.
+     * @param image String
+     */
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    /**
+     * Gets the Room image.
+     * @return String
+     */
+    public String getImage() {
+        return image;
     }
 
     /**
