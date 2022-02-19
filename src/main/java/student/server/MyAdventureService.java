@@ -56,7 +56,9 @@ public class MyAdventureService implements AdventureService {
 
     @Override
     public void executeCommand(int id, Command command) {
-
+        AdventureGame adventureGame = games.get(id);
+        String[] userInput = new String[]{command.getCommandName(), command.getCommandValue()};
+        adventureGame.evaluate(userInput);
     }
 
     @Override
