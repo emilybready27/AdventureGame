@@ -1,5 +1,6 @@
 package student.adventure;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -59,6 +60,14 @@ public class Item {
      */
     public static boolean isValidItem(String argument) {
         return validItems.contains(argument);
+    }
+
+    /**
+     * Gets the set of valid Items as an ArrayList of Strings.
+     * @return ArrayList<String>
+     */
+    public static ArrayList<String> getValidItems() {
+        return new ArrayList<>(validItems);
     }
 
     /**
