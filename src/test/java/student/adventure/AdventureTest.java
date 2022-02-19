@@ -173,7 +173,7 @@ public class AdventureTest {
         adventureGame.go("south");
         adventureGame.go("south");
         String actual = adventureGame.retrace("");
-        String expected = "Path to Twins:\r\n" + "Winterfell -> Moat Cailin -> Twins";
+        String expected = "Path to Twins\r\n" + "Winterfell -> Moat Cailin -> Twins";
         assertEquals(expected, actual);
     }
 
