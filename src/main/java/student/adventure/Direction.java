@@ -1,5 +1,6 @@
 package student.adventure;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -48,6 +49,14 @@ public class Direction {
      */
     public static boolean isValidDirection(String argument) {
         return validDirections.contains(argument);
+    }
+
+    /**
+     * Gets the set of valid Directions as an ArrayList of Strings.
+     * @return ArrayList<String>
+     */
+    public static ArrayList<String> getValidDirections() {
+        return new ArrayList<>(validDirections);
     }
 
     /**
