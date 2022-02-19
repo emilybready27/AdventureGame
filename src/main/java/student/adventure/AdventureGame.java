@@ -180,35 +180,41 @@ public class AdventureGame {
      * @return String message
      */
     public String take(String argument) {
+        if (argument == null) {
+            return "There is no item " + argument + " in the room!";
+        }
+
         if (usesConsole) { // text-based requires additional prompt for user input
-            if (argument == null || !isValidItem(argument)
-                    || !currentRoom.getItems().contains(findItemByName(argument, currentRoom.getItems()))) {
-                return "There is no item " + argument + " in the room!";
-            }
+            return takeUsesConsole(argument);
+        }
 
-            ArrayList<Item> items = promptForItems(argument, currentRoom.getItems());
-            int selection = getItemSelection();
+        // web-based makes selection directly by descriptions being visible
+        String[] arguments = argument.split(": ");
+        Item item = findItemByDescription(arguments, currentRoom.getItems());
+        if (item == null) {
+            return "There is no item " + argument + " in the room!";
+        } else {
+            inventory.add(item);
+            currentRoom.getItems().remove(item);
+            return "";
+        }
+    }
 
-            if (selection >= 0 && selection < items.size()) {
-                inventory.add(items.get(selection));
-                currentRoom.getItems().remove(items.get(selection));
-                return "";
-            } else {
-                return "Invalid number: aborting action.";
-            }
-        } else { // web-based makes selection directly by descriptions being visible
-            if (argument == null) {
-                return "There is no item " + argument + " in the room!";
-            }
-            String[] arguments = argument.split(": ");
-            Item item = findItemByDescription(arguments, currentRoom.getItems());
-            if (item == null) {
-                return "There is no item " + argument + " in the room!";
-            } else {
-                inventory.add(item);
-                currentRoom.getItems().remove(item);
-                return "";
-            }
+    private String takeUsesConsole(String argument) {
+        if (!isValidItem(argument)
+                || !currentRoom.getItems().contains(findItemByName(argument, currentRoom.getItems()))) {
+            return "There is no item " + argument + " in the room!";
+        }
+
+        ArrayList<Item> items = promptForItems(argument, currentRoom.getItems());
+        int selection = getItemSelection();
+
+        if (selection >= 0 && selection < items.size()) {
+            inventory.add(items.get(selection));
+            currentRoom.getItems().remove(items.get(selection));
+            return "";
+        } else {
+            return "Invalid number: aborting action.";
         }
     }
 
@@ -221,35 +227,40 @@ public class AdventureGame {
      * @return String message
      */
     public String drop(String argument) {
+        if (argument == null) {
+            return "You don't have " + argument + "!";
+        }
+
         if (usesConsole) { // text-based requires additional prompt for user input
-            if (argument == null || !isValidItem(argument)
-                    || !inventory.contains(findItemByName(argument, inventory))) {
-                return "You don't have " + argument + "!";
-            }
+            return dropUsesConsole(argument);
+        }
 
-            ArrayList<Item> items = promptForItems(argument, inventory);
-            int selection = getItemSelection();
+        // web-based makes selection directly by descriptions being visible
+        String[] arguments = argument.split(": ");
+        Item item = findItemByDescription(arguments, inventory);
+        if (item == null) {
+            return "You don't have " + argument + "!";
+        } else {
+            inventory.remove(item);
+            currentRoom.getItems().add(item);
+            return "";
+        }
+    }
 
-            if (selection >= 0 && selection < items.size()) {
-                inventory.remove(items.get(selection));
-                currentRoom.getItems().add(items.get(selection));
-                return "";
-            } else {
-                return "Invalid number: aborting action.";
-            }
-        } else { // web-based makes selection directly by descriptions being visible
-            if (argument == null) {
-                return "You don't have " + argument + "!";
-            }
-            String[] arguments = argument.split(": ");
-            Item item = findItemByDescription(arguments, inventory);
-            if (item == null) {
-                return "You don't have " + argument + "!";
-            } else {
-                inventory.remove(item);
-                currentRoom.getItems().add(item);
-                return "";
-            }
+    private String dropUsesConsole(String argument) {
+        if (!isValidItem(argument) || !inventory.contains(findItemByName(argument, inventory))) {
+            return "You don't have " + argument + "!";
+        }
+
+        ArrayList<Item> items = promptForItems(argument, inventory);
+        int selection = getItemSelection();
+
+        if (selection >= 0 && selection < items.size()) {
+            inventory.remove(items.get(selection));
+            currentRoom.getItems().add(items.get(selection));
+            return "";
+        } else {
+            return "Invalid number: aborting action.";
         }
     }
 
