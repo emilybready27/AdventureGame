@@ -12,13 +12,18 @@ public class AdventureGame {
     private ArrayList<Item> inventory;
     private ArrayList<Room> roomPath;
     private boolean hasQuit;
+    private boolean usesConsole;
+
+    public AdventureGame(String path) throws IllegalArgumentException {
+        this(path, true);
+    }
 
     /**
      * Constructs an AdventureGame by first attempting to build the Layout.
      * @param path String
      * @throws IllegalArgumentException Invalid layout
      */
-    public AdventureGame(String path) throws IllegalArgumentException {
+    public AdventureGame(String path, boolean usesConsole) throws IllegalArgumentException {
         try {
             this.layout = new Layout(path);
         } catch (IllegalArgumentException e) {
@@ -30,6 +35,7 @@ public class AdventureGame {
         this.roomPath = new ArrayList<>();
         this.roomPath.add(this.currentRoom);
         this.hasQuit = false;
+        this.usesConsole = usesConsole;
     }
 
     public Layout getLayout() {
@@ -174,20 +180,35 @@ public class AdventureGame {
      * @return String message
      */
     public String take(String argument) {
-        if (argument == null || !isValidItem(argument)
-                || !currentRoom.getItems().contains(findItem(argument, currentRoom.getItems()))) {
-            return "There is no item " + argument + " in the room!";
-        }
+        if (usesConsole) { // text-based requires additional prompt for user input
+            if (argument == null || !isValidItem(argument)
+                    || !currentRoom.getItems().contains(findItemByName(argument, currentRoom.getItems()))) {
+                return "There is no item " + argument + " in the room!";
+            }
 
-        ArrayList<Item> items = promptForItems(argument, currentRoom.getItems());
-        int selection = getItemSelection();
+            ArrayList<Item> items = promptForItems(argument, currentRoom.getItems());
+            int selection = getItemSelection();
 
-        if (selection >= 0 && selection < items.size()) {
-            inventory.add(items.get(selection));
-            currentRoom.getItems().remove(items.get(selection));
-            return "";
-        } else {
-            return "Invalid number: aborting action.";
+            if (selection >= 0 && selection < items.size()) {
+                inventory.add(items.get(selection));
+                currentRoom.getItems().remove(items.get(selection));
+                return "";
+            } else {
+                return "Invalid number: aborting action.";
+            }
+        } else { // web-based makes selection directly by descriptions being visible
+            if (argument == null) {
+                return "There is no item " + argument + " in the room!";
+            }
+            String[] arguments = argument.split(": ");
+            Item item = findItemByDescription(arguments, currentRoom.getItems());
+            if (item == null) {
+                return "There is no item " + argument + " in the room!";
+            } else {
+                inventory.add(item);
+                currentRoom.getItems().remove(item);
+                return "";
+            }
         }
     }
 
@@ -200,20 +221,35 @@ public class AdventureGame {
      * @return String message
      */
     public String drop(String argument) {
-        if (argument == null || !isValidItem(argument)
-                || !inventory.contains(findItem(argument, inventory))) {
-            return "You don't have " + argument + "!";
-        }
+        if (usesConsole) { // text-based requires additional prompt for user input
+            if (argument == null || !isValidItem(argument)
+                    || !inventory.contains(findItemByName(argument, inventory))) {
+                return "You don't have " + argument + "!";
+            }
 
-        ArrayList<Item> items = promptForItems(argument, inventory);
-        int selection = getItemSelection();
+            ArrayList<Item> items = promptForItems(argument, inventory);
+            int selection = getItemSelection();
 
-        if (selection >= 0 && selection < items.size()) {
-            inventory.remove(items.get(selection));
-            currentRoom.getItems().add(items.get(selection));
-            return "";
-        } else {
-            return "Invalid number: aborting action.";
+            if (selection >= 0 && selection < items.size()) {
+                inventory.remove(items.get(selection));
+                currentRoom.getItems().add(items.get(selection));
+                return "";
+            } else {
+                return "Invalid number: aborting action.";
+            }
+        } else { // web-based makes selection directly by descriptions being visible
+            if (argument == null) {
+                return "You don't have " + argument + "!";
+            }
+            String[] arguments = argument.split(": ");
+            Item item = findItemByDescription(arguments, inventory);
+            if (item == null) {
+                return "You don't have " + argument + "!";
+            } else {
+                inventory.remove(item);
+                currentRoom.getItems().add(item);
+                return "";
+            }
         }
     }
 
@@ -224,9 +260,26 @@ public class AdventureGame {
      * @param container ArrayList<Item>
      * @return Item
      */
-    private Item findItem(String name, ArrayList<Item> container) {
+    private Item findItemByName(String name, ArrayList<Item> container) {
         for (Item item : container) {
             if (name.equals(item.getItemName())) {
+                return item;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Locates the Item object given the String name and description representing it
+     * and a specified container to search in.
+     * @param itemInformation String[]
+     * @param container ArrayList<Item>
+     * @return Item
+     */
+    private Item findItemByDescription(String[] itemInformation, ArrayList<Item> container) {
+        for (Item item : container) {
+            if (itemInformation[0].equals(item.getItemName())
+                    && itemInformation[1].equals(item.getItemDescription())) {
                 return item;
             }
         }

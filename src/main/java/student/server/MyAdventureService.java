@@ -18,13 +18,13 @@ public class MyAdventureService implements AdventureService {
 
     @Override
     public void reset() {
-        games = new HashMap<>();
+        games.clear();
         currentID = 0;
     }
 
     @Override
     public int newGame() throws AdventureException {
-        AdventureGame adventureGame = new AdventureGame(path);
+        AdventureGame adventureGame = new AdventureGame(path, false);
         games.put(currentID, adventureGame);
         return currentID++;
     }
@@ -33,19 +33,35 @@ public class MyAdventureService implements AdventureService {
     public GameStatus getGame(int id) {
         AdventureGame adventureGame = games.get(id);
         AdventureState adventureState = new AdventureState();
-        Map<String, List<String>> commandOptions = getCommandOptions();
+        ArrayList<Item> roomItems = adventureGame.getCurrentRoom().getItems();
+        ArrayList<Item> inventory = adventureGame.getInventory();
+        Map<String, List<String>> commandOptions = getCommandOptions(roomItems, inventory);
         return new GameStatus(false, id, adventureGame.onStartup(), null, null, adventureState, commandOptions);
     }
 
-    private HashMap<String, List<String>> getCommandOptions() {
+    private HashMap<String, List<String>> getCommandOptions(ArrayList<Item> roomItems, ArrayList<Item> inventory) {
         HashMap<String, List<String>> commandOptions = new HashMap<>();
-        commandOptions.put("quit", new ArrayList<>());
-        commandOptions.put("exit", new ArrayList<>());
-        commandOptions.put("examine", new ArrayList<>());
+        commandOptions.put("quit", new ArrayList<>(Arrays.asList("")));
+        commandOptions.put("exit", new ArrayList<>(Arrays.asList("")));
+        commandOptions.put("examine", new ArrayList<>(Arrays.asList("")));
+        commandOptions.put("retrace", new ArrayList<>(Arrays.asList("")));
+
         commandOptions.put("go", new ArrayList<>(Direction.getValidDirections()));
-        commandOptions.put("take", new ArrayList<>(Item.getValidItems()));
-        commandOptions.put("drop", new ArrayList<>(Item.getValidItems()));
-        commandOptions.put("retrace", new ArrayList<>());
+
+        ArrayList<String> itemOptions = new ArrayList<>();
+        for (Item item : roomItems) {
+            String itemOption = item.getItemName() + ": " + item.getItemDescription();
+            itemOptions.add(itemOption);
+        }
+        commandOptions.put("take", new ArrayList<>(itemOptions));
+
+        itemOptions = new ArrayList<>();
+        for (Item item : inventory) {
+            String itemOption = item.getItemName() + ": " + item.getItemDescription();
+            itemOptions.add(itemOption);
+        }
+        commandOptions.put("drop", new ArrayList<>(itemOptions));
+
         return commandOptions;
     }
 
@@ -63,9 +79,9 @@ public class MyAdventureService implements AdventureService {
         AdventureGame adventureGame = games.get(id);
         String[] userInput = new String[]{command.getCommandName(), command.getCommandValue()};
         adventureGame.evaluate(userInput);
-        if (adventureGame.hasQuit()) {
-            destroyGame(id);
-        }
+//        if (adventureGame.hasQuit()) {
+//            destroyGame(id);
+//        }
     }
 
     @Override
