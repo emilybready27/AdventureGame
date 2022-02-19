@@ -13,6 +13,7 @@ public class AdventureGame {
     private ArrayList<Room> roomPath;
     private boolean hasQuit;
     private boolean usesConsole;
+    private String message;
 
     public AdventureGame(String path) throws IllegalArgumentException {
         this(path, true);
@@ -36,6 +37,7 @@ public class AdventureGame {
         this.roomPath.add(this.currentRoom);
         this.hasQuit = false;
         this.usesConsole = usesConsole;
+        this.message = examine("");
     }
 
     public Layout getLayout() {
@@ -62,8 +64,13 @@ public class AdventureGame {
      * Returns a message to print on startup of AdventureGame.
      * @return String message
      */
-    public String onStartup() {
-        return examine(new String[]{"examine",""});
+    public String getMessage() {
+        return message;
+    }
+
+    public String getNewMessage(String newMessage) {
+        message = newMessage;
+        return message;
     }
 
     /**
@@ -75,17 +82,26 @@ public class AdventureGame {
         switch (userInput[0]) {
             case "quit":
             case "exit":
-                return quit(userInput);
+                if (!userInput[1].equals("")) {
+                    return invalidCommand(userInput);
+                }
+                return quit(userInput[1]);
             case "examine":
-                return examine(userInput);
+                if (!userInput[1].equals("")) {
+                    return invalidCommand(userInput);
+                }
+                return examine(userInput[1]);
             case "go":
-                return(go(userInput[1]));
+                return go(userInput[1]);
             case "take":
                 return take(userInput[1]);
             case "drop":
                 return drop(userInput[1]);
             case "retrace":
-                return retrace(userInput);
+                if (!userInput[1].equals("")) {
+                    return invalidCommand(userInput);
+                }
+                return retrace(userInput[1]);
             default:
                 return invalidCommand(userInput);
         }
@@ -93,29 +109,22 @@ public class AdventureGame {
 
     /**
      * Quits or exits the current game by signaling quit is true.
-     * @param userInput String[]
+     * @param argument String
      * @return String message
      */
-    public String quit(String[] userInput) {
-        if (!userInput[1].equals("")) {
-            return invalidCommand(userInput);
-        }
+    public String quit(String argument) {
         hasQuit = true;
-        return "Goodbye!";
+        return getNewMessage("Goodbye!");
     }
 
     /**
      * Examines the current state of the game by printing out the name
      * of the current Room, its description, the directions in which to
      * go from this Room, and the Items visible in this Room.
-     * @param userInput String[]
+     * @param argument String
      * @return String message
      */
-    public String examine(String[] userInput) {
-        // command should not have an additional argument
-        if (!userInput[1].equals("")) {
-            return invalidCommand(userInput);
-        }
+    public String examine(String argument) {
         String message = "";
         message += currentRoom.getName() + "\r\n";
         message += currentRoom.getDescription() + "\r\n";
@@ -131,7 +140,7 @@ public class AdventureGame {
             message += item.getItemName() + " ";
         }
 
-        return message;
+        return getNewMessage(message);
     }
 
     /**
@@ -152,16 +161,16 @@ public class AdventureGame {
         }
 
         // web-based has direction rooms visible
-        String[] arguments = argument.split(": ");
+        //String[] arguments = argument.split(": ");
         for (Direction direction : currentRoom.getDirections()) {
-            if (arguments[0].equals(direction.getDirectionName())) {
+            if (argument.equals(direction.getDirectionName())) {
                 currentRoom = layout.getRoomByName(direction.getRoom());
                 roomPath.add(currentRoom);
                 if (isEndingRoom()) {
                     hasQuit = true;
-                    return "You're at " + layout.getEndingRoom() + "! You win!";
+                    return getNewMessage("You're at " + layout.getEndingRoom() + "! You win!");
                 } else {
-                    return examine(new String[]{"",""});
+                    return examine("");
                 }
             }
         }
@@ -180,9 +189,9 @@ public class AdventureGame {
                 roomPath.add(currentRoom);
                 if (isEndingRoom()) {
                     hasQuit = true;
-                    return "You're at " + layout.getEndingRoom() + "! You win!";
+                    return getNewMessage("You're at " + layout.getEndingRoom() + "! You win!");
                 } else {
-                    return examine(new String[]{"",""});
+                    return examine("");
                 }
             }
         }
@@ -361,22 +370,17 @@ public class AdventureGame {
 
     /**
      * Retraces path of user from startingRoom to currentRoom.
-     * @param userInput String[]
+     * @param argument String
      * @return String message
      */
-    public String retrace(String[] userInput) {
-        // command should not have an additional argument
-        if (!userInput[1].equals("")) {
-            return invalidCommand(userInput);
-        }
-
+    public String retrace(String argument) {
         String message = "Path to " + currentRoom.getName() + ":\r\n";
         for (Room room : roomPath) {
             message += room.getName() + " -> ";
         }
 
         // remove dangling arrow
-        return (String) message.subSequence(0, message.length() - 4);
+        return getNewMessage((String) message.subSequence(0, message.length() - 4));
     }
 
     /**

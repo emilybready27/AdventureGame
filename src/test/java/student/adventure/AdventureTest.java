@@ -154,14 +154,14 @@ public class AdventureTest {
     // Other
     @Test
     public void testQuitExit() {
-        String actual = adventureGame.quit(new String[]{"",""});
+        String actual = adventureGame.quit("");
         String expected = "Goodbye!";
         assertEquals(expected, actual);
     }
 
     @Test
     public void testExamine() {
-        String actual = adventureGame.examine(new String[]{"examine",""});
+        String actual = adventureGame.examine("");
         String expected = "Winterfell\r\n" + "You're at Winterfell.\r\n" +
                 "From here, you can go: north south east west \r\n" +
                 "Items visible: banner weapon weapon ";
@@ -172,7 +172,7 @@ public class AdventureTest {
     public void testRetrace() {
         adventureGame.go("south");
         adventureGame.go("south");
-        String actual = adventureGame.retrace(new String[]{"retrace",""});
+        String actual = adventureGame.retrace("");
         String expected = "Path to Twins:\r\n" + "Winterfell -> Moat Cailin -> Twins";
         assertEquals(expected, actual);
     }

@@ -22,7 +22,7 @@ public class UserInteraction {
                 printMessage("Input the path to a valid JSON file.");
             }
         }
-        printMessage(adventureGame.onStartup());
+        printMessage(adventureGame.getMessage());
     }
 
     /**
