@@ -143,7 +143,34 @@ public class AdventureGame {
      * @return String message
      */
     public String go(String argument) {
-        if (argument == null || !isValidDirection(argument)) {
+        if (argument == null) {
+            return "I can't go " + argument + "!";
+        }
+
+        if (usesConsole) { // text-based doesn't have direction rooms visible
+            return goUsesConsole(argument);
+        }
+
+        // web-based has direction rooms visible
+        String[] arguments = argument.split(": ");
+        for (Direction direction : currentRoom.getDirections()) {
+            if (arguments[0].equals(direction.getDirectionName())) {
+                currentRoom = layout.getRoomByName(direction.getRoom());
+                roomPath.add(currentRoom);
+                if (isEndingRoom()) {
+                    hasQuit = true;
+                    return "You're at " + layout.getEndingRoom() + "! You win!";
+                } else {
+                    return examine(new String[]{"",""});
+                }
+            }
+        }
+
+        return "I can't go " + argument + "!";
+    }
+
+    private String goUsesConsole(String argument) {
+        if (!isValidDirection(argument)) {
             return "I can't go " + argument + "!";
         }
 
@@ -159,7 +186,6 @@ public class AdventureGame {
                 }
             }
         }
-
         return "I can't go " + argument + "!";
     }
 
