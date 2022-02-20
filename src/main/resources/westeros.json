@@ -5,6 +5,7 @@
     {
       "name": "Winterfell",
       "description": "You're at Winterfell.",
+      "image": "https://watchersonthewall.com/wp-content/uploads/2017/11/Winterfell-white-raven.jpg",
       "directions": [
         {
           "directionName": "North",
@@ -41,6 +42,7 @@
     {
       "name": "Castle Black",
       "description": "You're at Castle Black.",
+      "image": "https://static0.srcdn.com/wordpress/wp-content/uploads/2020/07/Castle-Black.jpeg?q=50&fit=crop&w=960&h=500&dpr=1.5",
       "directions": [
         {
           "directionName": "North",
@@ -65,6 +67,8 @@
     {
       "name": "Moat Cailin",
       "description": "You're at Moat Cailin.",
+      "image": "https://scontent-ort2-2.xx.fbcdn.net/v/t31.18172-8/11895186_867155846673520_4293644267149112459_o.jpg?_nc_cat=100&ccb=1-5&_nc_sid=cdbe9c&_nc_ohc=Dlu6yQ5JLdcAX-izle0&_nc_ht=scontent-ort2-2.xx&oh=00_AT9U0UJ2BS78Q769zSuqGch8UOrXZyvXzj1g4Y2YFtaokQ&oe=623505F9",
+
       "directions": [
         {
           "directionName" : "North",
@@ -93,6 +97,7 @@
     {
       "name": "Dreadfort",
       "description": "You're at Dreadfort.",
+      "image": "https://awoiaf.westeros.org/images/3/39/Alfred_Khamidullindreadfort.jpg",
       "directions": [
         {
           "directionName": "West",
@@ -109,6 +114,7 @@
     {
       "name": "Torrhen's Square",
       "description": "You're at Torrhen's Square.",
+      "image": "https://i.pinimg.com/originals/c4/e5/29/c4e5298fe0f6fc33cd1f9eb00ffb22e8.jpg",
       "directions": [
         {
           "directionName": "East",
@@ -129,6 +135,7 @@
     {
       "name": "Beyond the Wall",
       "description": "You're Beyond the Wall.",
+      "image": "https://i0.wp.com/ronnyallan.net/wp-content/uploads/2014/05/game-of-thrones-poster-north-of-the-wall.jpg",
       "directions": [
         {
           "directionName": "South",
@@ -145,6 +152,7 @@
     {
       "name": "Twins",
       "description": "You're at the Twins.",
+      "image": "https://i.pinimg.com/originals/02/30/df/0230df13e42d1ae8397444759620608c.png",
       "directions": [
         {
           "directionName": "North",
@@ -173,6 +181,7 @@
     {
       "name": "Seagard",
       "description": "You're at Seagard.",
+      "image": "https://i.pinimg.com/736x/bf/2f/d7/bf2fd7c44aba81d0cec23e1f3fccef9b.jpg",
       "directions": [
         {
           "directionName": "Northeast",
@@ -197,6 +206,7 @@
     {
       "name": "Riverrun",
       "description": "You're at Riverrun.",
+      "image": "https://i.pinimg.com/originals/7b/4c/43/7b4c4320879f989f861140f975e88443.jpg",
       "directions": [
         {
           "directionName": "North",
@@ -225,6 +235,7 @@
     {
       "name": "Harrenhal",
       "description": "You're at Harrenhal.",
+      "image": "https://i.pinimg.com/originals/5d/ae/64/5dae643bfec3d60df7b5c276bc4f5a2e.jpg",
       "directions": [
         {
           "directionName": "North",
@@ -249,6 +260,7 @@
     {
       "name": "Casterly Rock",
       "description": "You're at Casterly Rock.",
+      "image": "https://c4.wallpaperflare.com/wallpaper/975/914/335/fantasy-art-digital-art-render-wallpaper-preview.jpg",
       "directions": [
         {
           "directionName": "North",
@@ -293,6 +305,7 @@
     {
       "name": "Lannisport",
       "description": "You're at Lannisport.",
+      "image": "https://pbs.twimg.com/media/EaNCrQ7WsAAnUxC?format=jpg&name=large",
       "directions": [
         {
           "directionName": "Northeast",
@@ -313,6 +326,7 @@
     {
       "name": "King's Landing",
       "description": "You're at King's Landing.",
+      "image": "https://i.imgur.com/V5oJAJI.jpg",
       "directions": [
         {
           "directionName": "Northeast",
@@ -341,6 +355,7 @@
     {
       "name": "Eyrie",
       "description": "You're at the Eyrie.",
+      "image": "https://oyster.ignimgs.com/mediawiki/apis.ign.com/game-of-thrones/9/9a/Eyrie442012.png",
       "directions": [
         {
           "directionName": "South",
@@ -365,6 +380,7 @@
     {
       "name": "Vale",
       "description": "You're at the Vale.",
+      "image": "https://media.istockphoto.com/photos/vale-of-pewsey-picture-id156752154?k=20&m=156752154&s=612x612&w=0&h=5v1f8zrkS2vXb8iX1CM9XBDikdaRbhpBhsj287Sn26M=",
       "directions": [
         {
           "directionName": "East",
@@ -380,6 +396,7 @@
     {
       "name": "Ironman's Bay",
       "description": "You're at Ironman's Bay.",
+      "image": "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/e0834629-e71b-45f0-afe5-054eb86b1c64/d68q8wf-2e227d64-3e44-4698-9470-582fe27d9102.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2UwODM0NjI5LWU3MWItNDVmMC1hZmU1LTA1NGViODZiMWM2NFwvZDY4cTh3Zi0yZTIyN2Q2NC0zZTQ0LTQ2OTgtOTQ3MC01ODJmZTI3ZDkxMDIuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.YN9G3b_ybXpS9CWHUNSA_-32xgbgdjG5jIN224_-Im8",
       "directions": [
         {
           "directionName": "Northeast",
@@ -400,6 +417,7 @@
     {
       "name": "Pyke",
       "description": "You're at Pyke.",
+      "image": "https://cdna.artstation.com/p/assets/images/images/038/765/378/large/grant-regan-gregan-craggycastle01-matte-web.jpg?1623989656",
       "directions": [
         {
           "directionName": "Northeast",
@@ -420,6 +438,7 @@
     {
       "name": "Highgarden",
       "description": "You're at Highgarden.",
+      "image": "https://awoiaf.westeros.org/images/c/c7/Ted_Nasmith_A_Song_of_Ice_and_Fire_Highgarden.jpg",
       "directions": [
         {
           "directionName": "North",
@@ -448,6 +467,7 @@
     {
       "name": "Reach",
       "description": "You're at the Reach.",
+      "image": "https://external-preview.redd.it/6E8wv5uA5PhlP_SE_zvitfSoMAzAPjtMoTNIt_1cXYI.jpg?auto=webp&s=af2c0cb0309005d3e291b424415a715539085e48",
       "directions": [
         {
           "directionName": "Northwest",
@@ -471,6 +491,7 @@
     {
       "name": "Dornish Marches",
       "description": "You're at the Dornish Marches.",
+      "image": "https://cangeo-media-library.s3.amazonaws.com/s3fs-public/styles/web_article_slider_image/public/images/web_articles/article_images/5363/point_pelee_cangeo-14.jpg?itok=2EDN4y0Y",
       "directions": [
         {
           "directionName": "North",
@@ -498,6 +519,7 @@
     {
       "name": "Storm's End",
       "description": "You're at Storm's End.",
+      "image": "https://i.pinimg.com/originals/0c/ce/33/0cce330b07e3d662c39bc43d0a106ac8.jpg",
       "directions": [
         {
           "directionName": "Northwest",
@@ -530,6 +552,7 @@
     {
       "name": "Blackwater Bay",
       "description": "You're at Blackwater Bay.",
+      "image": "https://www.kotaku.com.au/content/uploads/sites/3/2013/07/08/18t6kua6gw8kajpg.jpg",
       "directions": [
         {
           "directionName": "Northeast",
@@ -550,6 +573,7 @@
     {
       "name": "Dragonstone",
       "description": "You're at You're at Dragonstone.",
+      "image": "https://cdnb.artstation.com/p/assets/images/images/003/540/421/large/victor-perez-game-of-thrones-tribute-victor-perez-firma-low.jpg?1474823065",
       "directions": [
         {
           "directionName": "North",
@@ -582,6 +606,7 @@
     {
       "name": "Sea of Dorne",
       "description": "You're at the Sea of Dorne.",
+      "image": "https://cinematichive.files.wordpress.com/2021/03/sea-snakes_hbo_game-of-thrones_.jpeg",
       "directions": [
         {
           "directionName": "North",
@@ -606,6 +631,7 @@
     {
       "name": "Sunspear",
       "description": "You're at Sunspear.",
+      "image": "https://www.scabard.com/user/Blackrook/image/Sunspear.jpg",
       "directions": [
         {
           "directionName": "North",
@@ -626,6 +652,7 @@
     {
       "name": "Bay of Crabs",
       "description": "You're at the Bay of Crabs.",
+      "image": "http://i.imgur.com/cKbVuXI.jpg",
       "directions": [
         {
           "directionName": "South",
@@ -646,6 +673,7 @@
     {
       "name": "Starfall",
       "description": "You're at Starfall.",
+      "image": "https://pbs.twimg.com/media/EiXK_HaXsAAtsWP.jpg",
       "directions": [
         {
           "directionName": "North",
@@ -674,6 +702,7 @@
     {
       "name": "Oldtown",
       "description": "You're at Oldtown.",
+      "image": "https://external-preview.redd.it/PjyZVqvbCqpeUhLmSYLhTegdFQmyN4uoeWGGqc9UNxM.jpg?auto=webp&s=f9cd2c7e0062c7bdc01114fbdc61e2cb5c3c924c",
       "directions": [
         {
           "directionName": "North",
@@ -698,6 +727,7 @@
     {
       "name": "Shipbreaker Bay",
       "description": "You're at Shipbreaker Bay.",
+      "image": "https://www.einerd.com.br/wp-content/uploads/2021/05/game-of-thrones-10000-ships-e1622037397121.jpg.webp",
       "directions": [
         {
           "directionName": "North",
