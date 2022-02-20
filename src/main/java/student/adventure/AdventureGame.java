@@ -213,7 +213,7 @@ public class AdventureGame {
      * @return String message
      */
     public String go(String argument) {
-        if (argument == null) {
+        if (argument == null || !isValidDirection(argument)) {
             return "I can't go " + argument + "!";
         }
 
