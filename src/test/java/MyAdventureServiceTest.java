@@ -94,4 +94,34 @@ public class MyAdventureServiceTest {
         service.reset();
         assert(service.getGames().size() == 0);
     }
+
+    @Test
+    public void testMultipleGames() {
+        try {
+            service.newGame();
+        } catch (Exception e) {
+            // nothing
+        }
+        service.executeCommand(0, new Command("go", "south"));
+        service.executeCommand(1, new Command("go", "west"));
+        AdventureGame game = service.getGames().get(0);
+        String actual = game.getCurrentRoom().getName();
+        String expected = "Moat Cailin";
+        assert(expected.equals(actual));
+    }
+
+    @Test
+    public void testMultipleGamesOneQuit() {
+        try {
+            service.newGame();
+        } catch (Exception e) {
+            // nothing
+        }
+        service.executeCommand(0, new Command("quit", ""));
+        service.executeCommand(1, new Command("go", "south"));
+        AdventureGame game = service.getGames().get(1);
+        String actual = game.getCurrentRoom().getName();
+        String expected = "Moat Cailin";
+        assert(expected.equals(actual));
+    }
 }
