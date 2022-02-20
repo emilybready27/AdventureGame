@@ -62,7 +62,7 @@ public class MyAdventureService implements AdventureService {
     public GameStatus getGame(int id) {
         AdventureGame game = games.get(id);
 
-        if (game.hasQuit()) {
+        if (game.hasQuit()) { // only display restart command option
             HashMap<String, List<String>> restartCommand = new HashMap<>();
             restartCommand.put("restart", new ArrayList<>(Arrays.asList("")));
             return new GameStatus(false, id, game.getMessage(), game.getCurrentRoom().getImage(),
@@ -86,6 +86,7 @@ public class MyAdventureService implements AdventureService {
         commandOptions.put("examine", new ArrayList<>(Arrays.asList("")));
         commandOptions.put("retrace", new ArrayList<>(Arrays.asList("")));
 
+        // go, take, drop command options vary by current game state
         ArrayList<String> options = new ArrayList<>();
         for (Direction direction : game.getCurrentRoom().getDirections()) {
             options.add(direction.getDirectionName() + ": " + direction.getRoom());
