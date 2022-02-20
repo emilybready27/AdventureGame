@@ -99,6 +99,7 @@ public class Layout {
 
     /**
      * Gets a List of Strings of all the Direction names in a Room.
+     * @param room Room
      * @return ArrayList<String>
      */
     public ArrayList<String> getRoomDirectionNames(Room room) {
@@ -111,6 +112,7 @@ public class Layout {
 
     /**
      * Gets a List of Strings of all the Item descriptions in a Room.
+     * @param room Room
      * @return ArrayList<String>
      */
     public ArrayList<String> getRoomItemDescriptions(Room room) {
@@ -135,6 +137,11 @@ public class Layout {
         return null;
     }
 
+    /**
+     * Overrides the equals function to compare two Layouts.
+     * @param other Layout
+     * @return boolean
+     */
     public boolean equals(Layout other) {
         if (this == other) {
             return true;
@@ -165,6 +172,7 @@ public class Layout {
     /**
      * Checks for fields from the JSON file that were not filled and by default are null.
      * Any instance of a missing field is treated as invalid Layout.
+     * @return boolean
      * @throws JsonParseException Missing field
      */
     private boolean hasMissingFields() {
@@ -194,6 +202,7 @@ public class Layout {
      *   1. Two Rooms of the same name
      *   2. Two Directions of the same name within a single Room
      *   3. Two Items of the same description within a single Room.
+     * @return boolean
      * @throws JsonParseException Duplicate field
      */
     private boolean hasDuplicates() {
@@ -218,6 +227,7 @@ public class Layout {
     /**
      * Checks if there is an instance where a direction maps the current Room
      * to another Room that is nonexistent.
+     * @return boolean
      * @throws JsonParseException Nonexistent room
      */
     private boolean hasNonexistentRoom() {
@@ -242,6 +252,7 @@ public class Layout {
     /**
      * Checks if a Direction field contains an invalid Direction name.
      * Checks if an Item field contains an invalid Item name.
+     * @return boolean
      * @throws JsonParseException Invalid field
      */
     private boolean hasInvalidFields() {
