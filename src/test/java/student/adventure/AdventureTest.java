@@ -17,12 +17,13 @@ import static org.junit.Assert.assertTrue;
 // https://www.baeldung.com/java-testing-system-out-println
 public class AdventureTest {
     private AdventureGame adventureGame;
+    private final String PATH = "src/main/resources/westeros.json";
     private final PrintStream standardOut = System.out;
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
     @Before
     public void setUp() {
-        adventureGame = new AdventureGame("src/main/resources/westeros.json");
+        adventureGame = new AdventureGame(PATH);
         System.setOut(new PrintStream(outputStreamCaptor));
     }
 
@@ -62,18 +63,17 @@ public class AdventureTest {
     // Take
     @Test
     public void testTakeValidItem() {
-        ByteArrayInputStream in = new ByteArrayInputStream("0".getBytes());
-        System.setIn(in);
-        adventureGame.take("banner");
+        adventureGame = new AdventureGame(PATH, false);
+        adventureGame.take("banner: Direwolf sigil of House Stark.");
         Item item = new Item("banner", "Direwolf sigil of House Stark.");
         assertTrue(item.equals(adventureGame.getInventory().get(0)));
     }
 
     @Test
     public void testTakeInvalidItem() {
-        String actual = adventureGame.take("tool");
-        String expected = "There is no item tool in the room!";
-        assertEquals(expected, actual);
+        adventureGame = new AdventureGame(PATH, false);
+        adventureGame.take("tool: Direwolf sigil of House Stark.");
+        assert(adventureGame.getInventory().size() == 0);
     }
 
     @Test
@@ -91,7 +91,23 @@ public class AdventureTest {
     }
 
     @Test
-    public void testTakeInvalidItemSelection() {
+    public void testTakeUsesConsoleValidItem() {
+        ByteArrayInputStream in = new ByteArrayInputStream("0".getBytes());
+        System.setIn(in);
+        adventureGame.take("banner");
+        Item item = new Item("banner", "Direwolf sigil of House Stark.");
+        assertTrue(item.equals(adventureGame.getInventory().get(0)));
+    }
+
+    @Test
+    public void testTakeUsesConsoleInvalidItem() {
+        String actual = adventureGame.take("tool");
+        String expected = "There is no item tool in the room!";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testTakeUsesConsoleInvalidItemSelection() {
         ByteArrayInputStream in = new ByteArrayInputStream("5".getBytes());
         System.setIn(in);
         String actual = adventureGame.take("banner");
@@ -102,23 +118,18 @@ public class AdventureTest {
     // Drop
     @Test
     public void testDropValidItem() {
-        ByteArrayInputStream in = new ByteArrayInputStream("0".getBytes());
-        System.setIn(in);
-        adventureGame.take("banner");
-        in = new ByteArrayInputStream("0".getBytes());
-        System.setIn(in);
-        adventureGame.drop("banner");
-        Item item = new Item("banner", "Direwolf sigil of House Stark.");
-        assertTrue(adventureGame.getInventory().isEmpty());
+        adventureGame = new AdventureGame(PATH, false);
+        adventureGame.take("banner: Direwolf sigil of House Stark.");
+        adventureGame.drop("banner: Direwolf sigil of House Stark.");
+        assert(adventureGame.getInventory().size() == 0);
     }
 
     @Test
     public void testDropInvalidItem() {
-        ByteArrayInputStream in = new ByteArrayInputStream("0".getBytes());
-        System.setIn(in);
-        String actual = adventureGame.drop("tool");
-        String expected = "You don't have tool!";
-        assertEquals(expected, actual);
+        adventureGame = new AdventureGame(PATH, false);
+        adventureGame.take("banner: Direwolf sigil of House Stark.");
+        adventureGame.drop("tool: Direwolf sigil of House Stark.");
+        assert(adventureGame.getInventory().size() == 1);
     }
 
     @Test
@@ -140,7 +151,28 @@ public class AdventureTest {
     }
 
     @Test
-    public void testInvalidItemSelection() {
+    public void testDropUsesConsoleValidItem() {
+        ByteArrayInputStream in = new ByteArrayInputStream("0".getBytes());
+        System.setIn(in);
+        adventureGame.take("banner");
+        in = new ByteArrayInputStream("0".getBytes());
+        System.setIn(in);
+        adventureGame.drop("banner");
+        Item item = new Item("banner", "Direwolf sigil of House Stark.");
+        assertTrue(adventureGame.getInventory().isEmpty());
+    }
+
+    @Test
+    public void testDropUsesConsoleInvalidItem() {
+        ByteArrayInputStream in = new ByteArrayInputStream("0".getBytes());
+        System.setIn(in);
+        String actual = adventureGame.drop("tool");
+        String expected = "You don't have tool!";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testDropUsesConsoleInvalidItemSelection() {
         ByteArrayInputStream in = new ByteArrayInputStream("0".getBytes());
         System.setIn(in);
         adventureGame.take("banner");
@@ -178,10 +210,19 @@ public class AdventureTest {
     }
 
     @Test
+    public void testRestart() {
+        String actual = adventureGame.restart("");
+        String expected = "Winterfell\r\n" + "You're at Winterfell.\r\n" +
+                "From here, you can go: north south east west \r\n" +
+                "Items visible: banner weapon weapon ";
+        assertEquals(expected, actual);
+    }
+
+    @Test
     public void testQuitAtEndingRoom() {
         adventureGame.getLayout().setEndingRoom("castle black");
         String actual = adventureGame.go("north");
-        String expected = "You're at castle black! You win!";
+        String expected = "You're at Castle Black! You win!";
         assertEquals(expected, actual);
     }
 
@@ -189,6 +230,19 @@ public class AdventureTest {
     public void testInvalidCommand() {
         String actual = adventureGame.invalidCommand(new String[]{"Winter's", "coming"});
         String expected = "I don't understand Winter's coming!";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testEvaluateValidCommand() {
+        adventureGame.evaluate(new String[]{"go", "south"});
+        assertEquals("Moat Cailin", adventureGame.getCurrentRoom().getName());
+    }
+
+    @Test
+    public void testEvaluateInvalidCommand() {
+        String actual = adventureGame.evaluate(new String[]{"examine", "south"});
+        String expected = "I don't understand examine south!";
         assertEquals(expected, actual);
     }
 }

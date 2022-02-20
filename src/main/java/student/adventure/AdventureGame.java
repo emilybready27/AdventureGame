@@ -2,9 +2,6 @@ package student.adventure;
 
 import java.util.*;
 
-import static student.adventure.Direction.isValidDirection;
-import static student.adventure.Item.isValidItem;
-
 /** A class that handles the state and command behaviors of the Adventure Game. */
 public class AdventureGame {
     private final Layout layout;
@@ -93,7 +90,7 @@ public class AdventureGame {
     }
 
     /**
-     * Returns a message to print on startup of AdventureGame.
+     * Returns a message to print for the AdventureGame UI.
      * @return String message
      */
     public String getMessage() {
@@ -101,7 +98,7 @@ public class AdventureGame {
     }
 
     /**
-     * Updates the message to the given String and returns it.
+     * Updates the message for the UI to the given String and returns it.
      * @param newMessage String
      * @return String
      */
@@ -213,11 +210,11 @@ public class AdventureGame {
      * @return String message
      */
     public String go(String argument) {
-        if (argument == null || !isValidDirection(argument)) {
+        if (argument == null) {
             return "I can't go " + argument + "!";
         }
 
-        // splits web-based argument, doesn't affect text-based argument
+        // splits web-based argument at ':', doesn't affect text-based argument
         String[] arguments = argument.split(": ");
         for (Direction direction : currentRoom.getDirections()) {
             if (arguments[0].equals(direction.getDirectionName())) {
@@ -225,7 +222,7 @@ public class AdventureGame {
                 roomPath.add(currentRoom);
                 if (isEndingRoom()) {
                     hasQuit = true;
-                    return getNewMessage("You're at " + layout.getEndingRoom() + "! You win!");
+                    return getNewMessage("You're at " + currentRoom.getName() + "! You win!"); // update UI message
                 } else {
                     return examine("");
                 }
@@ -277,8 +274,7 @@ public class AdventureGame {
      * @return String message
      */
     private String takeUsesConsole(String argument) {
-        if (!isValidItem(argument)
-                || !currentRoom.getItems().contains(findItemByName(argument, currentRoom.getItems()))) {
+        if (!currentRoom.getItems().contains(findItemByName(argument, currentRoom.getItems()))) {
             return "There is no item " + argument + " in the room!";
         }
 
@@ -327,7 +323,7 @@ public class AdventureGame {
      * @return String message
      */
     private String dropUsesConsole(String argument) {
-        if (!isValidItem(argument) || !inventory.contains(findItemByName(argument, inventory))) {
+        if (!inventory.contains(findItemByName(argument, inventory))) {
             return "You don't have " + argument + "!";
         }
 
@@ -376,7 +372,8 @@ public class AdventureGame {
     }
 
     /**
-     * Matches all Items with the same given Item name in the given container
+     * For drop and take commands when usesConsole is true,
+     * matches all Items with the same given Item name in the given container
      * and uses UserInteraction to prompt user for selection based on item descriptions.
      * @param argument String
      * @param container ArrayList<Item>
@@ -399,7 +396,8 @@ public class AdventureGame {
     }
 
     /**
-     * Uses UserInteraction to get item selection number.
+     * Uses UserInteraction to get item selection number for drop and take commands
+     * when usesConsole is true.
      * @return int
      */
     private int getItemSelection() {
