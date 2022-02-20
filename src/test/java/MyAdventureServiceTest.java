@@ -124,4 +124,19 @@ public class MyAdventureServiceTest {
         String expected = "Moat Cailin";
         assert(expected.equals(actual));
     }
+
+    @Test
+    public void testMultipleGamesOneDestroy() {
+        try {
+            service.newGame();
+        } catch (Exception e) {
+            // nothing
+        }
+        service.destroyGame(0);
+        service.executeCommand(1, new Command("go", "south"));
+        AdventureGame game = service.getGames().get(1);
+        String actual = game.getCurrentRoom().getName();
+        String expected = "Moat Cailin";
+        assert(expected.equals(actual));
+    }
 }
