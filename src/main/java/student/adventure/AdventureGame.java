@@ -15,13 +15,12 @@ public class AdventureGame {
     private boolean usesConsole;
     private String message;
 
-    public AdventureGame(String path) throws IllegalArgumentException {
-        this(path, true);
-    }
-
     /**
      * Constructs an AdventureGame by first attempting to build the Layout.
+     * If usesConsole is true, provides functionality for a text-based game.
+     * Otherwise, provides functionality for a web-based game.
      * @param path String
+     * @param usesConsole boolean
      * @throws IllegalArgumentException Invalid layout
      */
     public AdventureGame(String path, boolean usesConsole) throws IllegalArgumentException {
@@ -38,6 +37,15 @@ public class AdventureGame {
         this.hasQuit = false;
         this.usesConsole = usesConsole;
         this.message = examine("");
+    }
+
+    /**
+     * Constructs an AdventureGame with the default that usesConsole is true.
+     * @param path String
+     * @throws IllegalArgumentException
+     */
+    public AdventureGame(String path) throws IllegalArgumentException {
+        this(path, true);
     }
 
     public Layout getLayout() {
@@ -60,6 +68,10 @@ public class AdventureGame {
         return hasQuit;
     }
 
+    /**
+     * Gets a List of the String descriptions of the Items in the inventory.
+     * @return ArrayList<String>
+     */
     public ArrayList<String> getInventoryDescriptions() {
         ArrayList<String> itemDescriptions = new ArrayList<>();
         for (Item item : inventory) {
@@ -68,6 +80,10 @@ public class AdventureGame {
         return itemDescriptions;
     }
 
+    /**
+     * Gets a List of the String names of the Rooms traversed so far.
+     * @return ArrayList<String>
+     */
     public ArrayList<String> getRoomPathNames() {
         ArrayList<String> roomNames = new ArrayList<>();
         for (Room room : roomPath) {
@@ -84,11 +100,21 @@ public class AdventureGame {
         return message;
     }
 
+    /**
+     * Updates the message to the given String and returns it.
+     * @param newMessage String
+     * @return String
+     */
     public String getNewMessage(String newMessage) {
         message = newMessage;
         return message;
     }
 
+    /**
+     * Overrides the equals function to compare two AdventureGames.
+     * @param other AdventureGame
+     * @return boolean
+     */
     public boolean equals(AdventureGame other) {
         if (this == other) {
             return true;
@@ -106,7 +132,7 @@ public class AdventureGame {
     /**
      * Invokes the game behavior that corresponds to the given user input.
      * @param userInput String[]
-     * @return boolean for quit
+     * @return String message
      */
     public String evaluate(String[] userInput) {
         switch (userInput[0]) {
@@ -149,7 +175,7 @@ public class AdventureGame {
      */
     public String quit(String argument) {
         hasQuit = true;
-        return getNewMessage("Goodbye!");
+        return getNewMessage("Goodbye!"); // update message for UI
     }
 
     /**
@@ -175,7 +201,7 @@ public class AdventureGame {
             message += item.getItemName() + " ";
         }
 
-        return getNewMessage(message);
+        return getNewMessage(message); // update message for UI
     }
 
     /**
@@ -191,11 +217,7 @@ public class AdventureGame {
             return "I can't go " + argument + "!";
         }
 
-        if (usesConsole) { // text-based doesn't have direction rooms visible
-            return goUsesConsole(argument);
-        }
-
-        // web-based has direction rooms visible
+        // splits web-based argument, doesn't affect text-based argument
         String[] arguments = argument.split(": ");
         for (Direction direction : currentRoom.getDirections()) {
             if (arguments[0].equals(direction.getDirectionName())) {
@@ -213,26 +235,6 @@ public class AdventureGame {
         return "I can't go " + argument + "!";
     }
 
-    private String goUsesConsole(String argument) {
-        if (!isValidDirection(argument)) {
-            return "I can't go " + argument + "!";
-        }
-
-        for (Direction direction : currentRoom.getDirections()) {
-            if (argument.equals(direction.getDirectionName())) {
-                currentRoom = layout.getRoomByName(direction.getRoom());
-                roomPath.add(currentRoom);
-                if (isEndingRoom()) {
-                    hasQuit = true;
-                    return getNewMessage("You're at " + layout.getEndingRoom() + "! You win!");
-                } else {
-                    return examine("");
-                }
-            }
-        }
-        return "I can't go " + argument + "!";
-    }
-
     /**
      * Checks if the current Room is equal to the ending Room.
      * @return boolean
@@ -245,7 +247,6 @@ public class AdventureGame {
      * Attempts to take the given Item, if it is valid, from the current Room.
      * If it isn't a valid Item, or the Item isn't present in the Room,
      * sends "undefined" message.
-     * Uses UserInteraction to get selection for item.
      * @param argument String
      * @return String message
      */
@@ -270,6 +271,11 @@ public class AdventureGame {
         }
     }
 
+    /**
+     * Take for text-based requires UserInteraction to get selection for item.
+     * @param argument String
+     * @return String message
+     */
     private String takeUsesConsole(String argument) {
         if (!isValidItem(argument)
                 || !currentRoom.getItems().contains(findItemByName(argument, currentRoom.getItems()))) {
@@ -278,7 +284,6 @@ public class AdventureGame {
 
         ArrayList<Item> items = promptForItems(argument, currentRoom.getItems());
         int selection = getItemSelection();
-
         if (selection >= 0 && selection < items.size()) {
             inventory.add(items.get(selection));
             currentRoom.getItems().remove(items.get(selection));
@@ -292,7 +297,6 @@ public class AdventureGame {
      * Attempts to drop the given Item, if it is valid, into the current Room.
      * If it isn't a valid Item, or the item isn't present in the inventory,
      * doesn't change the state of the game.
-     * Uses UserInteraction to get selection for item.
      * @param argument String
      * @return String message
      */
@@ -317,6 +321,11 @@ public class AdventureGame {
         }
     }
 
+    /**
+     * Drop for text-based requires UserInteraction to get selection for item.
+     * @param argument String
+     * @return String message
+     */
     private String dropUsesConsole(String argument) {
         if (!isValidItem(argument) || !inventory.contains(findItemByName(argument, inventory))) {
             return "You don't have " + argument + "!";
@@ -324,7 +333,6 @@ public class AdventureGame {
 
         ArrayList<Item> items = promptForItems(argument, inventory);
         int selection = getItemSelection();
-
         if (selection >= 0 && selection < items.size()) {
             inventory.remove(items.get(selection));
             currentRoom.getItems().add(items.get(selection));
@@ -404,7 +412,7 @@ public class AdventureGame {
     }
 
     /**
-     * Retraces path of user from startingRoom to currentRoom.
+     * Retraces path of user from startingRoom to currentRoom as a String of Rooms.
      * @param argument String
      * @return String message
      */
@@ -418,6 +426,11 @@ public class AdventureGame {
         return getNewMessage((String) message.subSequence(0, message.length() - 4));
     }
 
+    /**
+     * Restarts the game with the initial configuration.
+     * @param argument String
+     * @return String message
+     */
     public String restart(String argument) {
         currentRoom = layout.getRoomByName(layout.getStartingRoom());
         inventory = new ArrayList<>();
