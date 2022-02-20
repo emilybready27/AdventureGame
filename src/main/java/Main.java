@@ -7,14 +7,19 @@ import student.server.AdventureService;
 import java.io.IOException;
 
 public class Main {
+    private final static boolean playWithConsole = false;
+
     public static void main(String[] args) {
-//        UserInteraction.setUp();
-//        UserInteraction.play();
-        try {
-            HttpServer server = AdventureServer.createServer(AdventureResource.class);
-            server.start();
-        } catch (IOException e) {
-            System.out.println("Server error.");
+        if (playWithConsole) {
+            UserInteraction.setUp();
+            UserInteraction.play();
+        } else {
+            try {
+                HttpServer server = AdventureServer.createServer(AdventureResource.class);
+                server.start();
+            } catch (IOException e) {
+                System.out.println("Server error.");
+            }
         }
     }
 }
