@@ -4,7 +4,13 @@ import student.adventure.AdventureGame;
 import student.adventure.Item;
 import student.server.*;
 
+import javax.ws.rs.core.Response;
 import java.util.*;
+
+import static javax.swing.UIManager.put;
+import static org.junit.Assert.assertEquals;
+
+/** A class that tests the functions of MyAdventureService. */
 
 public class MyAdventureServiceTest {
     private MyAdventureService service;
@@ -29,14 +35,17 @@ public class MyAdventureServiceTest {
     @Test
     public void testGetGame() {
         GameStatus actual = service.getGame(0);
-        AdventureGame game = new AdventureGame(PATH, false);
-        String examine = "Winterfell\r\n" + "You're at Winterfell.\r\n" +
-                "From here, you can go: north south east west \r\n" +
-                "Items visible: banner weapon weapon ";
-        Map<String, List<String>> commandOptions = service.getCommandOptions(game);
-        GameStatus expected = new GameStatus(false, 0, examine,
+        GameStatus expected = new GameStatus(
+                false,
+                0,
+                "Winterfell\r\n" + "You're at Winterfell.\r\n" +
+                        "From here, you can go: north south east west \r\n" +
+                        "Items visible: banner weapon weapon ",
                 "https://watchersonthewall.com/wp-content/uploads/2017/11/Winterfell-white-raven.jpg",
-                null, new AdventureState(), commandOptions);
+                null,
+                new AdventureState(),
+                service.getCommandOptions(new AdventureGame(PATH, false))
+        );
         assert(expected.equals(actual));
     }
 
@@ -44,22 +53,51 @@ public class MyAdventureServiceTest {
     public void testExecuteCommandQuit() {
         service.executeCommand(0,  new Command("quit", ""));
         GameStatus actual = service.getGame(0);
-        AdventureGame game = new AdventureGame(PATH, false);
-        String examine = "Goodbye!";
-        HashMap<String, List<String>> commandOptions = new HashMap<>();
-        commandOptions.put("restart", new ArrayList<>(Arrays.asList("")));
-        GameStatus expected = new GameStatus(false, 0, examine,
+        GameStatus expected = new GameStatus(
+                false,
+                0,
+                "Goodbye!",
                 "https://watchersonthewall.com/wp-content/uploads/2017/11/Winterfell-white-raven.jpg",
-                null, new AdventureState(), commandOptions);
+                null,
+                new AdventureState(),
+                new HashMap<String, List<String>>() {{put("restart", new ArrayList<>(Arrays.asList("")));}}
+        );
+        assert(expected.equals(actual));
+    }
+
+    @Test
+    public void testExecuteCommandExamine() {
+        service.executeCommand(0, new Command("examine", ""));
+        GameStatus actual = service.getGame(0);
+        GameStatus expected = new GameStatus(
+                false,
+                0,
+                "Winterfell\r\n" + "You're at Winterfell.\r\n" +
+                        "From here, you can go: north south east west \r\n" +
+                        "Items visible: banner weapon weapon ",
+                "https://watchersonthewall.com/wp-content/uploads/2017/11/Winterfell-white-raven.jpg",
+                null,
+                new AdventureState(),
+                service.getCommandOptions(new AdventureGame(PATH, false))
+        );
         assert(expected.equals(actual));
     }
 
     @Test
     public void testExecuteCommandGo() {
-        service.executeCommand(0, new Command("go", "south"));
-        AdventureGame game = service.getGames().get(0);
-        String actual = game.getCurrentRoom().getName();
-        String expected = "Moat Cailin";
+        service.executeCommand(0, new Command("go", "north"));
+        GameStatus actual = service.getGame(0);
+        GameStatus expected = new GameStatus(
+                false,
+                0,
+                "Castle Black\r\n" + "You're at Castle Black.\r\n" +
+                        "From here, you can go: north south \r\n" +
+                        "Items visible: weapon weapon ",
+                "https://static0.srcdn.com/wordpress/wp-content/uploads/2020/07/Castle-Black.jpeg?q=50&fit=crop&w=960&h=500&dpr=1.5",
+                null,
+                new AdventureState(),
+                service.getCommandOptions(service.getGames().get(0))
+        );
         assert(expected.equals(actual));
     }
 
@@ -67,9 +105,18 @@ public class MyAdventureServiceTest {
     public void testExecuteCommandTake() {
         service.executeCommand(0, new Command("take",
                 "banner: Direwolf sigil of House Stark."));
-        AdventureGame game = service.getGames().get(0);
-        Item actual = game.getInventory().get(0);
-        Item expected = new Item("banner", "Direwolf sigil of House Stark.");
+        GameStatus actual = service.getGame(0);
+        GameStatus expected = new GameStatus(
+                false,
+                0,
+                "Winterfell\r\n" + "You're at Winterfell.\r\n" +
+                        "From here, you can go: north south east west \r\n" +
+                        "Items visible: banner weapon weapon ",
+                "https://watchersonthewall.com/wp-content/uploads/2017/11/Winterfell-white-raven.jpg",
+                null,
+                new AdventureState(),
+                service.getCommandOptions(service.getGames().get(0))
+        );
         assert(expected.equals(actual));
     }
 
@@ -79,8 +126,54 @@ public class MyAdventureServiceTest {
                 "banner: Direwolf sigil of House Stark."));
         service.executeCommand(0, new Command("drop",
                 "banner: Direwolf sigil of House Stark."));
-        AdventureGame game = service.getGames().get(0);
-        assert(game.getInventory().size() == 0);
+        GameStatus actual = service.getGame(0);
+        GameStatus expected = new GameStatus(
+                false,
+                0,
+                "Winterfell\r\n" + "You're at Winterfell.\r\n" +
+                        "From here, you can go: north south east west \r\n" +
+                        "Items visible: banner weapon weapon ",
+                "https://watchersonthewall.com/wp-content/uploads/2017/11/Winterfell-white-raven.jpg",
+                null,
+                new AdventureState(),
+                service.getCommandOptions(service.getGames().get(0))
+        );
+        assert(expected.equals(actual));
+    }
+
+    @Test
+    public void testExecuteCommandRetrace() {
+        service.executeCommand(0, new Command("retrace", ""));
+        GameStatus actual = service.getGame(0);
+        GameStatus expected = new GameStatus(
+                false,
+                0,
+                "Path to Winterfell\r\n" + "Winterfell",
+                "https://watchersonthewall.com/wp-content/uploads/2017/11/Winterfell-white-raven.jpg",
+                null,
+                new AdventureState(),
+                service.getCommandOptions(new AdventureGame(PATH, false))
+        );
+        assert(expected.equals(actual));
+    }
+
+    @Test
+    public void testExecuteCommandRestart() {
+        service.executeCommand(0, new Command("quit", ""));
+        service.executeCommand(0, new Command("restart", ""));
+        GameStatus actual = service.getGame(0);
+        GameStatus expected = new GameStatus(
+                false,
+                0,
+                "Winterfell\r\n" + "You're at Winterfell.\r\n" +
+                        "From here, you can go: north south east west \r\n" +
+                        "Items visible: banner weapon weapon ",
+                "https://watchersonthewall.com/wp-content/uploads/2017/11/Winterfell-white-raven.jpg",
+                null,
+                new AdventureState(),
+                service.getCommandOptions(new AdventureGame(PATH, false))
+        );
+        assert(expected.equals(actual));
     }
 
     @Test
@@ -96,7 +189,7 @@ public class MyAdventureServiceTest {
     }
 
     @Test
-    public void testMultipleGames() {
+    public void testMultipleGamesIndependent() {
         try {
             service.newGame();
         } catch (Exception e) {
@@ -137,6 +230,6 @@ public class MyAdventureServiceTest {
         AdventureGame game = service.getGames().get(1);
         String actual = game.getCurrentRoom().getName();
         String expected = "Moat Cailin";
-        assert(expected.equals(actual));
+        assert (expected.equals(actual));
     }
 }

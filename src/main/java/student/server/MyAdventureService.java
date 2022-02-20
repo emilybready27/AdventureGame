@@ -6,6 +6,8 @@ import student.adventure.Item;
 
 import java.util.*;
 
+/** A class that services my AdventureGame implementation. */
+
 public class MyAdventureService implements AdventureService {
     private Map<Integer, AdventureGame> games;
     private int currentID;
@@ -67,7 +69,7 @@ public class MyAdventureService implements AdventureService {
             restartCommand.put("restart", new ArrayList<>(Arrays.asList("")));
             return new GameStatus(false, id, game.getMessage(), game.getCurrentRoom().getImage(),
                     null, new AdventureState(), restartCommand);
-        } else {
+        } else { // display all other command options
             Map<String, List<String>> commandOptions = getCommandOptions(game);
             return new GameStatus(false, id, game.getMessage(), game.getCurrentRoom().getImage(),
                     null, new AdventureState(), commandOptions);
