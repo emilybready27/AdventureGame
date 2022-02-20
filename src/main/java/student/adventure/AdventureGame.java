@@ -60,6 +60,22 @@ public class AdventureGame {
         return hasQuit;
     }
 
+    public ArrayList<String> getInventoryDescriptions() {
+        ArrayList<String> itemDescriptions = new ArrayList<>();
+        for (Item item : inventory) {
+            itemDescriptions.add(item.getItemDescription());
+        }
+        return itemDescriptions;
+    }
+
+    public ArrayList<String> getRoomPathNames() {
+        ArrayList<String> roomNames = new ArrayList<>();
+        for (Room room : roomPath) {
+            roomNames.add(room.getName());
+        }
+        return roomNames;
+    }
+
     /**
      * Returns a message to print on startup of AdventureGame.
      * @return String message
@@ -71,6 +87,20 @@ public class AdventureGame {
     public String getNewMessage(String newMessage) {
         message = newMessage;
         return message;
+    }
+
+    public boolean equals(AdventureGame other) {
+        if (this == other) {
+            return true;
+        }
+        return other != null
+                && layout.equals(other.layout)
+                && currentRoom.equals(other.currentRoom)
+                && getInventoryDescriptions().equals(other.getInventoryDescriptions())
+                && getRoomPathNames().equals(other.getRoomPathNames())
+                && hasQuit == other.hasQuit
+                && usesConsole == other.usesConsole
+                && message.equals(other.message);
     }
 
     /**

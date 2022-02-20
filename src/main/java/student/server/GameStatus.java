@@ -84,4 +84,12 @@ public class GameStatus {
     public Map<String, List<String>> getCommandOptions() {
         return commandOptions;
     }
+
+    public boolean equals(GameStatus other) {
+        if (this == other) {
+            return true;
+        }
+        return other != null && error == other.error && id == other.id && message.equals(other.message)
+                && imageUrl.equals(other.imageUrl) && commandOptions.equals(other.commandOptions);
+    }
 }

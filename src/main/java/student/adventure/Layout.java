@@ -135,6 +135,16 @@ public class Layout {
         return null;
     }
 
+    public boolean equals(Layout other) {
+        if (this == other) {
+            return true;
+        }
+        return other != null
+                && startingRoom.equals(other.startingRoom)
+                && endingRoom.equals(other.endingRoom)
+                && getRoomNames().equals(other.getRoomNames());
+    }
+
     /**
      * Checks if any of the attributes of a valid Layout are missing.
      * @return boolean
