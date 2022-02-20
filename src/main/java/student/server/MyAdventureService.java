@@ -11,21 +11,36 @@ public class MyAdventureService implements AdventureService {
     private int currentID;
     private final String PATH = "src/main/resources/westeros.json";
 
+    /**
+     * Stores a HashMap of Integer:AdventureGame pairs and current ID number.
+     */
     public MyAdventureService() {
         this.games = new HashMap<>();
         this.currentID = 0;
     }
 
+    /**
+     * Returns a copy of the Map of AdventureGames.
+     * @return Map<Integer, AdventureGame>
+     */
     public Map<Integer, AdventureGame> getGames() {
-        return games;
+        return new HashMap<>(games);
     }
 
+    /**
+     * Clears the Map of stored AdventureGames and resets current ID back to 0.
+     */
     @Override
     public void reset() {
         games.clear();
         currentID = 0;
     }
 
+    /**
+     * Creates a new AdventureGame and corresponding ID.
+     * @return int
+     * @throws AdventureException
+     */
     @Override
     public int newGame() throws AdventureException {
         try {
@@ -37,6 +52,12 @@ public class MyAdventureService implements AdventureService {
         return currentID++;
     }
 
+    /**
+     * Retrieves the AdventureGame with the given ID by building a GameStatus for it.
+     * In the case that the AdventureGame has quit, the only commandOption is to restart.
+     * @param id int
+     * @return GameStatus
+     */
     @Override
     public GameStatus getGame(int id) {
         AdventureGame game = games.get(id);
@@ -53,6 +74,12 @@ public class MyAdventureService implements AdventureService {
         }
     }
 
+    /**
+     * Composes a list of the available commands and their corresponding arguments,
+     * given that the game in question has not already quit.
+     * @param game AdventureGame
+     * @return HashMap<String, List<String>>
+     */
     public HashMap<String, List<String>> getCommandOptions(AdventureGame game) {
         HashMap<String, List<String>> commandOptions = new HashMap<>();
         commandOptions.put("quit", new ArrayList<>(Arrays.asList("")));
@@ -80,6 +107,12 @@ public class MyAdventureService implements AdventureService {
         return commandOptions;
     }
 
+    /**
+     * Removes the AdventureGame with the given ID from the Map of AdventureGames,
+     * if it is found in the Map.
+     * @param id int
+     * @return boolean
+     */
     @Override
     public boolean destroyGame(int id) {
         if (games.containsKey(id)) {
@@ -89,6 +122,11 @@ public class MyAdventureService implements AdventureService {
         return false;
     }
 
+    /**
+     * Executes the specified command on the AdventureGame referenced by the given ID.
+     * @param id int
+     * @param command Command
+     */
     @Override
     public void executeCommand(int id, Command command) {
         AdventureGame adventureGame = games.get(id);
@@ -96,6 +134,10 @@ public class MyAdventureService implements AdventureService {
         adventureGame.evaluate(userInput);
     }
 
+    /**
+     * Returns a sorted leaderboard of player "high" scores.
+     * @return SortedMap<String, Integer>
+     */
     @Override
     public SortedMap<String, Integer> fetchLeaderboard() {
         return null;
