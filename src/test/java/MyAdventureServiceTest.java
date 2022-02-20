@@ -1,11 +1,10 @@
 import org.junit.Before;
 import org.junit.Test;
 import student.adventure.AdventureGame;
+import student.adventure.Item;
 import student.server.*;
 
 import java.util.*;
-
-import static org.junit.Assert.assertEquals;
 
 public class MyAdventureServiceTest {
     private MyAdventureService service;
@@ -28,33 +27,13 @@ public class MyAdventureServiceTest {
     }
 
     @Test
-    public void testGetCommandOptions() {
-        AdventureGame game = service.getGames().get(0);
-        HashMap<String, List<String>> actual = service.getCommandOptions(game.getCurrentRoom().getDirections(),
-                game.getCurrentRoom().getItems(), game.getInventory());
-        List<String> empty = new ArrayList<>(Arrays.asList(""));
-        HashMap<String, List<String>> expected = new HashMap<>();
-        expected.put("drop", empty);
-        expected.put("take", new ArrayList<>(Arrays.asList("banner: Direwolf sigil of House Stark.",
-                "weapon: Ice Valyrian steel sword of House Stark.",
-                "weapon: Needle sword of House Stark.")));
-        expected.put("examine", empty);
-        expected.put("retrace", empty);
-        expected.put("go", new ArrayList<>(Arrays.asList("north: Castle Black", "south: Moat Cailin",
-                "east: Dreadfort", "west: Torrhen's Square")));
-        expected.put("quit", empty);
-        assertEquals(expected, actual);
-    }
-
-    @Test
     public void testGetGame() {
         GameStatus actual = service.getGame(0);
         AdventureGame game = new AdventureGame(PATH, false);
         String examine = "Winterfell\r\n" + "You're at Winterfell.\r\n" +
                 "From here, you can go: north south east west \r\n" +
                 "Items visible: banner weapon weapon ";
-        Map<String, List<String>> commandOptions = service.getCommandOptions(game.getCurrentRoom().getDirections(),
-                game.getCurrentRoom().getItems(), game.getInventory());
+        Map<String, List<String>> commandOptions = service.getCommandOptions(game);
         GameStatus expected = new GameStatus(false, 0, examine,
                 "https://watchersonthewall.com/wp-content/uploads/2017/11/Winterfell-white-raven.jpg",
                 null, new AdventureState(), commandOptions);
@@ -62,23 +41,57 @@ public class MyAdventureServiceTest {
     }
 
     @Test
-    public void testGetGameRestart() {
-        service.reset();
-        assert(service.getGames().size() == 0);
+    public void testExecuteCommandQuit() {
+        service.executeCommand(0,  new Command("quit", ""));
+        GameStatus actual = service.getGame(0);
+        AdventureGame game = new AdventureGame(PATH, false);
+        String examine = "Goodbye!";
+        HashMap<String, List<String>> commandOptions = new HashMap<>();
+        commandOptions.put("restart", new ArrayList<>(Arrays.asList("")));
+        GameStatus expected = new GameStatus(false, 0, examine,
+                "https://watchersonthewall.com/wp-content/uploads/2017/11/Winterfell-white-raven.jpg",
+                null, new AdventureState(), commandOptions);
+        assert(expected.equals(actual));
     }
 
     @Test
-    public void testExecuteCommand() {
+    public void testExecuteCommandGo() {
+        service.executeCommand(0, new Command("go", "south"));
+        AdventureGame game = service.getGames().get(0);
+        String actual = game.getCurrentRoom().getName();
+        String expected = "Moat Cailin";
+        assert(expected.equals(actual));
+    }
 
+    @Test
+    public void testExecuteCommandTake() {
+        service.executeCommand(0, new Command("take",
+                "banner: Direwolf sigil of House Stark."));
+        AdventureGame game = service.getGames().get(0);
+        Item actual = game.getInventory().get(0);
+        Item expected = new Item("banner", "Direwolf sigil of House Stark.");
+        assert(expected.equals(actual));
+    }
+
+    @Test
+    public void testExecuteCommandDrop() {
+        service.executeCommand(0, new Command("take",
+                "banner: Direwolf sigil of House Stark."));
+        service.executeCommand(0, new Command("drop",
+                "banner: Direwolf sigil of House Stark."));
+        AdventureGame game = service.getGames().get(0);
+        assert(game.getInventory().size() == 0);
     }
 
     @Test
     public void testDestroyGame() {
-
+        service.destroyGame(0);
+        assert(service.getGames().size() == 0);
     }
 
     @Test
     public void testReset() {
-
+        service.reset();
+        assert(service.getGames().size() == 0);
     }
 }
